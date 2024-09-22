@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Main {
 
-    private static String DIRPATH = "src\\resources";
+    private static final String DIRPATH = "src\\resources";
 
     public static void main(String[] args) {
 
@@ -43,7 +43,7 @@ public class Main {
                 } else {
 
                     continue;
-                    
+
                 }
             }
 
