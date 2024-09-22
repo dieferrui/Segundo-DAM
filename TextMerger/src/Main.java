@@ -5,17 +5,22 @@ import java.io.IOException;
 
 public class Main {
 
-    private static String DIRPATH = "D:\\prac";
-    private static String EXITPATH = "D:\\prac\\copy";
+    private static String DIRPATH = "src\\resources";
 
     public static void main(String[] args) {
 
-        File salida = new File(EXITPATH + "\\salida.txt");
+        File salida = new File(DIRPATH + "\\salida.txt");
         File directorio = new File(DIRPATH);
 
-        try (FileWriter fw = new FileWriter(salida)) {
+        mergeTexto(directorio, salida);
 
-            for (File archivotxt : directorio.listFiles()) {
+    }
+
+    private static void mergeTexto(File textosOriginales, File resultado) {
+
+        try (FileWriter fw = new FileWriter(resultado)) {
+
+            for (File archivotxt : textosOriginales.listFiles()) {
 
                 try (FileReader fr = new FileReader(archivotxt)) {
 
