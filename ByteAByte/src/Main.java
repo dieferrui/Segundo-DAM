@@ -1,31 +1,106 @@
-import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Scanner;
+import java.io.File;
 
 public class Main {
 
-    private static String DIRPATH = "D:\\prac";
-    private static String SAVEPATH = "D:\\prac\\copy";
+    private static final String DIRPATH = "D:\\prac";
+    private static final String SAVEPATH = "D:\\prac\\copy";
+    private static final int BYTESIZE = 32;
+    private static final Scanner SC = new Scanner(System.in);
+    private static Filtro FILTRO_ARCH = new Filtro();
 
-    public static void Main(String[] args) {
+    public static void main(String[] args) {
 
-        // Aquí daremos opción de elegir el archivo a copiar listando los archivos del directorio DIRPATH
+        File carpeta = new File(DIRPATH);
+        System.out.println(leerCarpeta(carpeta));
 
-        String archivoACopiar = DIRPATH + "\\archivocool"; // Placeholder
-        String archivoCopiado = SAVEPATH + "\\archivocoolCopia";
+        int archivoSelect = SC.nextInt();
 
-        File original = new File(archivoACopiar);
-        File copia = File.createNewFile(archivoCopiado);
+        String respuesta = selectArchivo(archivoSelect, carpeta);
+        System.out.println(respuesta);
 
-        InputStream input = new InputStream(original);
-        OutputStream output = new OutputStream(copia);
+    }
 
-        while (input.read() != -1) {
+    private static String leerCarpeta (File dirpath) {
 
-            int byteLeido = input.read();
-            output.write(byteLeido);
+        StringBuilder sb = new StringBuilder();
+        
+
+        File[] archivos = dirpath.listFiles(FILTRO_ARCH);
+
+        if (archivos != null) {
+
+            sb.append("Seleccione un archivo: \n");
+            int ciclo = 1;
+
+            for (File archivo : archivos) {
+
+                sb.append(ciclo + ". " + archivo.getName() + "\n");
+                ciclo++;
+
+            }
+
+            return sb.toString();
+            
+        } else {
+
+            return "No se encontraron archivos en la carpeta.";
+
+        }
+    }
+
+    private static String selectArchivo (int select, File dirpath) {
+
+        boolean success = false;
+
+        for (int i = 0; i < dirpath.listFiles(FILTRO_ARCH).length; i++) {
+
+            if (select == i + 1) {
+
+                File archivo = dirpath.listFiles()[i];
+                success = copiarArchivo(archivo);
+
+            }
+        }
+
+        if (success) {
+
+            return "Archivo copiado exitosamente.";
+
+        } else {
+
+            return "No se pudo copiar el archivo.";
+
+        }
+
+    }
+
+    private static boolean copiarArchivo (File archivo) {
+
+        try (InputStream is = new FileInputStream(archivo);
+             OutputStream os = new FileOutputStream(SAVEPATH + "\\" + archivo.getName())) {
+
+            byte[] buffer = new byte[BYTESIZE];
+            int length;
+
+            while ((length = is.read(buffer)) > 0) {
+
+                os.write(buffer, 0, length);
+
+            }
+
+            return true;
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            return false;
 
         }
     }
 }
+
