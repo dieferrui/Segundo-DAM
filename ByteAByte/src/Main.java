@@ -83,8 +83,10 @@ public class Main {
 
     private static boolean copiarArchivo (File archivo) {
 
+        File copiaArchivo = new File(SAVEPATH + "\\" + archivo.getName() + "_copia");
+
         try (InputStream is = new FileInputStream(archivo);
-             OutputStream os = new FileOutputStream(SAVEPATH + "\\" + archivo.getName())) {
+             OutputStream os = new FileOutputStream(copiaArchivo)) {
 
             byte[] buffer = new byte[BYTESIZE];
             int length;
