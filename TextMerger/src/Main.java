@@ -22,20 +22,28 @@ public class Main {
 
             for (File archivotxt : textosOriginales.listFiles()) {
 
-                try (FileReader fr = new FileReader(archivotxt)) {
+                if (archivotxt.getName() != "salida.txt") {
 
-                    int caracter;
+                    try (FileReader fr = new FileReader(archivotxt)) {
 
-                    while ((caracter = fr.read()) != -1) {
+                        int caracter;
 
-                        fw.write(caracter);
+                        while ((caracter = fr.read()) != -1) {
+
+                            fw.write(caracter);
+
+                        }
+
+                    } catch (IOException e) {
+
+                        System.out.println("El archivo: " + archivotxt.getName() + " no es un archivo txt.");
 
                     }
 
-                } catch (IOException e) {
+                } else {
 
-                    System.out.println("El archivo: " + archivotxt.getName() + " no es un archivo txt.");
-
+                    continue;
+                    
                 }
             }
 
