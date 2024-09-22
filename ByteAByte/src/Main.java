@@ -35,7 +35,7 @@ public class Main {
 
         if (archivos != null) {
 
-            sb.append("Seleccione un archivo: \n");
+            sb.append("Seleccione el archivo a copiar: \n");
             int ciclo = 1;
 
             for (File archivo : archivos) {
@@ -70,7 +70,7 @@ public class Main {
 
         if (success) {
 
-            return "Archivo copiado exitosamente.";
+            return "Archivo copiado.";
 
         } else {
 
@@ -82,7 +82,7 @@ public class Main {
 
     private static boolean copiarArchivo (File archivo) {
 
-        File copiaArchivo = new File(DIRPATH + "\\" + archivo.getName() + "_copia");
+        File copiaArchivo = new File(DIRPATH + "\\" + "copia_" + archivo.getName());
 
         try (InputStream is = new FileInputStream(archivo);
              OutputStream os = new FileOutputStream(copiaArchivo)) {
