@@ -9,8 +9,7 @@ import java.io.File;
 
 public class Main {
 
-    private static final String DIRPATH = "D:\\prac";
-    private static final String SAVEPATH = "D:\\prac\\copy";
+    private static final String DIRPATH = "src\\resources";
     private static final int BYTESIZE = 32;
     private static final Scanner SC = new Scanner(System.in);
     private static Filtro FILTRO_ARCH = new Filtro();
@@ -83,7 +82,7 @@ public class Main {
 
     private static boolean copiarArchivo (File archivo) {
 
-        File copiaArchivo = new File(SAVEPATH + "\\" + archivo.getName() + "_copia");
+        File copiaArchivo = new File(DIRPATH + "\\" + archivo.getName() + "_copia");
 
         try (InputStream is = new FileInputStream(archivo);
              OutputStream os = new FileOutputStream(copiaArchivo)) {
