@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TextFieldLabel:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TextFieldLabel_jar</output-path>
+    <root id="archive" name="TextFieldLabel.jar">
+      <element id="module-output" name="TextFieldLabel" />
+    </root>
+  </artifact>
+</component>

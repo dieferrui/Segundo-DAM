@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ByteAByte/ByteAByte.iml" filepath="$PROJECT_DIR$/ByteAByte/ByteAByte.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DeleteNumberedLines/DeleteNumberedLines.iml" filepath="$PROJECT_DIR$/DeleteNumberedLines/DeleteNumberedLines.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JavaSwing/JavaSwing.iml" filepath="$PROJECT_DIR$/JavaSwing/JavaSwing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PezLinterna/PezLinterna.iml" filepath="$PROJECT_DIR$/PezLinterna/PezLinterna.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Segundo DAM.iml" filepath="$PROJECT_DIR$/.idea/Segundo DAM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Submarino/Submarino.iml" filepath="$PROJECT_DIR$/Submarino/Submarino.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TextMerger/TextMerger.iml" filepath="$PROJECT_DIR$/TextMerger/TextMerger.iml" />
+    </modules>
+  </component>
+</project>
