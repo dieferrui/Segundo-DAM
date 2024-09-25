@@ -28,14 +28,14 @@ public class Frame extends JFrame {
 
     private JCheckBox checkBoxFuente; // CheckBox para alternar entre Arial y Papyrus
     private Font fuenteArial; // Fuente Arial
-    private Font fuentePapyrus; // Fuente Papyrus (usando una alternativa si no está disponible)
+    private Font fuenteRoman; // Fuente Times New Roman
 
     public Frame() {
 
         setSize(600, 200);
         setTitle("Prueba de RadioButton y CheckBox");
         setLayout(new GridLayout(3, 1, 10, 10));
-        campoTexto = new JTextField("Esto es Arial o es Calibri", 28);
+        campoTexto = new JTextField("Esto es Times New Roman o Arial", 28);
         add(campoTexto);
 
         simpleJRadioButton = new JRadioButton("Simple", true );
@@ -74,7 +74,7 @@ public class Frame extends JFrame {
         checkBoxFuente = new JCheckBox("Usar fuente alternativa");
 
         fuenteArial = new Font("Arial", Font.PLAIN, 14);
-        fuentePapyrus = new Font("Calibri", Font.PLAIN, 14);
+        fuenteRoman = new Font("Times New Roman", Font.PLAIN, 14);
 
         panelFuente.add(checkBoxFuente);
         add(panelFuente);
@@ -86,11 +86,11 @@ public class Frame extends JFrame {
 
                 if (checkBoxFuente.isSelected()) {
 
-                    cambiarFuente(fuentePapyrus);
+                    cambiarFuente(fuenteArial);
 
                 } else {
 
-                    cambiarFuente(fuenteArial);
+                    cambiarFuente(fuenteRoman);
 
                 }
             }
