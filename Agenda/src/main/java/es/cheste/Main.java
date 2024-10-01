@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Main {
     private static final Scanner SC = new Scanner(System.in);
-    protected static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     public static ResourceBundle lang;
     public static Locale locale;
 

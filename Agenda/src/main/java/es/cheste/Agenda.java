@@ -3,6 +3,21 @@ package es.cheste;
 import java.util.TreeSet;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.ResourceBundle;
+
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.*;
+import javax.xml.transform.stream.*;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Agenda {
     private final String CSV_PATH = "src/main/resources/contactos.csv";
@@ -11,6 +26,8 @@ public class Agenda {
 
     private final Scanner SCM = new Scanner(System.in);
 
+    private Logger LOGGER = Main.LOGGER;
+    private ResourceBundle lang = Main.lang;
     private TreeSet<Contacto> contactos;
 
     public Agenda() {
@@ -38,7 +55,8 @@ public class Agenda {
         }
     }
 
-    public String importarAgendaCSV() {
+    private TreeSet<Contacto> importarAgendaCSV() {
+        TreeSet<Contacto> contactos = new TreeSet<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_PATH))) {
             br.readLine();
@@ -51,20 +69,68 @@ public class Agenda {
                 line = br.readLine();
             }
 
-            return lang.getString("manager.importSuccess");
+            LOGGER.info("Se ha cargado la agenda desde CSV correctamente.");
 
         } catch (FileNotFoundException e) {
             LOGGER.error("No se ha encontrado el archivo contactos.csv.");
-            return lang.getString("error.fileNotFound");
 
         } catch (IOException e) {
             LOGGER.error("Error al leer el archivo contactos.csv.");
-            return lang.getString("error.fileRead");
 
         } catch (NumberFormatException e) {
             LOGGER.error("Error al convertir un número del archivo contactos.csv.");
-            return lang.getString("error.fileNumber");
+
+        } finally {
+            return contactos;
 
         }
+    }
+
+    private TreeSet<Contacto> importarAgendaXML() {
+        TreeSet<Contacto> contactos = new TreeSet<>();
+
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(XML_PATH);
+
+            document.getDocumentElement().normalize();
+            NodeList nodos = document.getElementsByTagName("contacto");
+
+            for (int i = 0; i < nodos.getLength(); i++) {
+                Node nodo = nodos.item(i);
+
+                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                    Element elemento = (Element)nodo;
+                    Contacto contacto = new Contacto(elemento.getElementsByTagName("nombre").item(0).getTextContent(),
+                            elemento.getElementsByTagName("apellidos").item(0).getTextContent(),
+                            elemento.getElementsByTagName("email").item(0).getTextContent(),
+                            Integer.parseInt(elemento.getElementsByTagName("telefono1").item(0).getTextContent()),
+                            Integer.parseInt(elemento.getElementsByTagName("telefono2").item(0).getTextContent()),
+                            elemento.getElementsByTagName("direccion").item(0).getTextContent());
+                    contactos.add(contacto);
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            LOGGER.error("No se ha encontrado el archivo contactos.xml.");
+
+        } catch (IOException e) {
+            LOGGER.error("Error al leer el archivo contactos.xml.");
+
+        } catch (ParserConfigurationException | SAXException e) {
+            LOGGER.error("Error al parsear el archivo contactos.xml.");
+
+        } catch (NumberFormatException e) {
+            LOGGER.error("Error al convertir un número del archivo contactos.xml.");
+
+        } finally {
+            return contactos;
+
+        }
+    }
+
+    public String importarAgendaJSON() {
+
     }
 }
