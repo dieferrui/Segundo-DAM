@@ -10,9 +10,9 @@ import org.apache.logging.log4j.Logger;
 
 public class Main {
     private static final Scanner SC = new Scanner(System.in);
-    private static final Logger LOGGER = LogManager.getLogger();
-    private static ResourceBundle lang;
-    private static Locale locale;
+    protected static final Logger LOGGER = LogManager.getLogger();
+    public static ResourceBundle lang;
+    public static Locale locale;
 
     public static void main(String[] args) {
         locale = new Locale("es");

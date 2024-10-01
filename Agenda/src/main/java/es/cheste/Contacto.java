@@ -7,11 +7,11 @@ public class Contacto implements Comparable<Contacto> {
     private String nombre;
     private String apellidos;
     private String email;
-    private int telefono1;
-    private int telefono2;
+    private Integer telefono1;
+    private Integer telefono2;
     private String direccion;
 
-    public Contacto(String nombre, String apellidos, String email, int telefono1, int telefono2, String direccion) {
+    public Contacto(String nombre, String apellidos, String email, Integer telefono1, Integer telefono2, String direccion) {
 
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -21,7 +21,7 @@ public class Contacto implements Comparable<Contacto> {
         this.direccion = direccion;
     }
 
-    public Contacto(String nombre, int telefono1) {
+    public Contacto(String nombre, Integer telefono1) {
 
         this.nombre = nombre;
         this.telefono1 = telefono1;
@@ -55,7 +55,7 @@ public class Contacto implements Comparable<Contacto> {
         return telefono1;
     }
 
-    public void setTelefono1(int telefono1) {
+    public void setTelefono1(Integer telefono1) {
         this.telefono1 = telefono1;
     }
 
@@ -63,7 +63,7 @@ public class Contacto implements Comparable<Contacto> {
         return telefono2;
     }
 
-    public void setTelefono2(int telefono2) {
+    public void setTelefono2(Integer telefono2) {
         this.telefono2 = telefono2;
     }
 
