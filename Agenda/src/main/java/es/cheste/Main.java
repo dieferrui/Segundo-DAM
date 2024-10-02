@@ -61,6 +61,7 @@ public class Main {
     private void menuAgenda() {
 
         int opcionAgenda = 0;
+        Agenda agenda = new Agenda();
 
         do {
             System.out.println(lang.getString("agenda.title"));
@@ -77,7 +78,7 @@ public class Main {
                 switch (opcionAgenda) {
 
                     case 1:
-
+                        agenda.contactos.forEach(contacto -> System.out.println(contacto));
                         break;
 
                     case 2:
@@ -89,7 +90,12 @@ public class Main {
                         break;
 
                     case 4:
-
+                        boolean creado = agenda.guardarContacto();
+                        if (creado) {
+                            System.out.println(lang.getString("agenda.addSuccess"));
+                        } else {
+                            System.out.println(lang.getString("agenda.addFail"));
+                        }
                         break;
 
                     case 5:
@@ -106,6 +112,10 @@ public class Main {
                 System.out.println(lang.getString("error.invalidInputMenu"));
                 LOGGER.info("El usuario no ha introducido un número cuando se le ha solicitado.");
             }
+            
+            agenda.guardarAgendaCSV();
+            // agenda.guardarAgendaXML();
+            // agenda.guardarAgendaJSON();
 
         } while (opcionAgenda != 6);
     }

@@ -1,10 +1,14 @@
 package es.cheste;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.TreeSet;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 
+import com.google.gson.Gson;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
@@ -13,11 +17,6 @@ import javax.xml.transform.stream.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class Agenda {
     private final String CSV_PATH = "src/main/resources/contactos.csv";
@@ -31,7 +30,9 @@ public class Agenda {
     private TreeSet<Contacto> contactos;
 
     public Agenda() {
-        contactos = new TreeSet<>();
+        // contactos = importarAgendaCSV();
+        // contactos = importarAgendaXML();
+        // contactos = importarAgendaJSON();
     }
 
     public boolean guardarContacto() {
@@ -44,7 +45,7 @@ public class Agenda {
             int telefono1 = SCM.nextInt();
 
             Contacto contacto = new Contacto(nombre, telefono1);
-            contactos.put(contacto);
+            contactos.add(contacto);
             return true;
 
         } catch (InputMismatchException e) {
@@ -55,7 +56,7 @@ public class Agenda {
         }
     }
 
-    private TreeSet<Contacto> importarAgendaCSV() {
+    public TreeSet<Contacto> importarAgendaCSV() {
         TreeSet<Contacto> contactos = new TreeSet<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_PATH))) {
@@ -86,7 +87,7 @@ public class Agenda {
         }
     }
 
-    private TreeSet<Contacto> importarAgendaXML() {
+    public TreeSet<Contacto> importarAgendaXML() {
         TreeSet<Contacto> contactos = new TreeSet<>();
 
         try {
@@ -118,7 +119,7 @@ public class Agenda {
         } catch (IOException e) {
             LOGGER.error("Error al leer el archivo contactos.xml.");
 
-        } catch (ParserConfigurationException | SAXException e) {
+        } catch (ParserConfigurationException e) {
             LOGGER.error("Error al parsear el archivo contactos.xml.");
 
         } catch (NumberFormatException e) {
@@ -130,7 +131,37 @@ public class Agenda {
         }
     }
 
-    public String importarAgendaJSON() {
+    public TreeSet<Contacto> importarAgendaJSON() {
+        TreeSet<Contacto> contactos = new TreeSet<>();
 
+        try (Reader reader = Files.newBufferedReader(Paths.get(JSON_PATH))){
+
+            Gson gson = new Gson();
+            contactos = gson.fromJson(reader, Contacto.class);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+        return contactos;
+    }
+    
+    public boolean guardarAgendaCSV() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(CSV_PATH))) {
+            bw.write("nombre;apellidos;email;telefono1;telefono2;direccion\n");
+            
+            for (Contacto contacto : contactos) {
+                bw.write(contacto.getNombre() + ";" + contacto.getApellidos() + ";" + contacto.getEmail() + ";" + contacto.getTelefono1() + ";" + contacto.getTelefono2() + ";" + contacto.getDireccion() + "\n");
+            }
+            
+            LOGGER.info("Se ha guardado la agenda en CSV correctamente.");
+            return true;
+            
+        } catch (IOException e) {
+            LOGGER.error("Error al escribir el archivo contactos.csv.");
+            return false;
+        }
     }
 }
