@@ -1,1 +1,59 @@
 
+2024-10-03 09:40:09,885 INFO e.c.Main [main] La lista de contactos está vacía.
+2024-10-03 09:41:35,468 INFO e.c.Main [main] Se ha cargado la agenda desde CSV correctamente.
+2024-10-03 09:41:49,926 INFO e.c.Main [main] La lista de contactos está vacía.
+2024-10-03 09:44:47,484 INFO e.c.Main [main] Se ha cargado la agenda desde CSV correctamente.
+2024-10-03 09:44:51,286 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 09:44:51,331 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 09:44:51,335 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 09:47:40,127 INFO e.c.Main [main] Se ha cargado la agenda desde CSV correctamente.
+2024-10-03 09:50:54,077 INFO e.c.Main [main] Se ha cargado la agenda desde CSV correctamente.
+2024-10-03 09:50:56,758 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 09:50:56,802 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 09:50:56,805 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 09:51:22,270 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 09:51:22,271 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 09:51:22,272 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 09:51:27,100 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 09:51:27,102 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 09:51:27,103 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 09:55:53,629 INFO e.c.Main [main] Se ha cargado la agenda desde CSV correctamente.
+2024-10-03 09:55:55,314 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 09:55:55,362 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 09:55:55,366 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 09:56:02,086 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 09:56:02,088 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 09:56:02,089 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 09:57:13,086 INFO e.c.Main [main] Se ha cargado la agenda desde CSV correctamente.
+2024-10-03 09:57:56,107 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 09:57:56,138 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 09:57:56,154 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 09:59:39,501 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 09:59:39,548 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 09:59:39,564 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 10:00:01,492 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 10:00:01,492 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 10:00:01,492 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 10:00:47,526 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 10:00:47,526 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 10:00:47,526 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 10:19:32,245 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 10:19:32,293 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 10:19:32,297 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 10:19:37,834 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 10:19:37,835 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 10:19:37,836 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 12:27:44,245 INFO e.c.Main [main] Se ha cargado la agenda desde CSV correctamente.
+2024-10-03 12:27:48,353 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 12:27:48,423 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 12:27:48,423 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 12:29:20,273 INFO e.c.Main [main] Se ha cargado la agenda desde CSV correctamente.
+2024-10-03 12:51:51,464 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 12:51:51,514 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 12:51:51,518 INFO e.c.Main [main] Archivo JSON guardado con éxito.
+2024-10-03 12:57:26,192 INFO e.c.Main [main] El usuario ha introducido un dato incorrecto.
+2024-10-03 12:58:35,546 INFO e.c.Main [main] El usuario ha introducido un dato incorrecto.
+2024-10-03 12:59:57,129 INFO e.c.Main [main] No hay contactos con el nombre especificado.
+2024-10-03 13:00:27,439 INFO e.c.Main [main] Se ha guardado la agenda en CSV correctamente.
+2024-10-03 13:00:27,483 INFO e.c.Main [main] Archivo XML creado exitosamente.
+2024-10-03 13:00:27,486 INFO e.c.Main [main] Archivo JSON guardado con éxito.

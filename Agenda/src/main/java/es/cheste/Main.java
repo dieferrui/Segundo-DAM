@@ -1,9 +1,6 @@
 package es.cheste;
 
-import java.util.Scanner;
-import java.util.InputMismatchException;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +16,7 @@ public class Main {
         lang = ResourceBundle.getBundle("lang", locale);
 
         mostrarMenu();
+        menuAgenda();
     }
 
     private static void mostrarMenu() {
@@ -58,7 +56,7 @@ public class Main {
         }
     }
 
-    private void menuAgenda() {
+    private static void menuAgenda() {
 
         int opcionAgenda = 0;
         Agenda agenda = new Agenda();
@@ -74,18 +72,67 @@ public class Main {
 
             try {
                 opcionAgenda = SC.nextInt();
+                SC.nextLine();
 
                 switch (opcionAgenda) {
 
                     case 1:
-                        agenda.contactos.forEach(contacto -> System.out.println(contacto));
+                        int numContactos = agenda.contactos.size();
+
+                        try {
+                            for (Contacto contacto : agenda.contactos) {
+                                System.out.println(contacto);
+                            }
+
+                        } catch (NullPointerException e) {
+                            System.out.println(lang.getString("agenda.emptyList"));
+                            LOGGER.info("La lista de contactos está vacía.");
+                        }
+
+                        if (numContactos == 0) {
+                            System.out.println(lang.getString("agenda.emptyList"));
+                        }
+
                         break;
 
                     case 2:
+                        ArrayList<Contacto> matches;
+
+                        System.out.println(lang.getString("agenda.searchQuery"));
+                        String datos = SC.nextLine();
+                        matches = agenda.buscarContacto(datos);
+
+                        for (Contacto contacto : matches) {
+                            System.out.println(contacto);
+                        }
+
+                        if (matches.isEmpty()) {
+                            System.out.println(lang.getString("agenda.searchFail"));
+                        }
 
                         break;
 
                     case 3:
+                        boolean editado;
+
+                        System.out.println(lang.getString("agenda.editQuery"));
+
+                        for (Contacto contacto : agenda.contactos) {
+                            System.out.println(contacto.getNombre());
+
+                        }
+
+                        String contactoElegido = SC.nextLine();
+
+                        editado = agenda.editarContacto(contactoElegido);
+
+                        if (editado) {
+                            System.out.println(lang.getString("agenda.editSuccess"));
+
+                        } else {
+                            System.out.println(lang.getString("agenda.editFail"));
+
+                        }
 
                         break;
 
@@ -99,11 +146,25 @@ public class Main {
                         break;
 
                     case 5:
+                        System.out.println(lang.getString("agenda.deleteQuery"));
 
+                        for (Contacto contacto : agenda.contactos) {
+                            System.out.println(contacto.getNombre());
+
+                        }
+
+                        String eliminar = SC.next();
+
+                        boolean eliminacion = agenda.eliminarContacto(eliminar);
+                        if (eliminacion) {
+                            System.out.println(lang.getString("agenda.deleteSuccess"));
+                        } else {
+                            System.out.println(lang.getString("agenda.deleteFail"));
+                        }
                         break;
 
                     default:
-
+                        System.out.println(lang.getString("agenda.exitMessage"));
                         break;
                 }
 
@@ -112,11 +173,13 @@ public class Main {
                 System.out.println(lang.getString("error.invalidInputMenu"));
                 LOGGER.info("El usuario no ha introducido un número cuando se le ha solicitado.");
             }
-            
-            agenda.guardarAgendaCSV();
-            // agenda.guardarAgendaXML();
-            // agenda.guardarAgendaJSON();
 
         } while (opcionAgenda != 6);
+
+        agenda.guardarAgendaCSV();
+        agenda.guardarAgendaXML();
+        agenda.guardarAgendaJSON();
+
+        SC.close();
     }
 }

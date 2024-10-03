@@ -52,7 +52,11 @@ public class Contacto implements Comparable<Contacto> {
     }
 
     public int getTelefono1() {
-        return telefono1;
+        if (telefono1 == null) {
+            return 0;
+        } else {
+            return telefono1;
+        }
     }
 
     public void setTelefono1(Integer telefono1) {
@@ -60,7 +64,11 @@ public class Contacto implements Comparable<Contacto> {
     }
 
     public int getTelefono2() {
-        return telefono2;
+        if (telefono2 == null) {
+            return 0;
+        } else {
+            return telefono2;
+        }
     }
 
     public void setTelefono2(Integer telefono2) {
@@ -93,14 +101,13 @@ public class Contacto implements Comparable<Contacto> {
     @Override
     public String toString() {
 
-        return "Contacto{" +
-                "nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", email='" + email + '\'' +
-                ", telefono1=" + telefono1 +
-                ", telefono2=" + telefono2 +
-                ", direccion='" + direccion + '\'' +
-                '}';
+        return "Entry {" +
+                "Name: " + nombre + ", " +
+                "Surnames: " + apellidos + ", " +
+                "Email: " + email + ", " +
+                "Telephone 1: " + telefono1 + ", " +
+                "Telephone 2: " + telefono2 + ", " +
+                "Adress: " + direccion + "}";
     }
 
     @Override

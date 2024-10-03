@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<agenda>
+    <contacto>
+        <nombre>Diego</nombre>
+        <apellidos>Fernández Ruiz</apellidos>
+        <email>dieferrui@alu.edu.gva.es</email>
+        <telefono1>634648279</telefono1>
+        <telefono2>0</telefono2>
+        <direccion>C/de la Tarara, 76B</direccion>
+    </contacto>
+</agenda>
