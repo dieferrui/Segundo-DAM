@@ -1,0 +1,4 @@
+2024-10-14 10:36:05,347 ERROR e.c.Main [main] Error al insertar en la base de datos.
+2024-10-14 10:36:05,349 ERROR e.c.Main [main] Se hace ROLLBACK
+2024-10-14 10:40:31,903 ERROR e.c.Main [main] Error al insertar en la base de datos.
+2024-10-14 10:40:31,905 ERROR e.c.Main [main] Se hace ROLLBACK
