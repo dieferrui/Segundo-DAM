@@ -12,6 +12,7 @@ import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Random;
 
 public class Frame extends JFrame {
 
@@ -139,6 +140,14 @@ public class Frame extends JFrame {
             }
         });
 
+        JButton timerButton = new JButton("Temporizador");
+        timerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new TimerFrame();
+            }
+        });
+
         add(messageDialogButton);
         add(confirmButton);
         add(inputButton);
@@ -153,6 +162,7 @@ public class Frame extends JFrame {
         add(progressBarButton);
         add(chooserButton);
         add(colorChooserButton);
+        add(timerButton);
     }
 
     private void showMessageDialogExample() {
@@ -410,7 +420,7 @@ public class Frame extends JFrame {
         }
     }
 
-    public class SliderFrame extends JFrame {
+    private static class SliderFrame extends JFrame {
         public SliderFrame() {
             setTitle("Ajuste de Aceleración del Tanque");
             setSize(350, 200);
@@ -453,7 +463,7 @@ public class Frame extends JFrame {
         }
     }
 
-    public class ProgressBarFrame extends JFrame {
+    private static class ProgressBarFrame extends JFrame {
         private JProgressBar fuelProgressBar;
         private JLabel fuelLevelLabel;
         private Timer timer;
@@ -495,7 +505,7 @@ public class Frame extends JFrame {
         }
     }
 
-    public class ChooserFrame extends JFrame {
+    private static class ChooserFrame extends JFrame {
         private JLabel imageLabel;
 
         public ChooserFrame() {
@@ -535,7 +545,7 @@ public class Frame extends JFrame {
         }
     }
 
-    public class ColorChooserFrame extends JFrame {
+    private static class ColorChooserFrame extends JFrame {
         private JLabel imageLabel;
         private BufferedImage originalImage;
 
@@ -588,8 +598,8 @@ public class Frame extends JFrame {
 
                     Color color = new Color(pixel, true);
 
-                    if (color.getAlpha() == 0) {
-                        processedImage.setRGB(x, y, newColor.getRGB() & 0x00FFFFFF); // Mantener la transparencia
+                    if (color.getAlpha() == 0 || isCloseToWhite(color)) {
+                        processedImage.setRGB(x, y, new Color(newColor.getRed(), newColor.getGreen(), newColor.getBlue(), 255).getRGB());
                     } else {
                         processedImage.setRGB(x, y, pixel);
                     }
@@ -597,6 +607,75 @@ public class Frame extends JFrame {
             }
 
             imageLabel.setIcon(new ImageIcon(processedImage));
+        }
+
+        private boolean isCloseToWhite(Color color) {
+            int threshold = 200;
+            return color.getRed() > threshold && color.getGreen() > threshold && color.getBlue() > threshold;
+        }
+    }
+
+    private static class TimerFrame extends JFrame {
+        private JTextField timerTextField;
+        private JLabel imageLabel;
+        private Timer timer;
+        private int timeRemaining;
+
+        public TimerFrame() {
+            setTitle("Temporizador Aleatorio");
+            setSize(400, 300);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setLocationRelativeTo(null);
+            setLayout(new BorderLayout());
+
+            timerTextField = new JTextField();
+            timerTextField.setEditable(false);
+            timerTextField.setFont(new Font("Arial", Font.BOLD, 24));
+            timerTextField.setHorizontalAlignment(JTextField.CENTER);
+            add(timerTextField, BorderLayout.NORTH);
+
+            imageLabel = new JLabel();
+            loadImage();
+            add(imageLabel, BorderLayout.CENTER);
+
+            JButton startButton = new JButton("Iniciar Temporizador");
+            startButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    startTimer();
+                }
+            });
+            add(startButton, BorderLayout.SOUTH);
+
+            setVisible(true);
+        }
+
+        private void loadImage() {
+            try {
+                BufferedImage image = ImageIO.read(new File("src/main/resources/tank.png"));
+                imageLabel.setIcon(new ImageIcon(image));
+            } catch (Exception e) {
+                imageLabel.setText("Error al cargar la imagen.");
+            }
+        }
+
+        private void startTimer() {
+            Random random = new Random();
+            timeRemaining = random.nextInt(51) + 10; // Entre 10 y 60 segundos
+            timerTextField.setText(timeRemaining + " s");
+
+            timer = new Timer(1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    timeRemaining--;
+                    timerTextField.setText(timeRemaining + " s");
+                    if (timeRemaining <= 0) {
+                        timer.stop();
+                        imageLabel.setVisible(false);
+                    }
+                }
+            });
+            timer.start();
         }
     }
 }
