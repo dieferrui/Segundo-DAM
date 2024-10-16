@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="JBoxOfThings:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/JBoxOfThings_jar</output-path>
+    <root id="archive" name="JBoxOfThings.jar">
+      <element id="module-output" name="JBoxOfThings" />
+    </root>
+  </artifact>
+</component>

@@ -581,7 +581,7 @@ public class Frame extends JFrame {
 
         private void loadImage() {
             try {
-                originalImage = ImageIO.read(new File("src/main/resources/tank.png"));
+                originalImage = ImageIO.read(getClass().getResource("/tank.png"));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error al cargar la imagen: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
