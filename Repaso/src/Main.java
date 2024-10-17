@@ -34,7 +34,7 @@ public class Main {
         int men = may == n ? m : n;
 
         for (int menor = men; menor < may; menor++) {
-            System.out.println(men);
+            System.out.println(menor);
 
         }
     }
