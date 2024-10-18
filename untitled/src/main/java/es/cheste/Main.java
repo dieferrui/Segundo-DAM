@@ -15,7 +15,6 @@ public class Main {
         ConexionBD c = new ConexionBD();
 
         /*
-
         Métodos ya ejecutados:
 
         generarTablas(c);
