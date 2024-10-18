@@ -2,3 +2,18 @@
 2024-10-14 10:36:05,349 ERROR e.c.Main [main] Se hace ROLLBACK
 2024-10-14 10:40:31,903 ERROR e.c.Main [main] Error al insertar en la base de datos.
 2024-10-14 10:40:31,905 ERROR e.c.Main [main] Se hace ROLLBACK
+2024-10-18 13:20:57,512 ERROR e.c.Main [main] (conn=11) Can't create table `empresa`.`facturas` (errno: 150 "Foreign key constraint is incorrectly formed")
+2024-10-18 13:23:56,509 ERROR e.c.Main [main] Error al insertar en la base de datos.
+2024-10-18 13:23:56,512 ERROR e.c.Main [main] Se hace ROLLBACK
+2024-10-18 13:23:56,516 ERROR e.c.Main [main] Error al insertar en la base de datos.
+2024-10-18 13:23:56,521 ERROR e.c.Main [main] Se hace ROLLBACK
+2024-10-18 13:24:34,818 ERROR e.c.Main [main] Error al insertar en la base de datos.
+2024-10-18 13:24:34,824 ERROR e.c.Main [main] Se hace ROLLBACK
+2024-10-18 13:25:03,829 ERROR e.c.Main [main] Error al insertar en la base de datos.
+2024-10-18 13:25:03,838 ERROR e.c.Main [main] Se hace ROLLBACK
+2024-10-18 13:29:33,399 ERROR e.c.Main [main] Error al insertar en la base de datos.
+2024-10-18 13:29:33,408 ERROR e.c.Main [main] Se hace ROLLBACK
+2024-10-18 13:30:58,024 ERROR e.c.Main [main] Error al insertar en la base de datos.
+2024-10-18 13:30:58,037 ERROR e.c.Main [main] Se hace ROLLBACK
+2024-10-18 13:31:46,618 ERROR e.c.Main [main] Error al insertar en la base de datos.
+2024-10-18 13:31:46,654 ERROR e.c.Main [main] Se hace ROLLBACK
