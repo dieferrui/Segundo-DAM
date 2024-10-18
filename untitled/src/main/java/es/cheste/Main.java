@@ -14,9 +14,16 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         ConexionBD c = new ConexionBD();
 
-        // generarTablas(c);
-        // preparedStatement(c);
+        /*
+
+        Métodos ya ejecutados:
+
+        generarTablas(c);
+        preparedStatement(c);
         preparedStatement2(c);
+
+        */
+
         c.desconectar();
 
     }
@@ -102,7 +109,7 @@ public class Main {
             sInsertFact.setString(i++, "78901234X");
             sInsertFact.executeUpdate();
 
-            ResultSet rs = sInsertLineaFact.getGeneratedKeys();
+            ResultSet rs = sInsertFact.getGeneratedKeys();
             rs.next();
             int numFact = rs.getInt(1);
 
