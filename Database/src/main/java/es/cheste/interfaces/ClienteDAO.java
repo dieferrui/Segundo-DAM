@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ClienteDAO {
     void insert(Cliente cliente) throws DAOException;
-    Cliente obtenerPorDNI(int dni) throws DAOException;
+    Cliente obtenerPorDNI(String dni) throws DAOException;
     List<Cliente> obtenerTodos() throws DAOException;
     void actualizar(Cliente cliente) throws DAOException;
-    void eliminar(int dni) throws DAOException;
+    void eliminar(String dni) throws DAOException;
 }
