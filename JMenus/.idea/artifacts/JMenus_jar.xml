@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="JMenus:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/JMenus_jar</output-path>
+    <root id="archive" name="JMenus.jar">
+      <element id="module-output" name="JMenus" />
+    </root>
+  </artifact>
+</component>
