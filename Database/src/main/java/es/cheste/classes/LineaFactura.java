@@ -25,7 +25,7 @@ public class LineaFactura {
         this.numFactura = numFactura;
     }
 
-    public int getLineaFactura() {
+    public short getLineaFactura() {
         return lineaFactura;
     }
 
@@ -41,7 +41,7 @@ public class LineaFactura {
         this.concepto = concepto;
     }
 
-    public int getCantidad() {
+    public short getCantidad() {
         return cantidad;
     }
 
@@ -51,11 +51,6 @@ public class LineaFactura {
 
     @Override
     public String toString() {
-        return "LineaFactura{" +
-                "numFactura=" + numFactura +
-                ", lineaFactura=" + lineaFactura +
-                ", concepto='" + concepto + '\'' +
-                ", cantidad=" + cantidad +
-                '}';
+        return "Linea nº " + lineaFactura + " de la factura nº " + numFactura + " - Concepto: " + concepto + ", Cantidad: " + cantidad;
     }
 }

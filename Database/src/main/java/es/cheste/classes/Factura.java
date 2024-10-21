@@ -4,6 +4,12 @@ public class Factura {
     private int numFactura;
     private String dniCliente;
 
+    // Constructor para inserciones en BD (numFactura se genera automáticamente)
+    public Factura(String dniCliente) {
+        this.dniCliente = dniCliente;
+    }
+
+    // Constructor para consultas en BD
     public Factura(int numFactura, String dniCliente) {
         this.numFactura = numFactura;
         this.dniCliente = dniCliente;
@@ -31,9 +37,6 @@ public class Factura {
 
     @Override
     public String toString() {
-        return "Factura{" +
-                "numFactura=" + numFactura +
-                ", dniCliente='" + dniCliente + '\'' +
-                '}';
+        return "Factura con ID nº " + numFactura + " - DNI Cliente: " + dniCliente;
     }
 }

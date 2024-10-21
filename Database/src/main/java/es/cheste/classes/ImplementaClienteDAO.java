@@ -7,20 +7,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class ImplementaClienteDAO implements ClienteDAO {
 
     ConexionBD c = new ConexionBD();
-    public static final Logger LOGGER = LogManager.getLogger();
 
     // Consultas SQL
-    private static final String INSERTAR = "INSERT INTO Cliente (dni, apellidos, cp) VALUES (?, ?, ?)";
-    private static final String OBTENER_POR_DNI = "SELECT * FROM Cliente WHERE dni = ?";
-    private static final String OBTENER_TODOS = "SELECT * FROM Cliente";
-    private static final String ACTUALIZAR = "UPDATE Cliente SET dni = ?, apellidos = ?, cp = ? WHERE dni = ?";
-    private static final String ELIMINAR = "DELETE FROM Cliente WHERE dni = ?";
+    private static final String INSERTAR = "INSERT INTO Clientes (dni, apellidos, cp) VALUES (?, ?, ?)";
+    private static final String OBTENER_POR_DNI = "SELECT * FROM Clientes WHERE dni = ?";
+    private static final String OBTENER_TODOS = "SELECT * FROM Clientes";
+    private static final String ACTUALIZAR = "UPDATE Clientes SET dni = ?, apellidos = ?, cp = ? WHERE dni = ?";
+    private static final String ELIMINAR = "DELETE FROM Clientes WHERE dni = ?";
 
     @Override
     public void insert(Cliente cliente) throws DAOException {
@@ -33,13 +29,11 @@ public class ImplementaClienteDAO implements ClienteDAO {
             int filasAfectadas = ps.executeUpdate();
 
             if (filasAfectadas == 0) {
-                LOGGER.error("Inserción de cliente fallida.");
                 throw new DAOException("Inserción de cliente fallida.", null);
             }
 
         } catch (SQLException e) {
-            LOGGER.error("Error al insertar el cliente.", e);
-            throw new DAOException("Error al insertar el vcliente.", e);
+            throw new DAOException("Error al insertar el cliente.", e);
         }
 
     }
@@ -97,8 +91,6 @@ public class ImplementaClienteDAO implements ClienteDAO {
             if (filasAfectadas == 0) {
                 throw new DAOException("Actualización de cliente fallida, no se afectaron filas.", null);
 
-            } else {
-                LOGGER.info("Cliente actualizado correctamente (filas afectadas: " + filasAfectadas + ")");
             }
 
         } catch (SQLException e) {
@@ -117,8 +109,6 @@ public class ImplementaClienteDAO implements ClienteDAO {
             if (filasAfectadas == 0) {
                 throw new DAOException("Eliminación de cliente fallida, no se afectaron filas.", null);
 
-            } else {
-                LOGGER.info("Cliente eliminado correctamente (filas afectadas: " + filasAfectadas + ")");
             }
 
         } catch (SQLException e) {
@@ -126,7 +116,7 @@ public class ImplementaClienteDAO implements ClienteDAO {
         }
     }
 
-    // Método auxiliar para mapear Cliente a Vehiculo
+    // Método para mapear resultset a objeto Cliente
     private Cliente transformarCliente(ResultSet rs) throws SQLException {
         String dni = rs.getString("dni");
         String apellidos = rs.getString("apellidos");
