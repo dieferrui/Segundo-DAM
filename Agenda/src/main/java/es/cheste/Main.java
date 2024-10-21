@@ -174,11 +174,11 @@ public class Main {
                 LOGGER.info("El usuario no ha introducido un número cuando se le ha solicitado.");
             }
 
-        } while (opcionAgenda != 6);
+            agenda.guardarAgendaCSV();
+            agenda.guardarAgendaXML();
+            agenda.guardarAgendaJSON();
 
-        agenda.guardarAgendaCSV();
-        agenda.guardarAgendaXML();
-        agenda.guardarAgendaJSON();
+        } while (opcionAgenda != 6);
 
         SC.close();
     }
