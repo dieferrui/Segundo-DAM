@@ -51,11 +51,6 @@ public class LineaFactura {
 
     @Override
     public String toString() {
-        return "LineaFactura{" +
-                "numFactura=" + numFactura +
-                ", lineaFactura=" + lineaFactura +
-                ", concepto='" + concepto + '\'' +
-                ", cantidad=" + cantidad +
-                '}';
+        return "Linea nº " + lineaFactura + " de la factura nº " + numFactura + " - Concepto: " + concepto + ", Cantidad: " + cantidad;
     }
 }

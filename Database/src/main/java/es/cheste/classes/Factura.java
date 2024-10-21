@@ -31,9 +31,6 @@ public class Factura {
 
     @Override
     public String toString() {
-        return "Factura{" +
-                "numFactura=" + numFactura +
-                ", dniCliente='" + dniCliente + '\'' +
-                '}';
+        return "Factura con ID nº " + numFactura + " - DNI Cliente: " + dniCliente;
     }
 }
