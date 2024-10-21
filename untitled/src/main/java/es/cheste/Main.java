@@ -3,27 +3,15 @@ package es.cheste;
 import java.sql.*;
 import java.util.Scanner;
 
+import es.cheste.classes.ConexionBD;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * The type Main.
- */
 public class Main {
 
     private static final Scanner SC = new Scanner(System.in);
-    /**
-     * The constant LOGGER.
-     */
     public static final Logger LOGGER = LogManager.getLogger();
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     * @throws ClassNotFoundException the class not found exception
-     * @throws SQLException           the sql exception
-     */
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         ConexionBD c = new ConexionBD();
 
