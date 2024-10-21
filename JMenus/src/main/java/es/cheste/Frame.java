@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Objects;
 
 public class Frame extends JFrame {
     public Frame() {
@@ -48,8 +49,8 @@ public class Frame extends JFrame {
         setJMenuBar(menuBar);
 
         JToolBar toolBar = new JToolBar();
-        ImageIcon abrirIcon = new ImageIcon(getClass().getResource("/resources/images/abrir.png"));
-        ImageIcon guardarIcon = new ImageIcon(getClass().getResource("/resources/images/guardar.png"));
+        ImageIcon abrirIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/resources/images/abrir.png")));
+        ImageIcon guardarIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/resources/images/guardar.png")));
 
 
         JButton abrirButton = new JButton(abrirIcon);
