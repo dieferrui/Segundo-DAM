@@ -49,8 +49,8 @@ public class Frame extends JFrame {
         setJMenuBar(menuBar);
 
         JToolBar toolBar = new JToolBar();
-        ImageIcon abrirIcon = new ImageIcon(getClass().getResource("/carpeta-abierta.png"));
-        ImageIcon guardarIcon = new ImageIcon(getClass().getResource("/guardar-el-archivo.png"));
+        ImageIcon abrirIcon = new ImageIcon(getClass().getResource("/Abrir.gif"));
+        ImageIcon guardarIcon = new ImageIcon(getClass().getResource("/Guardar.gif"));2
 
 
         JButton abrirButton = new JButton(abrirIcon);
