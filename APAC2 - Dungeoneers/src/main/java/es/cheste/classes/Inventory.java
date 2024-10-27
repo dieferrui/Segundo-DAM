@@ -9,14 +9,19 @@ import lombok.*;
 @NoArgsConstructor
 
 public class Inventory {
-    private String characterId;
-    private String itemId;
+    private String characterName;
+    private String itemName;
     private int quantity;
 
     // Constructor to create an Inventory line without negative quantities
-    public Inventory(String characterId, String itemId, int quantity) {
-        this.characterId = characterId;
-        this.itemId = itemId;
+    public Inventory(Character character, Item item, int quantity) {
+        this.characterName = character.getName();
+        this.itemName = item.getName();
         this.quantity = Math.max(0, quantity);
+    }
+
+    // Method to describe inventory line
+    public String describe() {
+        return "The character " + characterName + " has " + quantity + " of " + itemName + ".";
     }
 }
