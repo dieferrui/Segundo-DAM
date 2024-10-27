@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configuration: Este es el elemento raíz del archivo y puede contener atributos como `status` para configurar el
+nivel de registro del sistema de registro de Log4j -->
+<Configuration status="INFO">
+
+    <!-- Los appenders son los destinos de salida donde se enviarán los mensajes de registro. Puedes
+    configurar appenders para escribir en archivos, consola, bases de datos, entre otros. Algunos de los appenders
+    comunes son `ConsoleAppender`, `FileAppender`, `RollingFileAppender`, `SyslogAppender`, etc. -->
+    <Appenders>
+
+        <!-- Aquí usamos un appender que escribe por consola -->
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <!-- PatternLayout: Aquí puedes especificar cómo se formateará el mensaje de registro: fecha, categoría,
+            el nivel de registro, mensaje... Puedes personalizar el diseño utilizando patrones como
+            `%d` para la fecha, `%p` para el nivel de registro, `%c` para la categoría, `%m` para el mensaje, etc. -->
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <!-- Aquí usamos un appender que escribe en el archivo app.log -->
+        <File name="LogToFile" fileName="app.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+
+    <!-- Loggers: puede contener configuraciones de los niveles de registro para diferentes categorías o paquetes
+    en tu aplicación. Puedes definir múltiples elementos <Logger> dentro de <Loggers>, cada uno con un atributo name que especifica la categoría o paquete al que se aplica la configuración del nivel de registro. -->
+    <Loggers>
+
+        <!-- La definición del logger root le dice a Log4j que use esa configuración cuando no se encuentre una
+        configuración dedicada -->
+        <Root level="info">
+            <AppenderRef ref="LogToFile"/>
+            <AppenderRef ref="LogToConsole"/>
+        </Root>
+
+        <!-- En el caso de estos dos loggers cada uno de ellos especificado para un paquete de mi código diferente -->
+        <Logger name="." level="debug">
+            <AppenderRef ref="LogToFile"/>
+        </Logger>
+        <Logger name="." level="debug">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+    </Loggers>
+</Configuration>

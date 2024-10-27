@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 
 public class Inventory {
+    private int slotNumber;
     private String characterName;
     private String itemName;
     private int quantity;
