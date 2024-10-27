@@ -21,6 +21,14 @@ public class Inventory {
         this.quantity = Math.max(0, quantity);
     }
 
+    // Constructor to retrieve an Inventory line from the database (not for user input)
+    public Inventory(int slotNumber, String characterName, String itemName, int quantity) {
+        this.slotNumber = slotNumber;
+        this.characterName = characterName;
+        this.itemName = itemName;
+        this.quantity = Math.max(0, quantity);
+    }
+
     // Method to describe inventory line
     public String describe() {
         return "The character " + characterName + " has " + quantity + " of " + itemName + ".";
