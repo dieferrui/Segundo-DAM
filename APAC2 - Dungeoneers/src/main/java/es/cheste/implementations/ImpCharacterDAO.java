@@ -175,9 +175,9 @@ public class ImpCharacterDAO implements CharacterDAO {
             ps.setInt(9, character.getChaMod());
             ps.setString(10, character.getName());
 
-            int filasAfectadas = ps.executeUpdate();
+            int changedLines = ps.executeUpdate();
 
-            if (filasAfectadas == 0) {
+            if (changedLines == 0) {
                 throw new DAOException("Character update failed, no lines affected.", null);
 
             }
