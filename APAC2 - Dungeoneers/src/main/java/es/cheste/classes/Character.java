@@ -3,8 +3,14 @@ package es.cheste.classes;
 import es.cheste.enums.Ancestry;
 import es.cheste.enums.CharaClass;
 
-import java.util.Objects;
 import java.util.Random;
+import lombok.*;
+
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
 
 public class Character {
     private static Random random = new Random();
@@ -55,10 +61,6 @@ public class Character {
         this.chaMod = random.nextInt(6) - 1;
     }
 
-    public Character() {
-        // Empty constructor, not to be utilized by the user
-    }
-
     // Method that describes the character better than the standard toString (production purposes)
     public String describe() {
         return "Name: " + name + "\n" +
@@ -70,119 +72,5 @@ public class Character {
                 "Intelligence: " + intMod + "\n" +
                 "Wisdom: " + wisMod + "\n" +
                 "Charisma: " + chaMod;
-    }
-
-    // Getters
-    public String getName() {
-        return name;
-    }
-
-    public CharaClass getChClass() {
-        return chClass;
-    }
-
-    public Ancestry getAncestry() {
-        return ancestry;
-    }
-
-    public int getDexMod() {
-        return dexMod;
-    }
-
-    public int getStrMod() {
-        return strMod;
-    }
-
-    public int getConMod() {
-        return conMod;
-    }
-
-    public int getIntMod() {
-        return intMod;
-    }
-
-    public int getWisMod() {
-        return wisMod;
-    }
-
-    public int getChaMod() {
-        return chaMod;
-    }
-
-    // Setters
-    public static void setRandom(Random random) {
-        Character.random = random;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setChClass(CharaClass chClass) {
-        this.chClass = chClass;
-    }
-
-    public void setAncestry(Ancestry ancestry) {
-        this.ancestry = ancestry;
-    }
-
-    public void setDexMod(int dexMod) {
-        this.dexMod = dexMod;
-    }
-
-    public void setStrMod(int strMod) {
-        this.strMod = strMod;
-    }
-
-    public void setConMod(int conMod) {
-        this.conMod = conMod;
-    }
-
-    public void setIntMod(int intMod) {
-        this.intMod = intMod;
-    }
-
-    public void setWisMod(int wisMod) {
-        this.wisMod = wisMod;
-    }
-
-    public void setChaMod(int chaMod) {
-        this.chaMod = chaMod;
-    }
-
-    // Equals
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Character character = (Character) o;
-        return getDexMod() == character.getDexMod() && getStrMod() == character.getStrMod() &&
-                getConMod() == character.getConMod() && getIntMod() == character.getIntMod() &&
-                getWisMod() == character.getWisMod() && getChaMod() == character.getChaMod() &&
-                Objects.equals(getName(), character.getName()) && getChClass() == character.getChClass() &&
-                getAncestry() == character.getAncestry();
-    }
-
-    // Hash
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getChClass(), getAncestry(), getDexMod(),
-                getStrMod(), getConMod(), getIntMod(), getWisMod(), getChaMod());
-    }
-
-    // To String (debug purposes)
-    @Override
-    public String toString() {
-        return "Character{" +
-                "name='" + name + '\'' +
-                ", chClass=" + chClass +
-                ", ancestry=" + ancestry +
-                ", dexMod=" + dexMod +
-                ", strMod=" + strMod +
-                ", conMod=" + conMod +
-                ", intMod=" + intMod +
-                ", wisMod=" + wisMod +
-                ", chaMod=" + chaMod +
-                '}';
     }
 }

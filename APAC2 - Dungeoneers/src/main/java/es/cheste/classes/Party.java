@@ -1,6 +1,12 @@
 package es.cheste.classes;
 
-import java.util.Objects;
+import lombok.*;
+
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
 
 public class Party {
     private String partyName;
@@ -20,10 +26,6 @@ public class Party {
         this.ptPower = calculatePartyPower();
     }
 
-    public Party() {
-        // Empty constructor, not to be utilized by the user
-    }
-
     // Private method to calculate the party's total power based on specified stats
     private int calculatePartyPower() {
         int partyPower = 0;
@@ -38,7 +40,7 @@ public class Party {
         return Math.max(partyPower, 0);
     }
 
-    // Method to describe the party in a human-readable way
+    // Method to describe the party
     public String describe() {
         return "Party Details:\n" +
                 "  Party Name: " + partyName + "\n" +
@@ -47,83 +49,5 @@ public class Party {
                 "  Tank: " + ptTank.getName() + "\n" +
                 "  Healer: " + ptHealer.getName() + "\n" +
                 "  Power Level: " + ptPower + "\n";
-    }
-
-    // Getters
-    public String getPartyName() {
-        return partyName;
-    }
-
-    public Character getPtLeader() {
-        return ptLeader;
-    }
-
-    public Character getPtStriker() {
-        return ptStriker;
-    }
-
-    public Character getPtTank() {
-        return ptTank;
-    }
-
-    public Character getPtHealer() {
-        return ptHealer;
-    }
-
-    public int getPtPower() {
-        return ptPower;
-    }
-
-    // Setters
-    public void setPartyName(String partyName) {
-        this.partyName = partyName;
-    }
-
-    public void setPtLeader(Character ptLeader) {
-        this.ptLeader = ptLeader;
-    }
-
-    public void setPtStriker(Character ptStriker) {
-        this.ptStriker = ptStriker;
-    }
-
-    public void setPtTank(Character ptTank) {
-        this.ptTank = ptTank;
-    }
-
-    public void setPtHealer(Character ptHealer) {
-        this.ptHealer = ptHealer;
-    }
-
-    public void setPtPower(int ptPower) {
-        this.ptPower = ptPower;
-    }
-
-    // Equals
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Party party = (Party) o;
-        return getPtPower() == party.getPtPower() && Objects.equals(getPartyName(), party.getPartyName()) && Objects.equals(getPtLeader(), party.getPtLeader()) && Objects.equals(getPtStriker(), party.getPtStriker()) && Objects.equals(getPtTank(), party.getPtTank()) && Objects.equals(getPtHealer(), party.getPtHealer());
-    }
-
-    // Hash
-    @Override
-    public int hashCode() {
-        return Objects.hash(getPartyName(), getPtLeader(), getPtStriker(), getPtTank(), getPtHealer(), getPtPower());
-    }
-
-    // To String (debug purposes)
-    @Override
-    public String toString() {
-        return "Party{" +
-                "partyName='" + partyName + '\'' +
-                ", ptLeader=" + ptLeader +
-                ", ptStriker=" + ptStriker +
-                ", ptTank=" + ptTank +
-                ", ptHealer=" + ptHealer +
-                ", ptPower=" + ptPower +
-                '}';
     }
 }

@@ -3,13 +3,20 @@ package es.cheste.classes;
 import es.cheste.enums.Biome;
 import es.cheste.enums.Difficulty;
 
-import java.util.Objects;
+import lombok.*;
+
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
 
 public class Dungeon {
     private String name;
     private Biome biome;
     private Difficulty difficulty;
     private int floors;
+    private int pointsToBeat;
     private boolean hasBoss;
 
     public Dungeon(String name, Biome biome, Difficulty difficulty, int floors, boolean hasBoss) {
@@ -18,86 +25,34 @@ public class Dungeon {
         this.difficulty = difficulty;
         this.floors = floors;
         this.hasBoss = hasBoss;
+        this.pointsToBeat = getPointsByDifficulty();
     }
 
-    public Dungeon() {
-        // Empty constructor, not to be utilized by the user
-    }
+    private int getPointsByDifficulty() {
+        int diffPoints = 0;
+        double hasBossMultiplier = 1.5d;
 
-    // Getters
-    public String getName() {
-        return name;
-    }
+        switch (difficulty) {
+            case TRIVIAL: diffPoints = 5; break;
+            case LOW: diffPoints = 8; break;
+            case MODERATE: diffPoints = 12; break;
+            case MEDIUM: diffPoints = 18; break;
+            case HARD: diffPoints = 22; break;
+            case VERY_HARD: diffPoints = 24; break;
+            case EXTREME: diffPoints = 26; break;
+            default: diffPoints = 28; break;
+        }
 
-    public Biome getBiome() {
-        return biome;
-    }
+        if (hasBoss) {
+            diffPoints = (int)Math.floor(diffPoints * hasBossMultiplier);
+        }
 
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
-
-    public int getFloors() {
-        return floors;
-    }
-
-    public boolean hasBoss() {
-        return hasBoss;
-    }
-
-    //Setters
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBiome(Biome biome) {
-        this.biome = biome;
-    }
-
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public void setFloors(int floors) {
-        this.floors = floors;
-    }
-
-    public void setBoss(boolean hasBoss) {
-        this.hasBoss = hasBoss;
-    }
-
-    // Equals
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Dungeon dungeon = (Dungeon) o;
-        return getFloors() == dungeon.getFloors() && hasBoss == dungeon.hasBoss &&
-                Objects.equals(getName(), dungeon.getName()) && getBiome() == dungeon.getBiome() &&
-                getDifficulty() == dungeon.getDifficulty();
-    }
-
-    // Hash
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getBiome(), getDifficulty(), getFloors(), hasBoss);
-    }
-
-    // To String (debug purposes)
-    @Override
-    public String toString() {
-        return "Dungeon{" +
-                "name='" + name + '\'' +
-                ", biome=" + biome +
-                ", difficulty=" + difficulty +
-                ", floors=" + floors +
-                ", hasBoss=" + hasBoss +
-                '}';
+        return diffPoints;
     }
 
     // Method to describe the dungeon better than the standard toString (production purposes)
     public String describe() {
-        return "The dungeon " + name + " is located in a " + biome + " biome, has a difficulty of " + difficulty +
-                ", has " + floors + " floors and " + (hasBoss ? "has a boss" : "does not have a boss");
+        return "The dungeon \"" + name + "\" is located in a " + biome + " biome, has " + difficulty + " difficulty" +
+                ", has " + floors + " floors and " + (hasBoss ? "has a boss." : "does not have a boss.");
     }
 }
