@@ -30,7 +30,6 @@ public class Dungeon {
 
     private int getPointsByDifficulty() {
         int diffPoints = 0;
-        double hasBossMultiplier = 1.5d;
 
         switch (difficulty) {
             case TRIVIAL: diffPoints = 5; break;
@@ -41,10 +40,6 @@ public class Dungeon {
             case VERY_HARD: diffPoints = 24; break;
             case EXTREME: diffPoints = 26; break;
             default: diffPoints = 28; break;
-        }
-
-        if (hasBoss) {
-            diffPoints = (int)Math.floor(diffPoints * hasBossMultiplier);
         }
 
         return diffPoints;
