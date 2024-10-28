@@ -21,8 +21,7 @@ public class ImpDungeonDAO implements DungeonDAO {
     private static final String LIST_NOT_OBTAINED = "Dungeon list not obtained.";
 
     // SQL Queries
-    private static final String INSERT = "INSERT INTO Dungeon (name, biome, difficulty, floors, hasBoss, pointsToBeat " +
-                                            "VALUES (?, ?, ?, ?, ? ,?)";
+    private static final String INSERT = "INSERT INTO Dungeon (name, biome, difficulty, floors, hasBoss, pointsToBeat) VALUES (?, ?, ?, ?, ? ,?)";
     private static final String OBTAIN_BY_NAME = "SELECT * FROM Dungeon WHERE name = ?";
     private static final String OBTAIN_HARDEST = "SELECT name FROM Dungeon WHERE pointsToBeat = (SELECT MAX(pointsToBeat) FROM Dungeon)";
     private static final String OBTAIN_ALL = "SELECT * FROM Dungeon ORDER BY name ASC";
@@ -157,8 +156,9 @@ public class ImpDungeonDAO implements DungeonDAO {
     }
 
     @Override
-    public void update(Dungeon dungeon) throws DAOException {
+    public void update(Dungeon dungeon, String oldDun) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
+            Dungeon oldDungeon = obtainByName(oldDun);
 
             ps.setString(0, dungeon.getName());
             ps.setString(1, dungeon.getBiome().getBiomeName());
@@ -166,6 +166,7 @@ public class ImpDungeonDAO implements DungeonDAO {
             ps.setInt(3, dungeon.getFloors());
             ps.setBoolean(4, dungeon.isHasBoss());
             ps.setInt(5, dungeon.getPointsToBeat());
+            ps.setString(6, oldDungeon.getName());
 
             int filasAfectadas = ps.executeUpdate();
 

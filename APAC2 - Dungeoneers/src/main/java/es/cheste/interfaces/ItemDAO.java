@@ -1,5 +1,7 @@
 package es.cheste.interfaces;
 
+import es.cheste.enums.ItemType;
+import es.cheste.enums.Rarity;
 import es.cheste.exceptions.DAOException;
 import es.cheste.classes.Item;
 
@@ -12,9 +14,9 @@ public interface ItemDAO {
     Item obtainMostExpensive() throws DAOException;
 
     List<Item> obtainAll() throws DAOException;
-    List<Item> obtainAllByType() throws DAOException;
-    List<Item> obtainAllByRarity() throws DAOException;
+    List<Item> obtainAllByType(ItemType type) throws DAOException;
+    List<Item> obtainAllByRarity(Rarity rarity) throws DAOException;
 
-    void update(Item item) throws DAOException;
+    void update(Item item, String oldItem) throws DAOException;
     void delete(String itemName) throws DAOException;
 }

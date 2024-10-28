@@ -9,13 +9,15 @@ import lombok.*;
 @NoArgsConstructor
 
 public class QuestResult {
+    private int questId;
     private String PartyId;
     private String DungeonId;
     private boolean success;
     private String report;
 
-    // Standard constructor with automated success check
+    // Standard constructor with automated success check and ID generation
     public QuestResult(Party party, Dungeon dungeon, String report) {
+        this.questId = party.hashCode() + dungeon.hashCode() + report.hashCode();
         this.PartyId = party.getPartyName();
         this.DungeonId = dungeon.getName();
         this.success = party.getPtPower() >= dungeon.getPointsToBeat();
@@ -24,6 +26,7 @@ public class QuestResult {
 
     // Constructor to generate simplified results report based on automated success check
     public QuestResult(Party party, Dungeon dungeon) {
+        this.questId = party.hashCode() + dungeon.hashCode() + report.hashCode();
         this.PartyId = party.getPartyName();
         this.DungeonId = dungeon.getName();
         this.success = party.getPtPower() >= dungeon.getPointsToBeat();

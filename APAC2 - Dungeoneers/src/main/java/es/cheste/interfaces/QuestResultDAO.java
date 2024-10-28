@@ -8,12 +8,14 @@ import java.util.List;
 public interface QuestResultDAO {
     void insert(QuestResult questResult) throws DAOException;
 
+    QuestResult obtainById(int QuestId) throws DAOException;
+
     List<QuestResult> obtainAll() throws DAOException;
-    List<QuestResult> obtainAllByParty() throws DAOException;
-    List<QuestResult> obtainAllByDungeon() throws DAOException;
+    List<QuestResult> obtainAllByParty(String partyName) throws DAOException;
+    List<QuestResult> obtainAllByDungeon(String dungeonName) throws DAOException;
     List<QuestResult> obtainAllCleared() throws DAOException;
     List<QuestResult> obtainAllFailed() throws DAOException;
 
-    void update(QuestResult questResult) throws DAOException;
-    void delete(String questName) throws DAOException;
+    void update(QuestResult questResult, int lastId) throws DAOException;
+    void delete(int questId) throws DAOException;
 }

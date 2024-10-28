@@ -17,6 +17,6 @@ public interface CharacterDAO {
     List<Character> obtainAllByClass(CharaClass chClass) throws DAOException;
     List<Character> obtainAllByAncestry(Ancestry ancestry) throws DAOException;
 
-    void update(Character character) throws DAOException;
+    void update(Character character, String oldChar) throws DAOException;
     void delete(String charName) throws DAOException;
 }

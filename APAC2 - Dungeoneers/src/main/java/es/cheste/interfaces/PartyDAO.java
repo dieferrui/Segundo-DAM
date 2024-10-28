@@ -14,6 +14,6 @@ public interface PartyDAO {
     List<Party> obtainAll() throws DAOException;
     List<Party> obtainAllThatContainMember(String memberName) throws DAOException;
 
-    void update(Party party) throws DAOException;
+    void update(Party party, String oldParty) throws DAOException;
     void delete(String partyName) throws DAOException;
 }

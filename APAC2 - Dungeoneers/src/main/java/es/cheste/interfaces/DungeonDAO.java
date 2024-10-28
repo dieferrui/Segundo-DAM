@@ -17,6 +17,6 @@ public interface DungeonDAO {
     List<Dungeon> obtainAllByBiome(Biome diome) throws DAOException;
     List<Dungeon> obtainAllByDifficulty(Difficulty difficulty) throws DAOException;
 
-    void update(Dungeon dungeon) throws DAOException;
+    void update(Dungeon dungeon, String oldDungeon) throws DAOException;
     void delete(String dungeonName) throws DAOException;
 }

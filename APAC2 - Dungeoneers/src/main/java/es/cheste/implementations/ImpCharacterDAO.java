@@ -21,17 +21,17 @@ public class ImpCharacterDAO implements CharacterDAO {
     private static final String LIST_NOT_OBTAINED = "Character list not obtained.";
 
     // SQL Queries
-    private static final String INSERT = "INSERT INTO Character (name, class, ancestry, dexMod, strMod, conMod, " +
+    private static final String INSERT = "INSERT INTO Charactera (name, class, ancestry, dexMod, strMod, conMod, " +
                                             "intMod, wisMod, chaMod) VALUES (?, ?, ?, ?, ? ,? ,? ,? ,?)";
-    private static final String OBTAIN_BY_NAME = "SELECT * FROM Character WHERE name = ?";
+    private static final String OBTAIN_BY_NAME = "SELECT * FROM Charactera WHERE name = ?";
     private static final String OBTAIN_STRONGEST = "SELECT name, (dexMod + strMod + conMod + intMod + wisMod + chaMod)" +
-                                                    " AS totalStrength FROM Character ORDER BY totalStrength DESC, name ASC LIMIT 1";
-    private static final String OBTAIN_ALL = "SELECT * FROM Character ORDER BY name ASC";
-    private static final String OBTAIN_ALL_BY_CLASS = "SELECT * FROM Character WHERE class = ? ORDER BY name ASC";
-    private static final String OBTAIN_ALL_BY_ANCESTRY = "SELECT * FROM Character WHERE ancestry = ? ORDER BY name ASC";
-    private static final String UPDATE = "UPDATE Character SET name = ?, class = ?, ancestry = ?, dexMod = ?, strMod = ?," +
+                                                    " AS totalStrength FROM Charactera ORDER BY totalStrength DESC, name ASC LIMIT 1";
+    private static final String OBTAIN_ALL = "SELECT * FROM Charactera ORDER BY name ASC";
+    private static final String OBTAIN_ALL_BY_CLASS = "SELECT * FROM Charactera WHERE class = ? ORDER BY name ASC";
+    private static final String OBTAIN_ALL_BY_ANCESTRY = "SELECT * FROM Charactera WHERE ancestry = ? ORDER BY name ASC";
+    private static final String UPDATE = "UPDATE Charactera SET name = ?, class = ?, ancestry = ?, dexMod = ?, strMod = ?," +
                                             " conMod = ?, intMod = ?, wisMod = ?, chaMod = ? WHERE name = ?";
-    private static final String DELETE = "DELETE FROM Character WHERE name = ?";
+    private static final String DELETE = "DELETE FROM Charactera WHERE name = ?";
 
     @Override
     public void insert(Character character) throws DAOException {
@@ -64,7 +64,6 @@ public class ImpCharacterDAO implements CharacterDAO {
         Character character = null;
 
         try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_BY_NAME)) {
-
             ps.setString(1, name);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -85,7 +84,6 @@ public class ImpCharacterDAO implements CharacterDAO {
         Character character = null;
 
         try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_STRONGEST)) {
-
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     character = mapCharacter(rs);
@@ -161,8 +159,9 @@ public class ImpCharacterDAO implements CharacterDAO {
     }
 
     @Override
-    public void update(Character character) throws DAOException {
+    public void update(Character character, String oldChar) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
+            Character oldCharacter = obtainByName(oldChar);
 
             ps.setString(1, character.getName());
             ps.setString(2, character.getChClass().getClassName());
@@ -173,7 +172,7 @@ public class ImpCharacterDAO implements CharacterDAO {
             ps.setInt(7, character.getIntMod());
             ps.setInt(8, character.getWisMod());
             ps.setInt(9, character.getChaMod());
-            ps.setString(10, character.getName());
+            ps.setString(10, oldCharacter.getName());
 
             int changedLines = ps.executeUpdate();
 
