@@ -336,6 +336,12 @@ public class Setup {
     }
     
     private void createGetPartyMembers() throws SQLException {
+        String dropSql = "DROP PROCEDURE IF EXISTS GetPartyMembers;";
+
+        try (PreparedStatement dropPs = c.getConnection().prepareStatement(dropSql)) {
+            dropPs.executeUpdate();
+        }
+
         String sql = """
                 CREATE PROCEDURE GetPartyMembers(IN partyName VARCHAR(50))
                 BEGIN
@@ -354,6 +360,12 @@ public class Setup {
     }
     
     private void createGetQuestResultsProcedure() throws SQLException {
+        String dropSql = "DROP PROCEDURE IF EXISTS GetQuestResultById;";
+
+        try (PreparedStatement dropPs = c.getConnection().prepareStatement(dropSql)) {
+            dropPs.executeUpdate();
+        }
+
         String sql = """
                 CREATE PROCEDURE GetQuestResultById(IN questId INT)
                 BEGIN
