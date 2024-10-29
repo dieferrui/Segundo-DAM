@@ -61,7 +61,6 @@ public class Character {
         this.chaMod = random.nextInt(6) - 1;
     }
 
-    // Method that describes the character better than the standard toString (production purposes)
     public String describe() {
         return "Name: " + name + "\n" +
                 "Class: " + chClass.getClassName() + "\n" +

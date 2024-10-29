@@ -26,7 +26,6 @@ public class Party {
         this.ptPower = calculatePartyPower();
     }
 
-    // Private method to calculate the party's total power based on specified stats
     private int calculatePartyPower() {
         int partyPower = 0;
 
@@ -40,7 +39,6 @@ public class Party {
         return Math.max(partyPower, 0);
     }
 
-    // Method to describe the party
     public String describe() {
         return "Party Details:\n" +
                 "  Party Name: " + partyName + "\n" +

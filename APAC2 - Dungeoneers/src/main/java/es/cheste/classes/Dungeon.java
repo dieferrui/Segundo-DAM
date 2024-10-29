@@ -45,7 +45,6 @@ public class Dungeon {
         return diffPoints;
     }
 
-    // Method to describe the dungeon better than the standard toString (production purposes)
     public String describe() {
         return "The dungeon \"" + name + "\" is located in a " + biome + " biome, has " + difficulty + " difficulty" +
                 ", has " + floors + " floors and " + (hasBoss ? "has a boss." : "does not have a boss.");

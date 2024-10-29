@@ -29,7 +29,6 @@ public class Inventory {
         this.quantity = Math.max(0, quantity);
     }
 
-    // Method to describe inventory line
     public String describe() {
         return "The character " + characterName + " has " + quantity + " of " + itemName + ".";
     }

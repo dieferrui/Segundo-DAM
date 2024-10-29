@@ -203,7 +203,7 @@ public class CharacterHandler {
             Character character = dao.obtainStrongest();
 
             if (character != null) {
-                System.out.println("Strongest Character: " + character);
+                System.out.println("Strongest Character: " + character.describe());
 
             } else {
                 System.out.println("No characters found.");
@@ -263,7 +263,6 @@ public class CharacterHandler {
         }
     }
     
-
     private CharaClass selectClass() {
         System.out.println("Select Character Class:");
         CharaClass[] classes = CharaClass.values();
