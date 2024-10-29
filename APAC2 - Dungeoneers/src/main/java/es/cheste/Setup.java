@@ -267,7 +267,7 @@ public class Setup {
                 """;
         
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
-            ps.setString(1, "Throne of Karzoug, the RuneLord of Greed");
+            ps.setString(1, "Throne of Karzoug, the Runelord of Greed");
             ps.setString(2, "City");
             ps.setString(3, "S+");
             ps.setInt(4, 4);
@@ -315,7 +315,7 @@ public class Setup {
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
             ps.setInt(1, 1);
             ps.setString(2, "Fellers of the Runelord");
-            ps.setString(3, "Throne of Karzoug, the RuneLord of Greed");
+            ps.setString(3, "Throne of Karzoug, the Runelord of Greed");
             ps.setString(4, "The party defeated Karzoug in his extraplanar pocket situated in the city of Xin-Shalast, and prevented his resurrection.");
             ps.setBoolean(5, true);
             ps.executeUpdate();

@@ -37,4 +37,9 @@ public class QuestResult {
     private String getSimpleReport() {
         return success ? "The party successfully cleared the dungeon." : "The party was forced to leave the dungeon before completion.";
     }
+
+    // Private method to describe result entry
+    public String describe() {
+        return "\nParty ID: " + PartyId + "\nDungeon ID: " + DungeonId + "\nSuccess: " + (success ? " Yes" : " No")  + "\nReport: " + report;
+    }
 }

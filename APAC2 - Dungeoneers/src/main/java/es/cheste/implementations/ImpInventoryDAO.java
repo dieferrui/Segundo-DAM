@@ -140,8 +140,10 @@ public class ImpInventoryDAO implements InventoryDAO {
             if (filasAfectadas == 0) {
                 throw new DAOException("Inventory update failed, no lines affected.", null);
             }
+
         } catch (SQLException e) {
             throw new DAOException("Inventory not updated.", e);
+            
         }
     }
 

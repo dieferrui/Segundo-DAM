@@ -113,7 +113,10 @@ public class ImpPartyDAO implements PartyDAO {
 
         try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_THAT_CONTAIN_MEMBER);
              ResultSet rs = ps.executeQuery()) {
-            ps.setString(1, memberName);
+                ps.setString(1, memberName);
+                ps.setString(2, memberName);
+                ps.setString(3, memberName);
+                ps.setString(4, memberName);
 
             while (rs.next()) {
                 Party party = mapParty(rs);
