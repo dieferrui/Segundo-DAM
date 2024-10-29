@@ -35,6 +35,7 @@ public class QuestResultHandler {
             System.out.println("7. List Failed Quests");
             System.out.println("8. Update Quest Report");
             System.out.println("9. Delete Quest Result");
+            System.out.println("10. Get Quest Result data by Quest ID");
             System.out.println("0. Return to main menu");
             System.out.print("Select an option: ");
 
@@ -50,11 +51,14 @@ public class QuestResultHandler {
                 case 7 -> listFailedQuests();
                 case 8 -> updateQuestResult();
                 case 9 -> deleteQuestResult();
+                case 10 -> getQuestSummary();
                 case 0 -> System.out.println("Returning to main menu...");
                 default -> System.out.println("Invalid option, try again.");
             }
 
         } while (choice != 0);
+
+        scanner.close();
     }
 
     private void tryQuestResult() {
@@ -242,6 +246,28 @@ public class QuestResultHandler {
         } catch (DAOException e) {
             System.out.println("Error deleting quest result.");
             LOGGER.error("Error deleting quest result: " + e.getMessage());
+
+        }
+    }
+
+    private void getQuestSummary() {
+        System.out.print("Enter quest ID: ");
+        int questId = getValidInteger();
+
+        try {
+            String results = dao.getQuestResults(questId);
+
+            if (results != null) {
+                System.out.println("Quest Results:\n" + results);
+
+            } else {
+                System.out.println("No quest result found with that ID.");
+
+            }
+
+        } catch (DAOException e) {
+            System.out.println("Error obtaining quest results.");
+            LOGGER.error("Error obtaining quest results: " + e.getMessage());
 
         }
     }

@@ -3,6 +3,8 @@ package es.cheste.implementations;
 import es.cheste.exceptions.DAOException;
 import es.cheste.classes.DBConnection;
 import es.cheste.classes.Party;
+import es.cheste.enums.Ancestry;
+import es.cheste.enums.CharaClass;
 import es.cheste.interfaces.PartyDAO;
 import es.cheste.classes.Character;
 
@@ -67,6 +69,40 @@ public class ImpPartyDAO implements PartyDAO {
         }
 
         return party;
+    }
+
+    @Override
+    public Character[] getMembers(String partyName) throws DAOException {
+        Character[] members = new Character[4];
+
+        try (CallableStatement stmt = c.getConnection().prepareCall("{CALL GetPartyMembers(?)}")) {
+            stmt.setString(1, partyName);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String className = rs.getString("class");
+                String ancestry = rs.getString("ancestry");
+                int dexMod = rs.getInt("dexMod");
+                int strMod = rs.getInt("strMod");
+                int conMod = rs.getInt("conMod");
+                int intMod = rs.getInt("intMod");
+                int wisMod = rs.getInt("wisMod");
+                int chaMod = rs.getInt("chaMod");
+
+                CharaClass chClass = identifyClass(className);
+                Ancestry anc = identifyAncestry(ancestry);
+
+                Character character = new Character(name, chClass, anc, dexMod, strMod, conMod, intMod, wisMod, chaMod);
+                members[rs.getRow() - 1] = character;
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException("Error obtaining party members.", e);
+
+        }
+
+        return members;
     }
 
     @Override
@@ -176,5 +212,59 @@ public class ImpPartyDAO implements PartyDAO {
         Character ptHealer = charImpMethod.obtainByName(rs.getString("ptHealer"));
 
         return new Party(name, ptLeader, ptStriker, ptTank, ptHealer);
+    }
+
+    // Enum identification method (Class)
+    private CharaClass identifyClass(String chClass) {
+        switch (chClass) {
+            case "Alchemist":
+                return CharaClass.ALCHEMIST;
+            case "Barbarian":
+                return CharaClass.BARBARIAN;
+            case "Bard":
+                return CharaClass.BARD;
+            case "Champion":
+                return CharaClass.CHAMPION;
+            case "Cleric":
+                return CharaClass.CLERIC;
+            case "Druid":
+                return CharaClass.DRUID;
+            case "Wizard":
+                return CharaClass.WIZARD;
+            case "Monk":
+                return CharaClass.MONK;
+            case "Ranger":
+                return CharaClass.RANGER;
+            case "Rogue":
+                return CharaClass.ROGUE;
+            case "Sorcerer":
+                return CharaClass.SORCERER;
+            case "Witch":
+                return CharaClass.WITCH;
+            default:
+                return CharaClass.FIGHTER;
+        }
+    }
+
+    // Enum identification method (Ancestry)
+    private Ancestry identifyAncestry(String ancestry) {
+        switch (ancestry) {
+            case "Dwarf":
+                return Ancestry.DWARF;
+            case "Elf":
+                return Ancestry.ELF;
+            case "Gnome":
+                return Ancestry.GNOME;
+            case "Goblin":
+                return Ancestry.GOBLIN;
+            case "Halfling":
+                return Ancestry.HALFLING;
+            case "Orc":
+                return Ancestry.ORC;
+            case "Leshy":
+                return Ancestry.LESHY;
+            default:
+                return Ancestry.HUMAN;
+        }
     }
 }

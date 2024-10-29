@@ -2,11 +2,13 @@ package es.cheste.interfaces;
 
 import es.cheste.exceptions.DAOException;
 import es.cheste.classes.Party;
+import es.cheste.classes.Character;
 
 import java.util.List;
 
 public interface PartyDAO {
     void insert(Party party) throws DAOException;
+    Character[] getMembers(String partyName) throws DAOException;
 
     Party obtainByName(String partyName) throws DAOException;
     Party obtainStrongest() throws DAOException;

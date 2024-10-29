@@ -51,6 +51,8 @@ public class InventoryHandler {
             }
 
         } while (choice != 0);
+
+        scanner.close();
     }
 
     private void insertInventory() {
@@ -226,7 +228,7 @@ public class InventoryHandler {
         } catch (DAOException e) {
             System.out.println("Error deleting inventory item.");
             LOGGER.error("Error deleting inventory item: " + e.getMessage());
-            
+
         }
     }
 

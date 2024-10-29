@@ -48,6 +48,8 @@ public class DungeonHandler {
             }
 
         } while (choice != 0);
+
+        scanner.close();
     }
 
     private void insertDungeon() {
@@ -84,7 +86,7 @@ public class DungeonHandler {
             Dungeon dungeon = dao.obtainByName(name);
 
             if (dungeon != null) {
-                System.out.println("Dungeon found: " + dungeon);
+                System.out.println("Dungeon found: " + dungeon.describe());
 
             } else {
                 System.out.println("Dungeon not found.");
@@ -166,7 +168,7 @@ public class DungeonHandler {
             System.out.println("Listing all dungeons:");
 
             for (Dungeon dungeon : dungeons) {
-                System.out.println("- " + dungeon);
+                System.out.println("- " + dungeon.getName());
 
             }
 
@@ -182,7 +184,7 @@ public class DungeonHandler {
             Dungeon dungeon = dao.obtainHardest();
 
             if (dungeon != null) {
-                System.out.println("Hardest Dungeon: " + dungeon);
+                System.out.println("Hardest Dungeon: " + dungeon.describe());
 
             } else {
                 System.out.println("No dungeons found.");
@@ -210,7 +212,7 @@ public class DungeonHandler {
             System.out.println("Dungeons in biome " + biome + ":");
 
             for (Dungeon dungeon : dungeons) {
-                System.out.println("- " + dungeon);
+                System.out.println("- " + dungeon.getName());
 
             }
 
@@ -236,7 +238,7 @@ public class DungeonHandler {
             System.out.println("Dungeons with difficulty " + difficulty + ":");
 
             for (Dungeon dungeon : dungeons) {
-                System.out.println("- " + dungeon);
+                System.out.println("- " + dungeon.getName());
 
             }
 

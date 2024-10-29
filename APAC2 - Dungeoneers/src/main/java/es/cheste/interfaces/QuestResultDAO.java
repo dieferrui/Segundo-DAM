@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface QuestResultDAO {
     void insert(QuestResult questResult) throws DAOException;
+    String getQuestResults(int questId) throws DAOException;
 
-    QuestResult obtainById(int QuestId) throws DAOException;
+    QuestResult obtainById(int questId) throws DAOException;
 
     List<QuestResult> obtainAll() throws DAOException;
     List<QuestResult> obtainAllByParty(String partyName) throws DAOException;

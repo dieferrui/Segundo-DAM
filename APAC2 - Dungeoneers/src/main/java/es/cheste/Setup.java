@@ -18,6 +18,7 @@ public class Setup {
             createInventoryTable();
             createQuestResultTable();
             insertTestData();
+            createStoredProcedures();
 
         } catch (CreateTableException e) {
             System.out.println(e.getMessage());
@@ -320,6 +321,57 @@ public class Setup {
             ps.setBoolean(5, true);
             ps.executeUpdate();
 
+        }
+    }
+
+    private void createStoredProcedures() throws CreateTableException {
+        try {
+            createGetPartyMembers();
+            createGetQuestResultsProcedure();
+
+        } catch (SQLException e) {
+            throw new CreateTableException("Error creating stored procedures.", e);
+
+        }
+    }
+    
+    private void createGetPartyMembers() throws SQLException {
+        String sql = """
+                CREATE PROCEDURE GetPartyMembers(IN partyName VARCHAR(50))
+                BEGIN
+                    SELECT c.name, c.class, c.ancestry, 
+                        c.dexMod, c.strMod, c.conMod, c.intMod, c.wisMod, c.chaMod
+                    FROM Party p
+                    JOIN Charactera c ON c.name IN (p.ptLeader, p.ptStriker, p.ptTank, p.ptHealer)
+                    WHERE p.name = partyName;
+                END;
+                """;
+    
+        try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
+            ps.executeUpdate();
+
+        }
+    }
+    
+    private void createGetQuestResultsProcedure() throws SQLException {
+        String sql = """
+                CREATE PROCEDURE GetQuestResultById(IN questId INT)
+                BEGIN
+                    SELECT qr.questId,
+                           d.name AS dungeonName,
+                           d.difficulty AS dungeonDifficulty,
+                           d.pointsToBeat AS dungeonPoints,
+                           p.name AS partyName,
+                           p.ptPower
+                    FROM QuestResult qr
+                    LEFT JOIN Dungeon d ON qr.DungeonId = d.name
+                    LEFT JOIN Party p ON qr.PartyId = p.name
+                    WHERE qr.questId = questId;
+                END;
+                """;
+    
+        try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
+            ps.executeUpdate();
         }
     }
 }

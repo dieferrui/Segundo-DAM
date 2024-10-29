@@ -48,6 +48,8 @@ public class ItemHandler {
             }
 
         } while (choice != 0);
+
+        scanner.close();
     }
 
     private void insertItem() {

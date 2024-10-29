@@ -29,6 +29,7 @@ public class PartyHandler {
             System.out.println("5. List All Parties");
             System.out.println("6. Find Strongest Party");
             System.out.println("7. Find Parties by Member");
+            System.out.println("8. Get Party Members");
             System.out.println("0. Return to main menu");
             System.out.print("Select an option: ");
 
@@ -42,11 +43,14 @@ public class PartyHandler {
                 case 5 -> listAllParties();
                 case 6 -> findStrongestParty();
                 case 7 -> findPartiesByMember();
+                case 8 -> getPartyMembers();
                 case 0 -> System.out.println("Returning to main menu...");
                 default -> System.out.println("Invalid option, try again.");
             }
 
         } while (choice != 0);
+
+        scanner.close();
     }
 
     private void insertParty() {
@@ -203,6 +207,33 @@ public class PartyHandler {
         } catch (DAOException e) {
             System.out.println("Error finding parties by member.");
             LOGGER.error("Error finding parties by member: " + e.getMessage());
+
+        }
+    }
+
+    private void getPartyMembers() {
+        System.out.print("Enter party name to get members: ");
+        String partyName = scanner.nextLine();
+
+        try {
+            Character[] members = dao.getMembers(partyName);
+
+            if (members.length == 0) {
+                System.out.println("No members found for party: " + partyName);
+                return;
+
+            }
+
+            System.out.println("Members of party " + partyName + ":");
+
+            for (Character member : members) {
+                System.out.println("- " + member.getName());
+
+            }
+
+        } catch (DAOException e) {
+            System.out.println("Error getting party members.");
+            LOGGER.error("Error getting party members: " + e.getMessage());
 
         }
     }

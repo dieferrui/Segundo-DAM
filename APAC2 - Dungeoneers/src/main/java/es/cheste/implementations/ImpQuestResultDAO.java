@@ -208,6 +208,34 @@ public class ImpQuestResultDAO implements QuestResultDAO {
         }
     }
 
+    @Override
+    public String getQuestResults(int questId) throws DAOException {
+        String resultsExplanation = null;
+
+        try (CallableStatement stmt = c.getConnection().prepareCall("{CALL GetQuestResultById(?)}")) {
+            stmt.setInt(1, questId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int questIdFound = rs.getInt("questId");
+                String dungeonName = rs.getString("dungeonName");
+                String dungeonDifficulty = rs.getString("dungeonDifficulty");
+                String partyName = rs.getString("partyName");
+                int dungeonPower = rs.getInt("dungeonPoints");
+                int partyPower = rs.getInt("ptPower");
+
+                resultsExplanation = "Quest ID: " + questIdFound + "\nDungeon: " + dungeonName + " (" + dungeonDifficulty + " - " + 
+                                        dungeonPower + ")\nParty: " + partyName + " (Power: " + partyPower + ")";
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException("Quest results not obtained.", e);
+
+        }
+
+        return resultsExplanation;
+    }
+
     private QuestResult mapResults(ResultSet rs) throws SQLException, DAOException {
         Party party = partyImpMethod.obtainByName(rs.getString("PartyId"));
         Dungeon dungeon = dungeonImpMethod.obtainByName(rs.getString("DungeonId"));
