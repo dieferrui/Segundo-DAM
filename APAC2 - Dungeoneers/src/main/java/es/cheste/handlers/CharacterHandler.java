@@ -173,12 +173,12 @@ public class CharacterHandler {
             }
     
             System.out.println("Listing all characters:\n");
-            System.out.printf("%-20s %-15s %-15s %-5s %-5s %-5s %-5s %-5s %-5s%n",
+            System.out.printf("%-30s %-15s %-15s %-5s %-5s %-5s %-5s %-5s %-5s%n",
                               "Name", "Class", "Ancestry", "DEX", "STR", "CON", "INT", "WIS", "CHA");
-            System.out.println("---------------------------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------------------");
     
             for (Character character : characters) {
-                System.out.printf("%-20s %-15s %-15s %-5d %-5d %-5d %-5d %-5d %-5d%n",
+                System.out.printf("%-30s %-15s %-15s %-5d %-5d %-5d %-5d %-5d %-5d%n",
                                   character.getName(),
                                   character.getChClass().getClassName(),
                                   character.getAncestry().getAncestryName(),

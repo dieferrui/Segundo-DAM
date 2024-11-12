@@ -1,0 +1,20 @@
+2024-11-12 09:35:23,809 ERROR e.c.h.CharacterHandler [main] Error updating character: Character not updated.
+2024-11-12 09:38:06,156 INFO e.c.h.CharacterHandler [main] Character added successfully.
+2024-11-12 09:39:05,452 INFO e.c.h.CharacterHandler [main] Character deleted: Tywim Drewam Heskillar
+2024-11-12 09:39:19,122 ERROR e.c.h.CharacterHandler [main] Error finding strongest character: Character not obtained.
+2024-11-12 09:40:08,588 ERROR e.c.h.CharacterHandler [main] Error finding characters by class: Character list not obtained.
+2024-11-12 09:40:23,324 ERROR e.c.h.CharacterHandler [main] Error finding characters by class: Character list not obtained.
+2024-11-12 09:40:52,445 ERROR e.c.h.CharacterHandler [main] Error finding characters by ancestry: Character list not obtained.
+2024-11-12 09:46:45,751 INFO e.c.h.ItemHandler [main] Item added: Potion of flying
+2024-11-12 09:57:48,449 INFO e.c.h.DungeonHandler [main] Dungeon added: Tomb of Armag
+2024-11-12 09:58:31,152 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
+2024-11-12 09:59:19,283 INFO e.c.h.DungeonHandler [main] Dungeon deleted: Tomb of Armag
+2024-11-12 09:59:25,580 ERROR e.c.h.DungeonHandler [main] Error finding hardest dungeon: Dungeon not obtained.
+2024-11-12 10:00:02,998 ERROR e.c.h.DungeonHandler [main] Error finding dungeons by biome: Dungeon list not obtained.
+2024-11-12 10:00:24,955 ERROR e.c.h.DungeonHandler [main] Error finding dungeons by difficulty: Dungeon list not obtained.
+2024-11-12 10:06:00,982 INFO e.c.h.PartyHandler [main] Party added: Reconfigured Fellers
+2024-11-12 10:06:46,288 INFO e.c.h.PartyHandler [main] Party deleted: Reconfigured Fellers
+2024-11-12 10:08:56,907 ERROR e.c.h.PartyHandler [main] Error updating party: Party not updated.
+2024-11-12 10:11:15,351 ERROR e.c.h.PartyHandler [main] Error finding parties by member: Party list not obtained.
+2024-11-12 10:11:27,836 ERROR e.c.h.PartyHandler [main] Error finding parties by member: Party list not obtained.
+2024-11-12 11:24:18,587 ERROR e.c.h.InventoryHandler [main] Error finding inventory: Inventory not obtained.

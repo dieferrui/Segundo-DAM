@@ -234,18 +234,20 @@ public class ImpDungeonDAO implements DungeonDAO {
     // Enum identification method (Difficulty)
     private Difficulty identifyDifficulty(String diff) {
         switch (diff) {
-            case "Low":
+            case "D":
                 return Difficulty.LOW;
-            case "Moderate":
+            case "C":
                 return Difficulty.MODERATE;
-            case "Medium":
+            case "B":
                 return Difficulty.MEDIUM;
-            case "Hard":
+            case "A":
                 return Difficulty.HARD;
-            case "Very Hard":
+            case "S":
                 return Difficulty.VERY_HARD;
-            case "Extreme":
+            case "S+":
                 return Difficulty.EXTREME;
+            case "S++":
+                return Difficulty.IMPOSSIBLE;
             default:
                 return Difficulty.TRIVIAL;
         }
