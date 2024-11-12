@@ -14,6 +14,7 @@
 14. Application crashes at party update if you introduce a character name that doesn't exist (NullPointerException)
 15. Error when trying to update party
 16. Error when trying to find parties by member
+17. Inventory system is not operable due to errors in Item class
 
 
 A. Found an error assigning dungeon difficulty, but it was patched
