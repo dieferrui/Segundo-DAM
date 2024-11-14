@@ -2,10 +2,27 @@ package es.cheste;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import es.cheste.classes.DBConnection;
+
+import es.cheste.classes.*;
+import es.cheste.classes.Character;
 import es.cheste.exceptions.CreateTableException;
+import es.cheste.enums.*;
 
 public class Setup {
+
+    private Character alastor = new Character("Alastor, the Dark Sun", CharaClass.WIZARD, Ancestry.HUMAN, 0, 3, 3, 4, 2, 2);
+    private Character elyra = new Character("Elyra, the Swift Wind", CharaClass.MONK, Ancestry.ELF, 3, 4, 3, 1, 3, 1);
+    private Character drem = new Character("Drem, the Flashing Blade", CharaClass.ROGUE, Ancestry.HUMAN, 4, 1, 2, 3, 1, 3);
+    private Character kalaf = new Character("Kalaf, the Radiant Shield", CharaClass.CLERIC, Ancestry.DWARF, 0, 3, 3, 1, 4, 2);
+
+    private Party fellers = new Party("Fellers of the Runelord", drem, alastor, elyra, kalaf);
+
+    private Dungeon throne = new Dungeon("Throne of Karzoug, the Runelord of Greed", Biome.CITY, Difficulty.EXTREME, 4, true);
+
+    private Item potion = new Item("Health Potion", ItemType.POTION, "Restores health.", Rarity.COMMON, 50, true);
+    private Item lightningSword = new Item("Sword of electricity, Lightning", ItemType.WEAPON, "Beautifully engraved with electric runes, this sword is riddled with distinctive use marks.", Rarity.EPIC, 5000, false);
+
+    private QuestResult karzougDefeat = new QuestResult(fellers, throne, "The party defeated Karzoug in a planar pocket located in Xin-Shalast, preventing his resurrection.");
 
     DBConnection c = new DBConnection();
 
@@ -194,9 +211,9 @@ public class Setup {
                 """;
         
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
-            ps.setString(1, "Alastor, the Dark Sun");
-            ps.setString(2, "Wizard");
-            ps.setString(3, "Human");
+            ps.setString(1, alastor.getName());
+            ps.setString(2, alastor.getChClass().getClassName());
+            ps.setString(3, alastor.getAncestry().getAncestryName());
             ps.setInt(4, 0);
             ps.setInt(5, 3);
             ps.setInt(6, 3);
@@ -205,9 +222,9 @@ public class Setup {
             ps.setInt(9, 2);
             ps.executeUpdate();
 
-            ps.setString(1, "Elyra, the Swift Wind");
-            ps.setString(2, "Monk");
-            ps.setString(3, "Elf");
+            ps.setString(1, elyra.getName());
+            ps.setString(2, elyra.getChClass().getClassName());
+            ps.setString(3, elyra.getAncestry().getAncestryName());
             ps.setInt(4, 3);
             ps.setInt(5, 4);
             ps.setInt(6, 3);
@@ -216,9 +233,9 @@ public class Setup {
             ps.setInt(9, 1);
             ps.executeUpdate();
 
-            ps.setString(1, "Drem, the Flashing Blade");
-            ps.setString(2, "Rogue");
-            ps.setString(3, "Human");
+            ps.setString(1, drem.getName());
+            ps.setString(2, drem.getChClass().getClassName());
+            ps.setString(3, drem.getAncestry().getAncestryName());
             ps.setInt(4, 4);
             ps.setInt(5, 1);
             ps.setInt(6, 2);
@@ -227,9 +244,9 @@ public class Setup {
             ps.setInt(9, 3);
             ps.executeUpdate();
 
-            ps.setString(1, "Kalaf, the Radiant Shield");
-            ps.setString(2, "Cleric");
-            ps.setString(3, "Dwarf");
+            ps.setString(1, kalaf.getName());
+            ps.setString(2, kalaf.getChClass().getClassName());
+            ps.setString(3, kalaf.getAncestry().getAncestryName());
             ps.setInt(4, 0);
             ps.setInt(5, 3);
             ps.setInt(6, 3);
@@ -249,12 +266,12 @@ public class Setup {
                 """;
         
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
-            ps.setString(1, "Fellers of the Runelord");
-            ps.setString(2, "Drem, the Flashing Blade");
-            ps.setString(3, "Alastor, the Dark Sun");
-            ps.setString(4, "Elyra, the Swift Wind");
-            ps.setString(5, "Kalaf, the Radiant Shield");
-            ps.setInt(6, 27);
+            ps.setString(1, fellers.getPartyName());
+            ps.setString(2, fellers.getPtLeader().getName());
+            ps.setString(3, fellers.getPtStriker().getName());
+            ps.setString(4, fellers.getPtTank().getName());
+            ps.setString(5, fellers.getPtHealer().getName());
+            ps.setInt(6,  fellers.getPtPower());
             ps.executeUpdate();
 
         }
@@ -268,12 +285,12 @@ public class Setup {
                 """;
         
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
-            ps.setString(1, "Throne of Karzoug, the Runelord of Greed");
-            ps.setString(2, "City");
-            ps.setString(3, "S+");
-            ps.setInt(4, 4);
-            ps.setBoolean(5, true);
-            ps.setInt(6, 26);
+            ps.setString(1, throne.getName());
+            ps.setString(2, throne.getBiome().getBiomeName());
+            ps.setString(3, throne.getDifficulty().getDifficultyName());
+            ps.setInt(4, throne.getFloors());
+            ps.setBoolean(5, throne.isHasBoss());
+            ps.setInt(6, throne.getPointsToBeat());
             ps.executeUpdate();
 
         }
@@ -287,20 +304,20 @@ public class Setup {
                 """;
         
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
-            ps.setString(1, "Health Potion");
-            ps.setString(2, "Potion");
-            ps.setString(3, "Restores health.");
-            ps.setString(4, "Common");
-            ps.setInt(5, 50);
-            ps.setBoolean(6, true);
+            ps.setString(1, potion.getName());
+            ps.setString(2, potion.getType().getType());
+            ps.setString(3, potion.getDescription());
+            ps.setString(4, potion.getRarity().getRarity());
+            ps.setInt(5, potion.getValue());
+            ps.setBoolean(6,  potion.isConsumable());
             ps.executeUpdate();
 
-            ps.setString(1, "Sword of electricity, Lightning");
-            ps.setString(2, "Weapon");
-            ps.setString(3, "Beautifully engraved with electric runes, this sword is riddled with distinctive use marks.");
-            ps.setString(4, "Epic");
-            ps.setInt(5, 5000);
-            ps.setBoolean(6, true);
+            ps.setString(1, lightningSword.getName());
+            ps.setString(2, lightningSword.getType().getType());
+            ps.setString(3, lightningSword.getDescription());
+            ps.setString(4, lightningSword.getRarity().getRarity());
+            ps.setInt(5, lightningSword.getValue());
+            ps.setBoolean(6, lightningSword.isConsumable());
             ps.executeUpdate();
 
         }
@@ -314,11 +331,11 @@ public class Setup {
                 """;
         
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
-            ps.setInt(1, 1);
-            ps.setString(2, "Fellers of the Runelord");
-            ps.setString(3, "Throne of Karzoug, the Runelord of Greed");
-            ps.setString(4, "The party defeated Karzoug in his extraplanar pocket situated in the city of Xin-Shalast, and prevented his resurrection.");
-            ps.setBoolean(5, true);
+            ps.setInt(1, karzougDefeat.getQuestId());
+            ps.setString(2, karzougDefeat.getPartyId());
+            ps.setString(3, karzougDefeat.getDungeonId());
+            ps.setString(4, karzougDefeat.getReport());
+            ps.setBoolean(5, karzougDefeat.isSuccess());
             ps.executeUpdate();
 
         }

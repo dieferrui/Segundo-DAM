@@ -111,7 +111,7 @@ public class QuestResultHandler {
             }
 
             System.out.println("All Quest Results:");
-            results.forEach(result -> System.out.println("- " + result.getQuestId()));
+            results.forEach(result -> System.out.println("-> " + result.getQuestId()));
 
         } catch (DAOException e) {
             System.out.println("Error listing quest results.");
