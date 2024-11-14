@@ -25,11 +25,12 @@
 
         <!-- Echo all executed SQL to stdout -->
         <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
 
         <!-- TODO Names the annotated entity class, ensure this is correct -->
-        <mapping class="es.cheste.Main"/>
+        <mapping class="es.cheste.User"/>
     </session-factory>
 </hibernate-configuration>
