@@ -8,5 +8,3 @@
 14. Application crashes at party update if you introduce a character name that doesn't exist (NullPointerException)
 15. Error when trying to update party
 16. Error when trying to find parties by member
-
-D. Lastly, find most expensive item function also works, and the rest of similar functions don't
