@@ -161,7 +161,6 @@ public class ImpCharacterDAO implements CharacterDAO {
     @Override
     public void update(Character character, String oldChar) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
-            Character oldCharacter = obtainByName(oldChar);
 
             ps.setString(1, character.getName());
             ps.setString(2, character.getChClass().getClassName());
@@ -172,7 +171,7 @@ public class ImpCharacterDAO implements CharacterDAO {
             ps.setInt(7, character.getIntMod());
             ps.setInt(8, character.getWisMod());
             ps.setInt(9, character.getChaMod());
-            ps.setString(10, oldCharacter.getName());
+            ps.setString(10, oldChar);
 
             int changedLines = ps.executeUpdate();
 

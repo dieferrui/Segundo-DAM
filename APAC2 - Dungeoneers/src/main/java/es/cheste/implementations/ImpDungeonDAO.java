@@ -27,7 +27,7 @@ public class ImpDungeonDAO implements DungeonDAO {
     private static final String OBTAIN_ALL = "SELECT * FROM Dungeon ORDER BY name ASC";
     private static final String OBTAIN_ALL_BY_BIOME = "SELECT * FROM Dungeon WHERE biome = ? ORDER BY name ASC";
     private static final String OBTAIN_ALL_BY_DIFFICULTY = "SELECT * FROM Dungeon WHERE difficulty = ? ORDER BY name ASC";
-    private static final String UPDATE = "UPDATE dungeon SET name = ?, biome = ?, difficulty = ?, floors = ?, hasBoss = ?," +
+    private static final String UPDATE = "UPDATE Dungeon SET name = ?, biome = ?, difficulty = ?, floors = ?, hasBoss = ?," +
                                             " pointsToBeat = ? WHERE name = ?";
     private static final String DELETE = "DELETE FROM Dungeon WHERE name = ?";
 
@@ -158,7 +158,6 @@ public class ImpDungeonDAO implements DungeonDAO {
     @Override
     public void update(Dungeon dungeon, String oldDun) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
-            Dungeon oldDungeon = obtainByName(oldDun);
 
             ps.setString(0, dungeon.getName());
             ps.setString(1, dungeon.getBiome().getBiomeName());
@@ -166,7 +165,7 @@ public class ImpDungeonDAO implements DungeonDAO {
             ps.setInt(3, dungeon.getFloors());
             ps.setBoolean(4, dungeon.isHasBoss());
             ps.setInt(5, dungeon.getPointsToBeat());
-            ps.setString(6, oldDungeon.getName());
+            ps.setString(6, oldDun);
 
             int filasAfectadas = ps.executeUpdate();
 

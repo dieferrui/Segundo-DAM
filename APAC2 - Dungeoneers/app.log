@@ -37,3 +37,21 @@
 2024-11-15 09:59:43,849 ERROR e.c.h.InventoryHandler [main] Error finding inventory: Inventory not obtained.
 2024-11-15 10:02:37,214 INFO e.c.h.QuestResultHandler [main] Quest result added for party Fellers of the Runelord in dungeon Tomb of Armag, the twice-born
 2024-11-15 10:06:18,299 INFO e.c.h.QuestResultHandler [main] Quest result updated for quest ID: 851320281
+2024-11-15 10:15:23,215 INFO e.c.h.CharacterHandler [main] Character added successfully.
+2024-11-15 10:16:16,784 INFO e.c.h.CharacterHandler [main] Character added successfully.
+2024-11-15 10:16:32,290 INFO e.c.h.CharacterHandler [main] Character deleted: aaaa
+2024-11-15 10:16:41,754 ERROR e.c.h.CharacterHandler [main] Error deleting character: Character deletion failed, no lines affected.
+2024-11-15 10:18:10,073 INFO e.c.h.CharacterHandler [main] Character updated successfully.
+2024-11-15 10:18:41,166 ERROR e.c.h.CharacterHandler [main] Error finding characters by class: Character list not obtained.
+2024-11-15 10:19:39,366 INFO e.c.h.DungeonHandler [main] Dungeon added: Cradle of Lamashtu
+2024-11-15 10:20:57,443 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
+2024-11-15 10:22:46,133 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
+2024-11-15 10:23:26,340 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
+2024-11-15 10:26:07,576 INFO e.c.h.CharacterHandler [main] Character updated successfully.
+2024-11-15 10:28:09,189 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
+2024-11-15 10:32:54,273 INFO e.c.h.CharacterHandler [main] Character updated successfully.
+2024-11-15 10:33:47,935 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
+2024-11-15 10:36:14,169 ERROR e.c.h.DungeonHandler [main] Error finding dungeons by difficulty: Dungeon list not obtained.
+2024-11-15 10:37:35,756 ERROR e.c.h.PartyHandler [main] Error updating party: Party not updated.
+2024-11-15 10:37:52,173 ERROR e.c.h.PartyHandler [main] Error finding parties by member: Party list not obtained.
+2024-11-15 10:39:48,134 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
