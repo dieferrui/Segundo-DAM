@@ -18,3 +18,22 @@
 2024-11-12 10:11:15,351 ERROR e.c.h.PartyHandler [main] Error finding parties by member: Party list not obtained.
 2024-11-12 10:11:27,836 ERROR e.c.h.PartyHandler [main] Error finding parties by member: Party list not obtained.
 2024-11-12 11:24:18,587 ERROR e.c.h.InventoryHandler [main] Error finding inventory: Inventory not obtained.
+2024-11-15 09:20:12,456 INFO e.c.h.ItemHandler [main] Item updated: Speed Potion
+2024-11-15 09:21:34,836 INFO e.c.h.ItemHandler [main] Item added: Mantle of the forest
+2024-11-15 09:21:56,346 ERROR e.c.h.ItemHandler [main] Error listing items by type: Item list not obtained.
+2024-11-15 09:22:14,452 ERROR e.c.h.ItemHandler [main] Error listing items by type: Item list not obtained.
+2024-11-15 09:26:09,730 ERROR e.c.h.CharacterHandler [main] Error updating character: Character not updated.
+2024-11-15 09:45:22,871 INFO e.c.h.ItemHandler [main] Item updated: Mantle of the herbalist
+2024-11-15 09:45:48,182 ERROR e.c.h.ItemHandler [main] Error listing items by rarity: Item list not obtained.
+2024-11-15 09:46:29,102 INFO e.c.h.DungeonHandler [main] Dungeon added: Tomb of Armag, the twice-born
+2024-11-15 09:46:46,379 ERROR e.c.h.DungeonHandler [main] Error finding hardest dungeon: Dungeon not obtained.
+2024-11-15 09:47:42,730 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
+2024-11-15 09:56:26,759 ERROR e.c.h.CharacterHandler [main] Error finding characters by class: Character list not obtained.
+2024-11-15 09:57:56,778 INFO e.c.h.InventoryHandler [main] Inventory item Sword of electricity, Lightning added for character Alastor, the Dark Sun
+2024-11-15 09:58:25,742 ERROR e.c.h.InventoryHandler [main] Error listing inventory: Inventory list not obtained.
+2024-11-15 09:58:50,348 ERROR e.c.h.InventoryHandler [main] Error listing equipment: Inventory list not obtained.
+2024-11-15 09:59:07,019 ERROR e.c.h.InventoryHandler [main] Error listing equipment: Inventory list not obtained.
+2024-11-15 09:59:15,458 ERROR e.c.h.InventoryHandler [main] Error finding inventory: Inventory not obtained.
+2024-11-15 09:59:43,849 ERROR e.c.h.InventoryHandler [main] Error finding inventory: Inventory not obtained.
+2024-11-15 10:02:37,214 INFO e.c.h.QuestResultHandler [main] Quest result added for party Fellers of the Runelord in dungeon Tomb of Armag, the twice-born
+2024-11-15 10:06:18,299 INFO e.c.h.QuestResultHandler [main] Quest result updated for quest ID: 851320281

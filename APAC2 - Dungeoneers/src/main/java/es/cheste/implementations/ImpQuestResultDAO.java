@@ -224,7 +224,7 @@ public class ImpQuestResultDAO implements QuestResultDAO {
                 int dungeonPower = rs.getInt("dungeonPoints");
                 int partyPower = rs.getInt("ptPower");
 
-                resultsExplanation = "Quest ID: " + questIdFound + "\nDungeon: " + dungeonName + " (" + dungeonDifficulty + " - " + 
+                resultsExplanation = "Dungeon: " + dungeonName + " (Difficulty " + dungeonDifficulty + " - " +
                                         dungeonPower + ")\nParty: " + partyName + " (Power: " + partyPower + ")";
             }
 

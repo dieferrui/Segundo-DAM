@@ -23,7 +23,7 @@ public class ImpDungeonDAO implements DungeonDAO {
     // SQL Queries
     private static final String INSERT = "INSERT INTO Dungeon (name, biome, difficulty, floors, hasBoss, pointsToBeat) VALUES (?, ?, ?, ?, ? ,?)";
     private static final String OBTAIN_BY_NAME = "SELECT * FROM Dungeon WHERE name = ?";
-    private static final String OBTAIN_HARDEST = "SELECT name FROM Dungeon WHERE pointsToBeat = (SELECT MAX(pointsToBeat) FROM Dungeon)";
+    private static final String OBTAIN_HARDEST = "SELECT * FROM Dungeon WHERE pointsToBeat = (SELECT MAX(pointsToBeat) FROM Dungeon)";
     private static final String OBTAIN_ALL = "SELECT * FROM Dungeon ORDER BY name ASC";
     private static final String OBTAIN_ALL_BY_BIOME = "SELECT * FROM Dungeon WHERE biome = ? ORDER BY name ASC";
     private static final String OBTAIN_ALL_BY_DIFFICULTY = "SELECT * FROM Dungeon WHERE difficulty = ? ORDER BY name ASC";
@@ -211,45 +211,29 @@ public class ImpDungeonDAO implements DungeonDAO {
 
     // Enum identification method (Biome)
     private Biome identifyBiome(String biome) {
-        switch (biome) {
-            case "Forest":
-                return Biome.FOREST;
-            case "Mountain":
-                return Biome.MOUNTAIN;
-            case "Plains":
-                return Biome.PLAINS;
-            case "Swamp":
-                return Biome.SWAMP;
-            case "Tundra":
-                return Biome.TUNDRA;
-            case "Cave":
-                return Biome.CAVE;
-            case "City":
-                return Biome.CITY;
-            default:
-                return Biome.DESERT;
-        }
+        return switch (biome) {
+            case "Forest" -> Biome.FOREST;
+            case "Mountain" -> Biome.MOUNTAIN;
+            case "Plains" -> Biome.PLAINS;
+            case "Swamp" -> Biome.SWAMP;
+            case "Tundra" -> Biome.TUNDRA;
+            case "Cave" -> Biome.CAVE;
+            case "City" -> Biome.CITY;
+            default -> Biome.DESERT;
+        };
     }
 
     // Enum identification method (Difficulty)
     private Difficulty identifyDifficulty(String diff) {
-        switch (diff) {
-            case "D":
-                return Difficulty.LOW;
-            case "C":
-                return Difficulty.MODERATE;
-            case "B":
-                return Difficulty.MEDIUM;
-            case "A":
-                return Difficulty.HARD;
-            case "S":
-                return Difficulty.VERY_HARD;
-            case "S+":
-                return Difficulty.EXTREME;
-            case "S++":
-                return Difficulty.IMPOSSIBLE;
-            default:
-                return Difficulty.TRIVIAL;
-        }
+        return switch (diff) {
+            case "D" -> Difficulty.LOW;
+            case "C" -> Difficulty.MODERATE;
+            case "B" -> Difficulty.MEDIUM;
+            case "A" -> Difficulty.HARD;
+            case "S" -> Difficulty.VERY_HARD;
+            case "S+" -> Difficulty.EXTREME;
+            case "S++" -> Difficulty.IMPOSSIBLE;
+            default -> Difficulty.TRIVIAL;
+        };
     }
 }

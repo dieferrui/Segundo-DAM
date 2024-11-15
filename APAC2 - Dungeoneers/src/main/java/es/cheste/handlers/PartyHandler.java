@@ -49,8 +49,6 @@ public class PartyHandler {
             }
 
         } while (choice != 0);
-
-        scanner.close();
     }
 
     private void insertParty() {

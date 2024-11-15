@@ -1,5 +1,6 @@
 package es.cheste.implementations;
 
+import es.cheste.enums.CharaClass;
 import es.cheste.enums.ItemType;
 import es.cheste.enums.Rarity;
 import es.cheste.exceptions.DAOException;
@@ -75,7 +76,6 @@ public class ImpItemDAO implements ItemDAO {
         Item item = null;
 
         try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_MOST_EXPENSIVE)) {
-
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     item = mapItem(rs);
@@ -165,9 +165,12 @@ public class ImpItemDAO implements ItemDAO {
 
             if (filasAfectadas == 0) {
                 throw new DAOException("Item update failed, no lines affected.", null);
+
             }
+
         } catch (SQLException e) {
             throw new DAOException("Item not updated.", e);
+
         }
     }
 
@@ -188,12 +191,34 @@ public class ImpItemDAO implements ItemDAO {
     // Mapping method
     private Item mapItem(ResultSet rs) throws SQLException {
         String name = rs.getString("name");
-        ItemType type = ItemType.valueOf(rs.getString("type"));
+        String type = rs.getString("type");
         String description = rs.getString("description");
-        Rarity rarity = Rarity.valueOf(rs.getString("rarity"));
+        String rarity = rs.getString("rarity");
         int value = rs.getInt("value");
         boolean consumable = rs.getBoolean("consumable");
 
-        return new Item(name, type, description, rarity, value, consumable);
+        return new Item(name, identifyType(type), description, identifyRarity(rarity), value, consumable);
     }
+
+    // Enum identification method (Type)
+    private ItemType identifyType(String ty) {
+        return switch (ty) {
+            case "Armor" -> ItemType.ARMOR;
+            case "Weapon" -> ItemType.WEAPON;
+            case "Accesory" -> ItemType.ACCESORY;
+            default -> ItemType.POTION;
+        };
+    }
+
+    // Enum identification method (Rarity)
+    private Rarity identifyRarity(String rar) {
+        return switch (rar) {
+            case "Uncommon" -> Rarity.UNCOMMON;
+            case "Rare" -> Rarity.RARE;
+            case "Epic" -> Rarity.EPIC;
+            case "Legendary" -> Rarity.LEGENDARY;
+            default -> Rarity.COMMON;
+        };
+    }
+
 }

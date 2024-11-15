@@ -48,8 +48,6 @@ public class CharacterHandler {
             }
 
         } while (choice != 0);
-
-        scanner.close();
     }
 
     public void insertCharacter() {

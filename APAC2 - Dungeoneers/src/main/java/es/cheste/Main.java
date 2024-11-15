@@ -17,8 +17,7 @@ public class Main {
     private final PartyHandler partyHandler = new PartyHandler();
     private final InventoryHandler inventoryHandler = new InventoryHandler();
     private final QuestResultHandler questResultHandler = new QuestResultHandler();
-    
-    
+
     private final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {

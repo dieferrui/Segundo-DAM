@@ -24,8 +24,8 @@ public class ImpCharacterDAO implements CharacterDAO {
     private static final String INSERT = "INSERT INTO Charactera (name, class, ancestry, dexMod, strMod, conMod, " +
                                             "intMod, wisMod, chaMod) VALUES (?, ?, ?, ?, ? ,? ,? ,? ,?)";
     private static final String OBTAIN_BY_NAME = "SELECT * FROM Charactera WHERE name = ?";
-    private static final String OBTAIN_STRONGEST = "SELECT name, (dexMod + strMod + conMod + intMod + wisMod + chaMod)" +
-                                                    " AS totalStrength FROM Charactera ORDER BY totalStrength DESC, name ASC LIMIT 1";
+    private static final String OBTAIN_STRONGEST = "SELECT *, (dexMod + strMod + conMod + intMod + wisMod + chaMod) AS totalStrength " +
+                                                    "FROM Charactera ORDER BY totalStrength DESC, name ASC";
     private static final String OBTAIN_ALL = "SELECT * FROM Charactera ORDER BY name ASC";
     private static final String OBTAIN_ALL_BY_CLASS = "SELECT * FROM Charactera WHERE class = ? ORDER BY name ASC";
     private static final String OBTAIN_ALL_BY_ANCESTRY = "SELECT * FROM Charactera WHERE ancestry = ? ORDER BY name ASC";
@@ -183,6 +183,7 @@ public class ImpCharacterDAO implements CharacterDAO {
 
         } catch (SQLException e) {
             throw new DAOException("Character not updated.", e);
+
         }
     }
 
@@ -221,55 +222,34 @@ public class ImpCharacterDAO implements CharacterDAO {
 
     // Enum identification method (Class)
     private CharaClass identifyClass(String chClass) {
-        switch (chClass) {
-            case "Alchemist":
-                return CharaClass.ALCHEMIST;
-            case "Barbarian":
-                return CharaClass.BARBARIAN;
-            case "Bard":
-                return CharaClass.BARD;
-            case "Champion":
-                return CharaClass.CHAMPION;
-            case "Cleric":
-                return CharaClass.CLERIC;
-            case "Druid":
-                return CharaClass.DRUID;
-            case "Wizard":
-                return CharaClass.WIZARD;
-            case "Monk":
-                return CharaClass.MONK;
-            case "Ranger":
-                return CharaClass.RANGER;
-            case "Rogue":
-                return CharaClass.ROGUE;
-            case "Sorcerer":
-                return CharaClass.SORCERER;
-            case "Witch":
-                return CharaClass.WITCH;
-            default:
-                return CharaClass.FIGHTER;
-        }
+        return switch (chClass) {
+            case "Alchemist" -> CharaClass.ALCHEMIST;
+            case "Barbarian" -> CharaClass.BARBARIAN;
+            case "Bard" -> CharaClass.BARD;
+            case "Champion" -> CharaClass.CHAMPION;
+            case "Cleric" -> CharaClass.CLERIC;
+            case "Druid" -> CharaClass.DRUID;
+            case "Wizard" -> CharaClass.WIZARD;
+            case "Monk" -> CharaClass.MONK;
+            case "Ranger" -> CharaClass.RANGER;
+            case "Rogue" -> CharaClass.ROGUE;
+            case "Sorcerer" -> CharaClass.SORCERER;
+            case "Witch" -> CharaClass.WITCH;
+            default -> CharaClass.FIGHTER;
+        };
     }
 
     // Enum identification method (Ancestry)
     private Ancestry identifyAncestry(String ancestry) {
-        switch (ancestry) {
-            case "Dwarf":
-                return Ancestry.DWARF;
-            case "Elf":
-                return Ancestry.ELF;
-            case "Gnome":
-                return Ancestry.GNOME;
-            case "Goblin":
-                return Ancestry.GOBLIN;
-            case "Halfling":
-                return Ancestry.HALFLING;
-            case "Orc":
-                return Ancestry.ORC;
-            case "Leshy":
-                return Ancestry.LESHY;
-            default:
-                return Ancestry.HUMAN;
-        }
+        return switch (ancestry) {
+            case "Dwarf" -> Ancestry.DWARF;
+            case "Elf" -> Ancestry.ELF;
+            case "Gnome" -> Ancestry.GNOME;
+            case "Goblin" -> Ancestry.GOBLIN;
+            case "Halfling" -> Ancestry.HALFLING;
+            case "Orc" -> Ancestry.ORC;
+            case "Leshy" -> Ancestry.LESHY;
+            default -> Ancestry.HUMAN;
+        };
     }
 }

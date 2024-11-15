@@ -57,8 +57,6 @@ public class QuestResultHandler {
             }
 
         } while (choice != 0);
-
-        scanner.close();
     }
 
     private void tryQuestResult() {

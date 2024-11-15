@@ -26,11 +26,11 @@ public class QuestResult {
 
     // Constructor to generate simplified results report based on automated success check
     public QuestResult(Party party, Dungeon dungeon) {
-        this.questId = party.hashCode() + dungeon.hashCode() + report.hashCode();
         this.PartyId = party.getPartyName();
         this.DungeonId = dungeon.getName();
         this.success = party.getPtPower() >= dungeon.getPointsToBeat();
         this.report = getSimpleReport();
+        this.questId = party.hashCode() + dungeon.hashCode() + report.hashCode();
     }
 
     private String getSimpleReport() {

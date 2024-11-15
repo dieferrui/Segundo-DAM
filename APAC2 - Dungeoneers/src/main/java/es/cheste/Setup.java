@@ -10,19 +10,19 @@ import es.cheste.enums.*;
 
 public class Setup {
 
-    private Character alastor = new Character("Alastor, the Dark Sun", CharaClass.WIZARD, Ancestry.HUMAN, 0, 3, 3, 4, 2, 2);
-    private Character elyra = new Character("Elyra, the Swift Wind", CharaClass.MONK, Ancestry.ELF, 3, 4, 3, 1, 3, 1);
-    private Character drem = new Character("Drem, the Flashing Blade", CharaClass.ROGUE, Ancestry.HUMAN, 4, 1, 2, 3, 1, 3);
-    private Character kalaf = new Character("Kalaf, the Radiant Shield", CharaClass.CLERIC, Ancestry.DWARF, 0, 3, 3, 1, 4, 2);
+    private final Character alastor = new Character("Alastor, the Dark Sun", CharaClass.WIZARD, Ancestry.HUMAN, 0, 3, 3, 4, 2, 2);
+    private final Character elyra = new Character("Elyra, the Swift Wind", CharaClass.MONK, Ancestry.ELF, 3, 4, 3, 1, 3, 1);
+    private final Character drem = new Character("Drem, the Flashing Blade", CharaClass.ROGUE, Ancestry.HUMAN, 4, 1, 2, 3, 1, 3);
+    private  final Character kalaf = new Character("Kalaf, the Radiant Shield", CharaClass.CLERIC, Ancestry.DWARF, 0, 3, 3, 1, 4, 2);
 
-    private Party fellers = new Party("Fellers of the Runelord", drem, alastor, elyra, kalaf);
+    private final Party fellers = new Party("Fellers of the Runelord", drem, alastor, elyra, kalaf);
 
-    private Dungeon throne = new Dungeon("Throne of Karzoug, the Runelord of Greed", Biome.CITY, Difficulty.EXTREME, 4, true);
+    private final Dungeon throne = new Dungeon("Throne of Karzoug, the Runelord of Greed", Biome.CITY, Difficulty.EXTREME, 4, true);
 
-    private Item potion = new Item("Health Potion", ItemType.POTION, "Restores health.", Rarity.COMMON, 50, true);
-    private Item lightningSword = new Item("Sword of electricity, Lightning", ItemType.WEAPON, "Beautifully engraved with electric runes, this sword is riddled with distinctive use marks.", Rarity.EPIC, 5000, false);
+    private final Item potion = new Item("Health Potion", ItemType.POTION, "Restores health.", Rarity.COMMON, 50, true);
+    private final Item lightningSword = new Item("Sword of electricity, Lightning", ItemType.WEAPON, "Beautifully engraved with electric runes, this sword is riddled with distinctive use marks.", Rarity.EPIC, 5000, false);
 
-    private QuestResult karzougDefeat = new QuestResult(fellers, throne, "The party defeated Karzoug in a planar pocket located in Xin-Shalast, preventing his resurrection.");
+    private final QuestResult karzougDefeat = new QuestResult(fellers, throne, "The party defeated Karzoug in a planar pocket located in Xin-Shalast, preventing his resurrection.");
 
     DBConnection c = new DBConnection();
 

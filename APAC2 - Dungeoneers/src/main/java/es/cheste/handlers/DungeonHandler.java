@@ -48,8 +48,6 @@ public class DungeonHandler {
             }
 
         } while (choice != 0);
-
-        scanner.close();
     }
 
     private void insertDungeon() {

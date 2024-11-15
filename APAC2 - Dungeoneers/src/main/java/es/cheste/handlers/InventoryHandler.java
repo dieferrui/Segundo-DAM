@@ -51,8 +51,6 @@ public class InventoryHandler {
             }
 
         } while (choice != 0);
-
-        scanner.close();
     }
 
     private void insertInventory() {

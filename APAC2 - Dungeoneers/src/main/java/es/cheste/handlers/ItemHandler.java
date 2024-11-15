@@ -48,8 +48,6 @@ public class ItemHandler {
             }
 
         } while (choice != 0);
-
-        scanner.close();
     }
 
     private void insertItem() {
@@ -125,6 +123,7 @@ public class ItemHandler {
 
         try {
             Item oldItem = dao.obtainByName(oldName);
+
             if (oldItem != null) {
                 System.out.print("New Name: ");
                 String name = scanner.nextLine();
