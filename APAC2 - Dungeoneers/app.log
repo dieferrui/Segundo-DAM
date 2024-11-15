@@ -55,3 +55,29 @@
 2024-11-15 10:37:35,756 ERROR e.c.h.PartyHandler [main] Error updating party: Party not updated.
 2024-11-15 10:37:52,173 ERROR e.c.h.PartyHandler [main] Error finding parties by member: Party list not obtained.
 2024-11-15 10:39:48,134 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
+2024-11-16 11:57:26,481 INFO e.c.h.CharacterHandler [main] Character added successfully.
+2024-11-16 11:59:36,293 INFO e.c.h.CharacterHandler [main] Character updated successfully.
+2024-11-16 12:05:32,946 ERROR e.c.h.QuestResultHandler [main] Error deleting quest result: Quest result deletion failed, no lines affected.
+2024-11-16 12:06:12,327 ERROR e.c.h.QuestResultHandler [main] Error deleting quest result: Quest result deletion failed, no lines affected.
+2024-11-16 12:07:38,495 INFO e.c.h.QuestResultHandler [main] Quest result deleted for quest ID: 1
+2024-11-16 12:08:05,463 INFO e.c.h.QuestResultHandler [main] Quest result added for party Fellers of the Runelord in dungeon Cradle of Lamashtu
+2024-11-16 12:08:31,401 ERROR e.c.h.QuestResultHandler [main] Error deleting quest result: Quest result deletion failed, no lines affected.
+2024-11-16 12:12:01,011 ERROR e.c.h.QuestResultHandler [main] Error deleting quest result: Quest result deletion failed, no lines affected.
+2024-11-16 12:12:07,126 INFO e.c.h.QuestResultHandler [main] Quest result deleted for quest ID: 1
+2024-11-16 12:12:24,152 INFO e.c.h.QuestResultHandler [main] Quest result added for party Fellers of the Runelord in dungeon Cradle of Lamashtu
+2024-11-16 12:12:35,656 INFO e.c.h.QuestResultHandler [main] Quest result deleted for quest ID: 24959
+2024-11-16 12:13:14,416 INFO e.c.h.QuestResultHandler [main] Quest result added for party Fellers of the Runelord in dungeon Tomb of Armag, the twice-born
+2024-11-16 12:40:53,139 INFO e.c.h.ItemHandler [main] Item added: Iron Cuirass
+2024-11-16 12:42:42,385 INFO e.c.h.ItemHandler [main] Item updated: Iron Half-plate
+2024-11-16 12:43:54,968 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
+2024-11-16 12:47:01,215 INFO e.c.h.InventoryHandler [main] Inventory item Speed Potion added for character Alastor, the Dark Sun
+2024-11-16 12:51:09,004 ERROR e.c.h.InventoryHandler [main] Error finding inventory: Inventory not obtained.
+2024-11-16 12:56:32,560 ERROR e.c.h.InventoryHandler [main] Error updating inventory item: Inventory not updated.
+2024-11-16 13:00:11,029 INFO e.c.h.InventoryHandler [main] Inventory slot updated: 1
+2024-11-16 13:00:44,252 INFO e.c.h.InventoryHandler [main] Inventory item Sword of electricity, Lightning added for character Alastor, the Dark Sun
+2024-11-16 13:10:53,962 INFO e.c.h.InventoryHandler [main] Inventory item Iron Half-plate added for character Sybil, the Green Feather
+2024-11-16 13:11:23,862 INFO e.c.h.InventoryHandler [main] Inventory item deleted in slot: 4
+2024-11-16 13:13:01,511 INFO e.c.h.PartyHandler [main] Party added: Gobblers
+2024-11-16 13:14:30,490 INFO e.c.h.PartyHandler [main] Party updated: Gobblers of gobblins
+2024-11-16 13:19:34,822 INFO e.c.h.PartyHandler [main] Party updated: What
+2024-11-16 13:20:01,609 INFO e.c.h.PartyHandler [main] Party deleted: What

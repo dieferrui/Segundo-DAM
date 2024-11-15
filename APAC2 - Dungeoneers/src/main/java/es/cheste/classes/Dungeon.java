@@ -29,20 +29,16 @@ public class Dungeon {
     }
 
     private int getPointsByDifficulty() {
-        int diffPoints = 0;
-
-        switch (difficulty) {
-            case TRIVIAL: diffPoints = 5; break;
-            case LOW: diffPoints = 8; break;
-            case MODERATE: diffPoints = 12; break;
-            case MEDIUM: diffPoints = 18; break;
-            case HARD: diffPoints = 22; break;
-            case VERY_HARD: diffPoints = 24; break;
-            case EXTREME: diffPoints = 26; break;
-            default: diffPoints = 28; break;
-        }
-
-        return diffPoints;
+        return switch (difficulty) {
+            case TRIVIAL -> 5;
+            case LOW -> 8;
+            case MODERATE -> 12;
+            case MEDIUM -> 18;
+            case HARD -> 22;
+            case VERY_HARD -> 24;
+            case EXTREME -> 26;
+            default -> 28;
+        };
     }
 
     public String describe() {

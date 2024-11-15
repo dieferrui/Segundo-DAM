@@ -1,5 +1,6 @@
 package es.cheste.handlers;
 
+import es.cheste.CommonMethod;
 import es.cheste.classes.Inventory;
 import es.cheste.classes.Character;
 import es.cheste.classes.Item;
@@ -18,6 +19,7 @@ public class InventoryHandler {
     private final ImpInventoryDAO dao = new ImpInventoryDAO();
     private final ImpCharacterDAO characterDAO = new ImpCharacterDAO();
     private final ImpItemDAO itemDAO = new ImpItemDAO();
+    private final CommonMethod cm = new CommonMethod();
     private final Scanner scanner = new Scanner(System.in);
     private static final Logger LOGGER = LogManager.getLogger(InventoryHandler.class.getName());
 
@@ -36,7 +38,7 @@ public class InventoryHandler {
             System.out.println("0. Return to main menu");
             System.out.print("Select an option: ");
 
-            choice = getValidInteger();
+            choice = cm.getValidInteger();
 
             switch (choice) {
                 case 1 -> insertInventory();
@@ -55,14 +57,11 @@ public class InventoryHandler {
 
     private void insertInventory() {
         try {
-            System.out.print("Character Name: ");
             Character chara = getCharacter();
-
-            System.out.print("Item Name: ");
             Item item = getItem();
 
             System.out.print("Quantity: ");
-            int quantity = getValidInteger();
+            int quantity = cm.getValidInteger();
 
             Inventory inventory = new Inventory(chara, item, quantity);
             dao.insert(inventory);
@@ -78,7 +77,7 @@ public class InventoryHandler {
 
     private void findInventoryBySlot() {
         System.out.print("Enter slot number: ");
-        int slotNumber = getValidInteger();
+        int slotNumber = cm.getValidInteger();
 
         try {
             Inventory inventory = dao.obtainBySlotNumber(slotNumber);
@@ -114,7 +113,8 @@ public class InventoryHandler {
             System.out.println("Inventory items for character " + characterName + ":");
 
             for (Inventory inventory : inventories) {
-                System.out.println("- " + inventory.getItemName() + " (Qty: " + inventory.getQuantity() + ")");
+                System.out.println("- " + inventory.getSlotNumber() + ": " + inventory.getItemName() +
+                        " (Qty: " + inventory.getQuantity() + ")");
 
             }
 
@@ -141,7 +141,7 @@ public class InventoryHandler {
             System.out.println("Equipment for character " + characterName + ":");
 
             for (Inventory item : equipment) {
-                System.out.println("- " + item.getItemName());
+                System.out.println("- " + item.getSlotNumber() + ": " + item.getItemName());
 
             }
 
@@ -168,7 +168,8 @@ public class InventoryHandler {
             System.out.println("Consumables for character " + characterName + ":");
 
             for (Inventory item : consumables) {
-                System.out.println("- " + item.getItemName() + " (Qty: " + item.getQuantity() + ")");
+                System.out.println("- " + item.getSlotNumber() + ": " + item.getItemName() +
+                        " (Qty: " + item.getQuantity() + ")");
 
             }
 
@@ -181,20 +182,17 @@ public class InventoryHandler {
 
     private void updateInventory() {
         System.out.print("Enter slot number to update: ");
-        int slotNumber = getValidInteger();
+        int slotNumber = cm.getValidInteger();
 
         try {
             Inventory existingInventory = dao.obtainBySlotNumber(slotNumber);
 
             if (existingInventory != null) {
-                System.out.print("Character Name: ");
                 Character chara = getCharacter();
-
-                System.out.print("Item Name: ");
                 Item item = getItem();
 
                 System.out.print("Quantity: ");
-                int quantity = getValidInteger();
+                int quantity = cm.getValidInteger();
 
                 Inventory updatedInventory = new Inventory(slotNumber, chara.getName(), item.getName(), quantity);
                 dao.update(slotNumber, updatedInventory);
@@ -216,7 +214,7 @@ public class InventoryHandler {
 
     private void deleteInventory() {
         System.out.print("Enter slot number to delete: ");
-        int slotNumber = getValidInteger();
+        int slotNumber = cm.getValidInteger();
 
         try {
             dao.delete(slotNumber);
@@ -233,34 +231,30 @@ public class InventoryHandler {
     private Character getCharacter() {
         Character chara = null;
         System.out.print("Select character to equip:\n");
-        
+
         try {
             List<Character> characters = characterDAO.obtainAll();
 
-            for (int i = 0; i < characters.size(); i++) {
-                System.out.println(i + ". " + characters.get(i).getName());
-
+            if (characters.isEmpty()) {
+                System.out.println("No characters available.");
+                return null;
             }
+
+            for (int i = 0; i < characters.size(); i++) {
+                System.out.println((i + 1) + ". " + characters.get(i).getName());
+            }
+
+            int choice = cm.getValidIndex(characters.size());
+            chara = characters.get(choice - 1);
 
         } catch (DAOException e) {
             System.out.println("Error obtaining characters.");
             LOGGER.error("Error obtaining characters: " + e.getMessage());
-
-        }
-
-        String selection = scanner.nextLine();
-
-        try {
-            chara = characterDAO.obtainByName(selection);
-
-        } catch (DAOException e) {
-            System.out.println("Error obtaining character.");
-            LOGGER.error("Error obtaining character: " + e.getMessage());
-
         }
 
         return chara;
     }
+
 
     private Item getItem() {
         Item it = null;
@@ -269,10 +263,17 @@ public class InventoryHandler {
         try {
             List<Item> items = itemDAO.obtainAll();
 
-            for (int i = 0; i < items.size(); i++) {
-                System.out.println(i + ". " + items.get(i).getName());
-
+            if (items.isEmpty()) {
+                System.out.println("No items available.");
+                return null;
             }
+
+            for (int i = 0; i < items.size(); i++) {
+                System.out.println((i + 1) + ". " + items.get(i).getName());
+            }
+
+            int choice = cm.getValidIndex(items.size());
+            it = items.get(choice - 1);
 
         } catch (DAOException e) {
             System.out.println("Error obtaining items.");
@@ -280,27 +281,6 @@ public class InventoryHandler {
 
         }
 
-        String selection = scanner.nextLine();
-
-        try {
-            it = itemDAO.obtainByName(selection);
-
-        } catch (DAOException e) {
-            System.out.println("Error obtaining item.");
-            LOGGER.error("Error obtaining item: " + e.getMessage());
-
-        }
-
         return it;
-    }
-
-    private int getValidInteger() {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine().trim());
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid integer.");
-            }
-        }
     }
 }

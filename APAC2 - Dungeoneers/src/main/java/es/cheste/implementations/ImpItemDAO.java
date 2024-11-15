@@ -1,6 +1,5 @@
 package es.cheste.implementations;
 
-import es.cheste.enums.CharaClass;
 import es.cheste.enums.ItemType;
 import es.cheste.enums.Rarity;
 import es.cheste.exceptions.DAOException;
@@ -19,6 +18,7 @@ public class ImpItemDAO implements ItemDAO {
     // Final Strings
     private static final String NOT_OBTAINED = "Item not obtained.";
     private static final String LIST_NOT_OBTAINED = "Item list not obtained.";
+    private static final String STATEMENT_ERROR = "Statement error.";
 
     // SQL Queries
     private static final String INSERT = "INSERT INTO Item (name, type, description, rarity, value, consumable) VALUES (?, ?, ?, ?, ?, ?)";
@@ -112,17 +112,21 @@ public class ImpItemDAO implements ItemDAO {
     public List<Item> obtainAllByType(ItemType type) throws DAOException {
         List<Item> items = new ArrayList<>();
 
-        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_TYPE);
-             ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_TYPE)) {
             ps.setString(1, type.getType());
 
-            while (rs.next()) {
-                Item item = mapItem(rs);
-                items.add(item);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Item item = mapItem(rs);
+                    items.add(item);
+                }
+
+            } catch (SQLException e) {
+                throw new DAOException(LIST_NOT_OBTAINED, e);
             }
 
         } catch (SQLException e) {
-            throw new DAOException(LIST_NOT_OBTAINED, e);
+            throw new DAOException(STATEMENT_ERROR, e);
         }
 
         return items;
@@ -132,17 +136,21 @@ public class ImpItemDAO implements ItemDAO {
     public List<Item> obtainAllByRarity(Rarity rarity) throws DAOException {
         List<Item> items = new ArrayList<>();
 
-        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_RARITY);
-             ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_RARITY)) {
             ps.setString(1, rarity.getRarity());
 
-            while (rs.next()) {
-                Item item = mapItem(rs);
-                items.add(item);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Item item = mapItem(rs);
+                    items.add(item);
+                }
+
+            } catch (SQLException e) {
+                throw new DAOException(LIST_NOT_OBTAINED, e);
             }
 
         } catch (SQLException e) {
-            throw new DAOException(LIST_NOT_OBTAINED, e);
+            throw new DAOException(STATEMENT_ERROR, e);
         }
 
         return items;
@@ -151,7 +159,6 @@ public class ImpItemDAO implements ItemDAO {
     @Override
     public void update(Item item, String oldIt) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
-            Item oldItem = obtainByName(oldIt);
 
             ps.setString(1, item.getName());
             ps.setString(2, item.getType().getType());
@@ -159,7 +166,7 @@ public class ImpItemDAO implements ItemDAO {
             ps.setString(4, item.getRarity().getRarity());
             ps.setInt(5, item.getValue());
             ps.setBoolean(6, item.isConsumable());
-            ps.setString(7, oldItem.getName());
+            ps.setString(7, oldIt);
 
             int filasAfectadas = ps.executeUpdate();
 

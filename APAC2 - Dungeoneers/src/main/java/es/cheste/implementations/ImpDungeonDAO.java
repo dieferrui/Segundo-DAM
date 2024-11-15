@@ -19,14 +19,15 @@ public class ImpDungeonDAO implements DungeonDAO {
     // Final Strings
     private static final String NOT_OBTAINED = "Dungeon not obtained.";
     private static final String LIST_NOT_OBTAINED = "Dungeon list not obtained.";
+    private static final String STATEMENT_ERROR = "Statement error.";
 
     // SQL Queries
     private static final String INSERT = "INSERT INTO Dungeon (name, biome, difficulty, floors, hasBoss, pointsToBeat) VALUES (?, ?, ?, ?, ? ,?)";
     private static final String OBTAIN_BY_NAME = "SELECT * FROM Dungeon WHERE name = ?";
     private static final String OBTAIN_HARDEST = "SELECT * FROM Dungeon WHERE pointsToBeat = (SELECT MAX(pointsToBeat) FROM Dungeon)";
-    private static final String OBTAIN_ALL = "SELECT * FROM Dungeon ORDER BY name ASC";
-    private static final String OBTAIN_ALL_BY_BIOME = "SELECT * FROM Dungeon WHERE biome = ? ORDER BY name ASC";
-    private static final String OBTAIN_ALL_BY_DIFFICULTY = "SELECT * FROM Dungeon WHERE difficulty = ? ORDER BY name ASC";
+    private static final String OBTAIN_ALL = "SELECT * FROM Dungeon";
+    private static final String OBTAIN_ALL_BY_BIOME = "SELECT * FROM Dungeon WHERE biome = ?";
+    private static final String OBTAIN_ALL_BY_DIFFICULTY = "SELECT * FROM Dungeon WHERE difficulty = ?";
     private static final String UPDATE = "UPDATE Dungeon SET name = ?, biome = ?, difficulty = ?, floors = ?, hasBoss = ?," +
                                             " pointsToBeat = ? WHERE name = ?";
     private static final String DELETE = "DELETE FROM Dungeon WHERE name = ?";
@@ -117,18 +118,21 @@ public class ImpDungeonDAO implements DungeonDAO {
     public List<Dungeon> obtainAllByBiome(Biome biome) throws DAOException {
         List<Dungeon> dungeons = new ArrayList<>();
 
-        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_BIOME);
-             ResultSet rs = ps.executeQuery()) {
-
+        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_BIOME)) {
             ps.setString(1, biome.getBiomeName());
 
-            while (rs.next()) {
-                Dungeon dungeon = mapDungeon(rs);
-                dungeons.add(dungeon);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Dungeon dungeon = mapDungeon(rs);
+                    dungeons.add(dungeon);
+                }
+
+            } catch (SQLException e) {
+                throw new DAOException(LIST_NOT_OBTAINED, e);
             }
 
         } catch (SQLException e) {
-            throw new DAOException(LIST_NOT_OBTAINED, e);
+            throw new DAOException(STATEMENT_ERROR, e);
         }
 
         return dungeons;
@@ -138,18 +142,21 @@ public class ImpDungeonDAO implements DungeonDAO {
     public List<Dungeon> obtainAllByDifficulty(Difficulty diff) throws DAOException {
         List<Dungeon> dungeons = new ArrayList<>();
 
-        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_DIFFICULTY);
-             ResultSet rs = ps.executeQuery()) {
-
+        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_DIFFICULTY)) {
             ps.setString(1, diff.getDifficultyName());
 
-            while (rs.next()) {
-                Dungeon dungeon = mapDungeon(rs);
-                dungeons.add(dungeon);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Dungeon dungeon = mapDungeon(rs);
+                    dungeons.add(dungeon);
+                }
+
+            } catch (SQLException e) {
+                throw new DAOException(LIST_NOT_OBTAINED, e);
             }
 
         } catch (SQLException e) {
-            throw new DAOException(LIST_NOT_OBTAINED, e);
+            throw new DAOException(STATEMENT_ERROR, e);
         }
 
         return dungeons;

@@ -1,5 +1,6 @@
 package es.cheste.handlers;
 
+import es.cheste.CommonMethod;
 import es.cheste.classes.Dungeon;
 import es.cheste.enums.Biome;
 import es.cheste.enums.Difficulty;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 public class DungeonHandler {
     private final ImpDungeonDAO dao = new ImpDungeonDAO();
     private final Scanner scanner = new Scanner(System.in);
+    private final CommonMethod cm = new CommonMethod();
     private static final Logger LOGGER = LogManager.getLogger(DungeonHandler.class.getName());
 
     public void start() {
@@ -31,7 +33,7 @@ public class DungeonHandler {
             System.out.println("0. Return to main menu");
             System.out.print("Select an option: ");
             
-            choice = getValidInteger();
+            choice = cm.getValidInteger();
 
             switch (choice) {
                 case 1 -> insertDungeon();
@@ -59,7 +61,7 @@ public class DungeonHandler {
             Difficulty difficulty = selectDifficulty();
 
             System.out.print("Number of Floors: ");
-            int floors = getValidInteger();
+            int floors = cm.getValidInteger();
 
             System.out.print("Has Boss (true/false): ");
             boolean hasBoss = Boolean.parseBoolean(scanner.nextLine());
@@ -115,7 +117,7 @@ public class DungeonHandler {
                 Difficulty difficulty = selectDifficulty();
                 
                 System.out.print("Number of Floors: ");
-                int floors = getValidInteger();
+                int floors = cm.getValidInteger();
 
                 System.out.print("Has Boss (true/false): ");
                 boolean hasBoss = Boolean.parseBoolean(scanner.nextLine());
@@ -256,7 +258,7 @@ public class DungeonHandler {
 
         }
 
-        return biomes[getValidIndex(biomes.length) - 1];
+        return biomes[cm.getValidIndex(biomes.length) - 1];
     }
 
     private Difficulty selectDifficulty() {
@@ -268,35 +270,6 @@ public class DungeonHandler {
 
         }
 
-        return difficulties[getValidIndex(difficulties.length) - 1];
-    }
-
-    private int getValidIndex(int max) {
-        int choice;
-
-        do {
-            System.out.print("Enter your choice: ");
-            choice = getValidInteger();
-
-            if (choice < 1 || choice > max) {
-                System.out.println("Please select a number between 1 and " + max + ".");
-
-            }
-
-        } while (choice < 1 || choice > max);
-
-        return choice;
-    }
-
-    private int getValidInteger() {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine().trim());
-
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid integer.");
-                
-            }
-        }
+        return difficulties[cm.getValidIndex(difficulties.length) - 1];
     }
 }

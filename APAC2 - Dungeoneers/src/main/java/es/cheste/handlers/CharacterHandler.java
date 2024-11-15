@@ -1,5 +1,6 @@
 package es.cheste.handlers;
 
+import es.cheste.CommonMethod;
 import es.cheste.classes.Character;
 import es.cheste.enums.Ancestry;
 import es.cheste.enums.CharaClass;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 public class CharacterHandler {
     private final ImpCharacterDAO dao = new ImpCharacterDAO();
     private final Scanner scanner = new Scanner(System.in);
+    private final CommonMethod cm = new CommonMethod();
     private static final Logger LOGGER = LogManager.getLogger(CharacterHandler.class.getName());
 
     public void start() {
@@ -32,7 +34,7 @@ public class CharacterHandler {
             System.out.println("0. Return to main menu");
             System.out.print("Select an option: ");
             
-            choice = getValidInteger();
+            choice = cm.getValidInteger();
 
             switch (choice) {
                 case 1 -> insertCharacter();
@@ -269,7 +271,7 @@ public class CharacterHandler {
             System.out.println((i + 1) + ". " + classes[i].getClassName());
         }
 
-        return classes[getValidIndex(classes.length) - 1];
+        return classes[cm.getValidIndex(classes.length) - 1];
     }
 
     private Ancestry selectAncestry() {
@@ -280,14 +282,14 @@ public class CharacterHandler {
             System.out.println((i + 1) + ". " + ancestries[i].getAncestryName());
         }
 
-        return ancestries[getValidIndex(ancestries.length) - 1];
+        return ancestries[cm.getValidIndex(ancestries.length) - 1];
     }
 
     private int getStat(String prompt) {
         int stat;
         do {
             System.out.print(prompt);
-            stat = getValidInteger();
+            stat = cm.getValidInteger();
 
             if (stat < -1 || stat > 4) {
                 System.out.println("Please enter a value between -1 and 4 for character stats.");
@@ -297,33 +299,4 @@ public class CharacterHandler {
 
         return stat;
     }
-
-    private int getValidIndex(int max) {
-        int choice;
-
-        do {
-            System.out.print("Enter your choice: ");
-            choice = getValidInteger();
-
-            if (choice < 1 || choice > max) {
-                System.out.println("Please select a number between 1 and " + max + ".");
-            }
-
-        } while (choice < 1 || choice > max);
-
-        return choice;
-    }
-
-    private int getValidInteger() {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine().trim());
-
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter an integer value (1, 2, 3...)");
-
-            }
-        }
-    }
-    
 }

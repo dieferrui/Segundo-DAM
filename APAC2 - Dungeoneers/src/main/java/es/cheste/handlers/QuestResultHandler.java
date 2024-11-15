@@ -1,5 +1,6 @@
 package es.cheste.handlers;
 
+import es.cheste.CommonMethod;
 import es.cheste.classes.Party;
 import es.cheste.classes.Dungeon;
 import es.cheste.classes.QuestResult;
@@ -12,12 +13,14 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class QuestResultHandler {
     private final ImpQuestResultDAO dao = new ImpQuestResultDAO();
     private final ImpPartyDAO partyDAO = new ImpPartyDAO();
     private final ImpDungeonDAO dungeonDAO = new ImpDungeonDAO();
+    private final CommonMethod cm = new CommonMethod();
     private final Scanner scanner = new Scanner(System.in);
     private static final Logger LOGGER = LogManager.getLogger(QuestResultHandler.class.getName());
 
@@ -39,7 +42,7 @@ public class QuestResultHandler {
             System.out.println("0. Return to main menu");
             System.out.print("Select an option: ");
 
-            choice = getValidInteger();
+            choice = cm.getValidInteger();
 
             switch (choice) {
                 case 1 -> tryQuestResult();
@@ -63,8 +66,14 @@ public class QuestResultHandler {
         try {
             Party party = getParty();
             Dungeon dungeon = getDungeon();
+            int questId;
 
-            QuestResult questResult = new QuestResult(party, dungeon);
+            do {
+                questId = generateRandomId();
+
+            } while (dao.obtainById(questId) != null);
+
+            QuestResult questResult = new QuestResult(party, dungeon, questId);
             dao.insert(questResult);
             System.out.println("Quest result added successfully.");
 
@@ -78,7 +87,7 @@ public class QuestResultHandler {
 
     private void findQuestResultById() {
         System.out.print("Enter quest ID: ");
-        int questId = getValidInteger();
+        int questId = cm.getValidInteger();
 
         try {
             QuestResult questResult = dao.obtainById(questId);
@@ -202,7 +211,7 @@ public class QuestResultHandler {
 
     private void updateQuestResult() {
         System.out.print("Enter quest ID to update: ");
-        int questId = getValidInteger();
+        int questId = cm.getValidInteger();
 
         try {
             QuestResult existingResult = dao.obtainById(questId);
@@ -214,7 +223,7 @@ public class QuestResultHandler {
                 Party party = partyDAO.obtainByName(existingResult.getPartyId());
                 Dungeon dungeon = dungeonDAO.obtainByName(existingResult.getDungeonId());
 
-                QuestResult updatedResult = new QuestResult(party, dungeon, report);
+                QuestResult updatedResult = new QuestResult(party, dungeon, report, existingResult.getQuestId());
                 dao.update(updatedResult, questId);
 
                 System.out.println("Quest result updated successfully.");
@@ -234,7 +243,7 @@ public class QuestResultHandler {
 
     private void deleteQuestResult() {
         System.out.print("Enter quest ID to delete: ");
-        int questId = getValidInteger();
+        int questId = cm.getValidInteger();
 
         try {
             dao.delete(questId);
@@ -250,13 +259,13 @@ public class QuestResultHandler {
 
     private void getQuestSummary() {
         System.out.print("Enter quest ID: ");
-        int questId = getValidInteger();
+        int questId = cm.getValidInteger();
 
         try {
             String results = dao.getQuestResults(questId);
 
             if (results != null) {
-                System.out.println("Quest Results:\n" + results);
+                System.out.println("Quest data:\n" + results);
 
             } else {
                 System.out.println("No quest result found with that ID.");
@@ -272,30 +281,27 @@ public class QuestResultHandler {
 
     private Party getParty() {
         Party party = null;
-        System.out.print("Select party to embark on quest:\n");
+        System.out.print("Select party:\n");
         
         try {
             List<Party> parties = partyDAO.obtainAll();
 
+            if (parties.isEmpty()) {
+                System.out.println("No parties available.");
+                return null;
+            }
+
             for (int i = 0; i < parties.size(); i++) {
-                System.out.println(i + ". " + parties.get(i).getPartyName());
+                System.out.println((i + 1) + ". " + parties.get(i).getPartyName());
 
             }
+
+            int choice = cm.getValidIndex(parties.size());
+            party = parties.get(choice - 1);
 
         } catch (DAOException e) {
             System.out.println("Error obtaining parties.");
             LOGGER.error("Error obtaining parties: " + e.getMessage());
-
-        }
-
-        String selection = scanner.nextLine();
-
-        try {
-            party = partyDAO.obtainByName(selection);
-
-        } catch (DAOException e) {
-            System.out.println("Error obtaining party.");
-            LOGGER.error("Error obtaining party: " + e.getMessage());
 
         }
 
@@ -304,15 +310,18 @@ public class QuestResultHandler {
 
     private Dungeon getDungeon() {
         Dungeon dungeon = null;
-        System.out.print("Select dungeon to send party to:\n");
+        System.out.print("Select dungeon:\n");
         
         try {
             List<Dungeon> dungeons = dungeonDAO.obtainAll();
 
             for (int i = 0; i < dungeons.size(); i++) {
-                System.out.println(i + ". " + dungeons.get(i).getName());
+                System.out.println((i + 1) + ". " + dungeons.get(i).getName());
 
             }
+
+            int choice = cm.getValidIndex(dungeons.size());
+            dungeon = dungeons.get(choice - 1);
 
         } catch (DAOException e) {
             System.out.println("Error obtaining dungeons.");
@@ -320,27 +329,11 @@ public class QuestResultHandler {
 
         }
 
-        String selection = scanner.nextLine();
-
-        try {
-            dungeon = dungeonDAO.obtainByName(selection);
-
-        } catch (DAOException e) {
-            System.out.println("Error obtaining dungeon.");
-            LOGGER.error("Error obtaining dungeon: " + e.getMessage());
-
-        }
-
         return dungeon;
     }
 
-    private int getValidInteger() {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine().trim());
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid integer.");
-            }
-        }
+    public static int generateRandomId() {
+        Random random = new Random();
+        return random.nextInt(9999) + 1;
     }
 }

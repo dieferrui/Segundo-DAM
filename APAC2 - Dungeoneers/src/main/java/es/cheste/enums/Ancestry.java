@@ -1,5 +1,8 @@
 package es.cheste.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Ancestry {
     DWARF("Dwarf"),
     ELF("Elf"),
@@ -16,7 +19,4 @@ public enum Ancestry {
         this.ancestryName = ancestryName;
     }
 
-    public String getAncestryName() {
-        return ancestryName;
-    }
 }

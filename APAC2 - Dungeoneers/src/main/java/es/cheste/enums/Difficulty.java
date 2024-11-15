@@ -1,5 +1,8 @@
 package es.cheste.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Difficulty {
     TRIVIAL("E"),
     LOW("D"),
@@ -16,7 +19,4 @@ public enum Difficulty {
         this.difficultyName = difficultyName;
     }
 
-    public String getDifficultyName() {
-        return difficultyName;
-    }
 }

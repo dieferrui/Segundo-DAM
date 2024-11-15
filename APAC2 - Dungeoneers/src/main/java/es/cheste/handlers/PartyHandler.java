@@ -1,5 +1,6 @@
 package es.cheste.handlers;
 
+import es.cheste.CommonMethod;
 import es.cheste.classes.Party;
 import es.cheste.classes.Character;
 import es.cheste.exceptions.DAOException;
@@ -15,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 public class PartyHandler {
     private final ImpPartyDAO dao = new ImpPartyDAO();
     private final ImpCharacterDAO charImpMethod = new ImpCharacterDAO();
+    private final CommonMethod cm = new CommonMethod();
     private final Scanner scanner = new Scanner(System.in);
     private static final Logger LOGGER = LogManager.getLogger(PartyHandler.class.getName());
 
@@ -33,7 +35,7 @@ public class PartyHandler {
             System.out.println("0. Return to main menu");
             System.out.print("Select an option: ");
 
-            choice = getValidInteger();
+            choice = cm.getValidInteger();
 
             switch (choice) {
                 case 1 -> insertParty();
@@ -238,45 +240,28 @@ public class PartyHandler {
 
     private Character getCharacter(String role) {
         Character chara = null;
-        System.out.print("Select character for role (input character name): " + role + "\n");
-        
+        System.out.print("Select character for role" + role + ":\n");
+
         try {
             List<Character> characters = charImpMethod.obtainAll();
 
-            for (int i = 0; i < characters.size(); i++) {
-                System.out.println(i + ". " + characters.get(i).getName());
-
+            if (characters.isEmpty()) {
+                System.out.println("No characters available.");
+                return null;
             }
+
+            for (int i = 0; i < characters.size(); i++) {
+                System.out.println((i + 1) + ". " + characters.get(i).getName());
+            }
+
+            int choice = cm.getValidIndex(characters.size());
+            chara = characters.get(choice - 1);
 
         } catch (DAOException e) {
             System.out.println("Error obtaining characters.");
             LOGGER.error("Error obtaining characters: " + e.getMessage());
-
-        }
-
-        String selection = scanner.nextLine();
-
-        try {
-            chara = charImpMethod.obtainByName(selection);
-
-        } catch (DAOException e) {
-            System.out.println("Error obtaining character.");
-            LOGGER.error("Error obtaining character: " + e.getMessage());
-
         }
 
         return chara;
-    }
-
-    private int getValidInteger() {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine().trim());
-
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid integer.");
-
-            }
-        }
     }
 }

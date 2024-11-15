@@ -1,5 +1,8 @@
 package es.cheste.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum CharaClass {
     ALCHEMIST("Alchemist"),
     BARBARIAN("Barbarian"),
@@ -21,7 +24,4 @@ public enum CharaClass {
         this.className = className;
     }
 
-    public String getClassName() {
-        return className;
-    }
 }

@@ -19,16 +19,17 @@ public class ImpCharacterDAO implements CharacterDAO {
     // Final Strings
     private static final String NOT_OBTAINED = "Character not obtained.";
     private static final String LIST_NOT_OBTAINED = "Character list not obtained.";
+    private static final String STATEMENT_ERROR = "Statement error.";
 
     // SQL Queries
     private static final String INSERT = "INSERT INTO Charactera (name, class, ancestry, dexMod, strMod, conMod, " +
                                             "intMod, wisMod, chaMod) VALUES (?, ?, ?, ?, ? ,? ,? ,? ,?)";
     private static final String OBTAIN_BY_NAME = "SELECT * FROM Charactera WHERE name = ?";
     private static final String OBTAIN_STRONGEST = "SELECT *, (dexMod + strMod + conMod + intMod + wisMod + chaMod) AS totalStrength " +
-                                                    "FROM Charactera ORDER BY totalStrength DESC, name ASC";
-    private static final String OBTAIN_ALL = "SELECT * FROM Charactera ORDER BY name ASC";
-    private static final String OBTAIN_ALL_BY_CLASS = "SELECT * FROM Charactera WHERE class = ? ORDER BY name ASC";
-    private static final String OBTAIN_ALL_BY_ANCESTRY = "SELECT * FROM Charactera WHERE ancestry = ? ORDER BY name ASC";
+                                                    "FROM Charactera ORDER BY totalStrength DESC";
+    private static final String OBTAIN_ALL = "SELECT * FROM Charactera";
+    private static final String OBTAIN_ALL_BY_CLASS = "SELECT * FROM Charactera WHERE class = ?";
+    private static final String OBTAIN_ALL_BY_ANCESTRY = "SELECT * FROM Charactera WHERE ancestry = ?";
     private static final String UPDATE = "UPDATE Charactera SET name = ?, class = ?, ancestry = ?, dexMod = ?, strMod = ?," +
                                             " conMod = ?, intMod = ?, wisMod = ?, chaMod = ? WHERE name = ?";
     private static final String DELETE = "DELETE FROM Charactera WHERE name = ?";
@@ -120,18 +121,21 @@ public class ImpCharacterDAO implements CharacterDAO {
     public List<Character> obtainAllByClass(CharaClass chClass) throws DAOException {
         List<Character> characters = new ArrayList<>();
 
-        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_CLASS);
-             ResultSet rs = ps.executeQuery()) {
-
+        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_CLASS)) {
             ps.setString(1, chClass.getClassName());
 
-            while (rs.next()) {
-                Character character = mapCharacter(rs);
-                characters.add(character);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Character character = mapCharacter(rs);
+                    characters.add(character);
+                }
+
+            } catch (SQLException e) {
+                throw new DAOException(LIST_NOT_OBTAINED, e);
             }
 
         } catch (SQLException e) {
-            throw new DAOException(LIST_NOT_OBTAINED, e);
+            throw new DAOException(STATEMENT_ERROR, e);
         }
 
         return characters;
@@ -141,14 +145,17 @@ public class ImpCharacterDAO implements CharacterDAO {
     public List<Character> obtainAllByAncestry(Ancestry ancestry) throws DAOException {
         List<Character> characters = new ArrayList<>();
 
-        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_ANCESTRY);
-             ResultSet rs = ps.executeQuery()) {
-
+        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_BY_ANCESTRY)) {
             ps.setString(1, ancestry.getAncestryName());
 
-            while (rs.next()) {
-                Character character = mapCharacter(rs);
-                characters.add(character);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Character character = mapCharacter(rs);
+                    characters.add(character);
+                }
+
+            } catch (SQLException e) {
+                throw new DAOException(LIST_NOT_OBTAINED, e);
             }
 
         } catch (SQLException e) {

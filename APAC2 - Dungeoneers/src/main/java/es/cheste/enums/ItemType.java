@@ -1,5 +1,8 @@
 package es.cheste.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum ItemType {
     ARMOR("Armor"),
     WEAPON("Weapon"),
@@ -12,7 +15,4 @@ public enum ItemType {
         this.type = type;
     }
 
-    public String getType() {
-        return type;
-    }
 }

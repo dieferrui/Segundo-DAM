@@ -22,7 +22,7 @@ public class Setup {
     private final Item potion = new Item("Health Potion", ItemType.POTION, "Restores health.", Rarity.COMMON, 50, true);
     private final Item lightningSword = new Item("Sword of electricity, Lightning", ItemType.WEAPON, "Beautifully engraved with electric runes, this sword is riddled with distinctive use marks.", Rarity.EPIC, 5000, false);
 
-    private final QuestResult karzougDefeat = new QuestResult(fellers, throne, "The party defeated Karzoug in a planar pocket located in Xin-Shalast, preventing his resurrection.");
+    private final QuestResult karzougDefeat = new QuestResult(fellers, throne, "The party defeated Karzoug in a planar pocket located in Xin-Shalast, preventing his resurrection.", 1);
 
     DBConnection c = new DBConnection();
 
@@ -331,7 +331,7 @@ public class Setup {
                 """;
         
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
-            ps.setInt(1, karzougDefeat.getQuestId());
+            ps.setInt(1, 1);
             ps.setString(2, karzougDefeat.getPartyId());
             ps.setString(3, karzougDefeat.getDungeonId());
             ps.setString(4, karzougDefeat.getReport());

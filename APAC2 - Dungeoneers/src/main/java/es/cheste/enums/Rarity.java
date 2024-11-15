@@ -1,5 +1,8 @@
 package es.cheste.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Rarity {
     COMMON("Commnon"),
     UNCOMMON("Uncommon"),
@@ -13,7 +16,4 @@ public enum Rarity {
         this.rarity = rarity;
     }
 
-    public String getRarity() {
-        return rarity;
-    }
 }

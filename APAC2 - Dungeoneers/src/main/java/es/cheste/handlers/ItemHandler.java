@@ -1,5 +1,6 @@
 package es.cheste.handlers;
 
+import es.cheste.CommonMethod;
 import es.cheste.classes.Item;
 import es.cheste.enums.ItemType;
 import es.cheste.enums.Rarity;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 
 public class ItemHandler {
     private final ImpItemDAO dao = new ImpItemDAO();
+    private final CommonMethod cm = new CommonMethod();
     private final Scanner scanner = new Scanner(System.in);
     private static final Logger LOGGER = LogManager.getLogger(ItemHandler.class.getName());
 
@@ -32,7 +34,7 @@ public class ItemHandler {
             System.out.println("0. Return to main menu");
             System.out.print("Select an option: ");
 
-            choice = getValidInteger();
+            choice = cm.getValidInteger();
 
             switch (choice) {
                 case 1 -> insertItem();
@@ -62,7 +64,7 @@ public class ItemHandler {
             String description = scanner.nextLine();
 
             System.out.print("Value: ");
-            int value = getValidInteger();
+            int value = cm.getValidInteger();
 
             boolean consumable = getValidBoolean();
 
@@ -135,7 +137,7 @@ public class ItemHandler {
                 String description = scanner.nextLine();
 
                 System.out.print("New Value: ");
-                int value = getValidInteger();
+                int value = cm.getValidInteger();
 
                 boolean consumable = getValidBoolean();
 
@@ -257,7 +259,7 @@ public class ItemHandler {
 
         }
 
-        return types[getValidIndex(types.length) - 1];
+        return types[cm.getValidIndex(types.length) - 1];
     }
 
     private Rarity selectRarity() {
@@ -269,34 +271,7 @@ public class ItemHandler {
 
         }
 
-        return rarities[getValidIndex(rarities.length) - 1];
-    }
-
-    private int getValidIndex(int max) {
-        int choice;
-
-        do {
-            System.out.print("Enter your choice: ");
-            choice = getValidInteger();
-
-            if (choice < 1 || choice > max) {
-                System.out.println("Please select a number between 1 and " + max + ".");
-
-            }
-
-        } while (choice < 1 || choice > max);
-
-        return choice;
-    }
-
-    private int getValidInteger() {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine().trim());
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid integer.");
-            }
-        }
+        return rarities[cm.getValidIndex(rarities.length) - 1];
     }
 
     private boolean getValidBoolean() {
@@ -313,7 +288,6 @@ public class ItemHandler {
 
             } else if (input.equals("false")) {
                 validChoice = true;
-                consumable = false;
 
             } else {
                 System.out.println("Invalid input. Please enter 'true' or 'false'.");

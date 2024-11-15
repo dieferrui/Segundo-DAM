@@ -27,7 +27,7 @@ public class Party {
     }
 
     private int calculatePartyPower() {
-        int partyPower = 0;
+        int partyPower;
 
         int leaderPower = ptLeader.getChaMod() + Math.max(ptLeader.getStrMod(), ptLeader.getDexMod());
         int strikerPower = Math.max(ptStriker.getStrMod(), ptStriker.getDexMod()) + Math.max(ptStriker.getDexMod(), ptStriker.getIntMod());

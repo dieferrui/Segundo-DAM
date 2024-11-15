@@ -1,5 +1,8 @@
 package es.cheste.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Biome {
     DESERT("Desert"),
     FOREST("Forest"),
@@ -16,7 +19,4 @@ public enum Biome {
         this.biomeName = biomeName;
     }
 
-    public String getBiomeName() {
-        return biomeName;
-    }
 }

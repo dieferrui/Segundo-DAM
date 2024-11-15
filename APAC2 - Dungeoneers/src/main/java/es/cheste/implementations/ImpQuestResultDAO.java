@@ -25,11 +25,11 @@ public class ImpQuestResultDAO implements QuestResultDAO {
     // SQL Queries
     private static final String INSERT = "INSERT INTO QuestResult (questId, PartyId, DungeonId, success, report) VALUES (?, ?, ?, ?, ?)";
     private static final String OBTAIN_BY_ID = "SELECT * FROM QuestResult WHERE questId = ?";
-    private static final String OBTAIN_ALL = "SELECT * FROM QuestResult ORDER BY questId ASC";
-    private static final String OBTAIN_ALL_BY_PARTY = "SELECT * FROM QuestResult WHERE PartyId = ? ORDER BY questId ASC";
-    private static final String OBTAIN_ALL_BY_DUNGEON = "SELECT * FROM QuestResult WHERE DungeonId = ? ORDER BY questId ASC";
-    private static final String OBTAIN_ALL_CLEARED = "SELECT * FROM QuestResult WHERE success = true ORDER BY questId ASC";
-    private static final String OBTAIN_ALL_FAILED = "SELECT * FROM QuestResult WHERE success = false ORDER BY questId ASC";
+    private static final String OBTAIN_ALL = "SELECT * FROM QuestResult";
+    private static final String OBTAIN_ALL_BY_PARTY = "SELECT * FROM QuestResult WHERE PartyId = ?";
+    private static final String OBTAIN_ALL_BY_DUNGEON = "SELECT * FROM QuestResult WHERE DungeonId = ?";
+    private static final String OBTAIN_ALL_CLEARED = "SELECT * FROM QuestResult WHERE success = true";
+    private static final String OBTAIN_ALL_FAILED = "SELECT * FROM QuestResult WHERE success = false";
     private static final String UPDATE = "UPDATE QuestResult SET questId = ?, PartyId = ?, DungeonId = ?, success = ?, report = ? WHERE questId = ?";
     private static final String DELETE = "DELETE FROM QuestResult WHERE questId = ?";
 
@@ -217,7 +217,6 @@ public class ImpQuestResultDAO implements QuestResultDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int questIdFound = rs.getInt("questId");
                 String dungeonName = rs.getString("dungeonName");
                 String dungeonDifficulty = rs.getString("dungeonDifficulty");
                 String partyName = rs.getString("partyName");
@@ -225,7 +224,7 @@ public class ImpQuestResultDAO implements QuestResultDAO {
                 int partyPower = rs.getInt("ptPower");
 
                 resultsExplanation = "Dungeon: " + dungeonName + " (Difficulty " + dungeonDifficulty + " - " +
-                                        dungeonPower + ")\nParty: " + partyName + " (Power: " + partyPower + ")";
+                                        dungeonPower + ")\nParty: " + partyName + " (Power " + partyPower + ")";
             }
 
         } catch (SQLException e) {
@@ -240,7 +239,8 @@ public class ImpQuestResultDAO implements QuestResultDAO {
         Party party = partyImpMethod.obtainByName(rs.getString("PartyId"));
         Dungeon dungeon = dungeonImpMethod.obtainByName(rs.getString("DungeonId"));
         String report = rs.getString("report");
+        int questId = rs.getInt("questId");
 
-        return new QuestResult(party, dungeon, report);
+        return new QuestResult(party, dungeon, report, questId);
     }
 }

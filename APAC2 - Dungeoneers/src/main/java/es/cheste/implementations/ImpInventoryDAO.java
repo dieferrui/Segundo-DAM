@@ -16,11 +16,12 @@ public class ImpInventoryDAO implements InventoryDAO {
     // Final Strings
     private static final String NOT_OBTAINED = "Inventory not obtained.";
     private static final String LIST_NOT_OBTAINED = "Inventory list not obtained.";
+    private static final String STATEMENT_ERROR = "Statement error.";
 
     // SQL Queries
     private static final String INSERT = "INSERT INTO Inventory (characterName, itemName, quantity) VALUES (?, ?, ?)";
     private static final String OBTAIN_BY_SLOT = "SELECT * FROM Inventory WHERE slotNumber = ?";
-    private static final String OBTAIN_CHARACTER_INVENTORY = "SELECT * FROM Inventory WHERE characterName = ? ORDER BY slotNumber ASC";
+    private static final String OBTAIN_CHARACTER_INVENTORY = "SELECT * FROM Inventory WHERE characterName = ?";
     private static final String OBTAIN_CHARACTER_EQUIPMENT = "SELECT i.slotNumber, i.characterName, i.itemName, i.quantity " +
                                                                 "FROM Inventory i LEFT JOIN Item it ON i.itemName = it.name WHERE i.characterName = ? AND it.consumable = false";
     private static final String OBTAIN_CHARACTER_CONSUMABLES = "SELECT i.slotNumber, i.characterName, i.itemName, i.quantity " +
@@ -51,7 +52,7 @@ public class ImpInventoryDAO implements InventoryDAO {
         Inventory inventory = null;
 
         try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_BY_SLOT)) {
-            ps.setInt(2, slotNumber);
+            ps.setInt(1, slotNumber);
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -70,17 +71,21 @@ public class ImpInventoryDAO implements InventoryDAO {
     public List<Inventory> obtainCharacterInventory(String charName) throws DAOException {
         List<Inventory> entries = new ArrayList<>();
 
-        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_CHARACTER_INVENTORY);
-             ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_CHARACTER_INVENTORY)) {
             ps.setString(1, charName);
 
-            while (rs.next()) {
-                Inventory inventory = mapInventory(rs);
-                entries.add(inventory);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Inventory inventory = mapInventory(rs);
+                    entries.add(inventory);
+                }
+
+            } catch (SQLException e) {
+                throw new DAOException(LIST_NOT_OBTAINED, e);
             }
 
         } catch (SQLException e) {
-            throw new DAOException(LIST_NOT_OBTAINED, e);
+            throw new DAOException(STATEMENT_ERROR, e);
         }
 
         return entries;
@@ -90,17 +95,21 @@ public class ImpInventoryDAO implements InventoryDAO {
     public List<Inventory> obtainCharacterEquipment(String charName) throws DAOException {
         List<Inventory> inventories = new ArrayList<>();
 
-        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_CHARACTER_EQUIPMENT);
-             ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_CHARACTER_EQUIPMENT)) {
             ps.setString(1, charName);
 
-            while (rs.next()) {
-                Inventory inventory = mapInventory(rs);
-                inventories.add(inventory);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Inventory inventory = mapInventory(rs);
+                    inventories.add(inventory);
+                }
+
+            } catch (SQLException e) {
+                throw new DAOException(LIST_NOT_OBTAINED, e);
             }
 
         } catch (SQLException e) {
-            throw new DAOException(LIST_NOT_OBTAINED, e);
+            throw new DAOException(STATEMENT_ERROR, e);
         }
 
         return inventories;
@@ -110,31 +119,35 @@ public class ImpInventoryDAO implements InventoryDAO {
     public List<Inventory> obtainCharacterConsumables(String charName) throws DAOException {
         List<Inventory> inventories = new ArrayList<>();
 
-        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_CHARACTER_CONSUMABLES);
-             ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_CHARACTER_CONSUMABLES)) {
             ps.setString(1, charName);
 
-            while (rs.next()) {
-                Inventory inventory = mapInventory(rs);
-                inventories.add(inventory);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Inventory inventory = mapInventory(rs);
+                    inventories.add(inventory);
+                }
+
+            } catch (SQLException e) {
+                throw new DAOException(LIST_NOT_OBTAINED, e);
             }
 
         } catch (SQLException e) {
-            throw new DAOException(LIST_NOT_OBTAINED, e);
+            throw new DAOException(STATEMENT_ERROR, e);
         }
 
         return inventories;
     }
 
     @Override
-    public void update(int SlotNumber, Inventory inventory) throws DAOException {
+    public void update(int slotNumber, Inventory inventory) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
-            int invSlot = obtainBySlotNumber(SlotNumber).getSlotNumber();
 
-            ps.setString(1, inventory.getItemName());
-            ps.setInt(2, inventory.getQuantity());
-            ps.setString(3, inventory.getCharacterName());
-            ps.setInt(4, invSlot);
+            ps.setString(1, inventory.getCharacterName());
+            ps.setString(2, inventory.getItemName());
+            ps.setInt(3, inventory.getQuantity());
+            ps.setInt(4, slotNumber);
+
             int filasAfectadas = ps.executeUpdate();
 
             if (filasAfectadas == 0) {

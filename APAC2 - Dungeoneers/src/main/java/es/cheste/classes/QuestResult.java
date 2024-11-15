@@ -16,8 +16,8 @@ public class QuestResult {
     private String report;
 
     // Standard constructor with automated success check and ID generation
-    public QuestResult(Party party, Dungeon dungeon, String report) {
-        this.questId = party.hashCode() + dungeon.hashCode() + report.hashCode();
+    public QuestResult(Party party, Dungeon dungeon, String report, int questId) {
+        this.questId = questId;
         this.PartyId = party.getPartyName();
         this.DungeonId = dungeon.getName();
         this.success = party.getPtPower() >= dungeon.getPointsToBeat();
@@ -25,12 +25,12 @@ public class QuestResult {
     }
 
     // Constructor to generate simplified results report based on automated success check
-    public QuestResult(Party party, Dungeon dungeon) {
+    public QuestResult(Party party, Dungeon dungeon, int questId) {
+        this.questId = questId;
         this.PartyId = party.getPartyName();
         this.DungeonId = dungeon.getName();
         this.success = party.getPtPower() >= dungeon.getPointsToBeat();
         this.report = getSimpleReport();
-        this.questId = party.hashCode() + dungeon.hashCode() + report.hashCode();
     }
 
     private String getSimpleReport() {
@@ -38,6 +38,6 @@ public class QuestResult {
     }
 
     public String describe() {
-        return "\nParty ID: " + PartyId + "\nDungeon ID: " + DungeonId + "\nSuccess: " + (success ? " Yes" : " No")  + "\nReport: " + report;
+        return "\nParty ID: " + PartyId + "\nDungeon ID: " + DungeonId + "\nSuccess: " + (success ? "Yes" : "No")  + "\nReport: " + report;
     }
 }

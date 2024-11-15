@@ -110,7 +110,6 @@ public class ImpPartyDAO implements PartyDAO {
         Party party = null;
 
         try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_STRONGEST)) {
-
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     party = mapParty(rs);
@@ -147,16 +146,21 @@ public class ImpPartyDAO implements PartyDAO {
     public List<Party> obtainAllThatContainMember(String memberName) throws DAOException {
         List<Party> parties = new ArrayList<>();
 
-        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_THAT_CONTAIN_MEMBER);
-             ResultSet rs = ps.executeQuery()) {
-                ps.setString(1, memberName);
-                ps.setString(2, memberName);
-                ps.setString(3, memberName);
-                ps.setString(4, memberName);
+        try (PreparedStatement ps = c.getConnection().prepareStatement(OBTAIN_ALL_THAT_CONTAIN_MEMBER)) {
+            ps.setString(1, memberName);
+            ps.setString(2, memberName);
+            ps.setString(3, memberName);
+            ps.setString(4, memberName);
 
-            while (rs.next()) {
-                Party party = mapParty(rs);
-                parties.add(party);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Party party = mapParty(rs);
+                    parties.add(party);
+
+                }
+
+            } catch (SQLException e) {
+                throw new DAOException(LIST_NOT_OBTAINED, e);
             }
 
         } catch (SQLException e) {
@@ -169,7 +173,6 @@ public class ImpPartyDAO implements PartyDAO {
     @Override
     public void update(Party party, String oldPart) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
-            Party oldParty = obtainByName(oldPart);
 
             ps.setString(1, party.getPartyName());
             ps.setString(2, party.getPtLeader().getName());
@@ -177,7 +180,7 @@ public class ImpPartyDAO implements PartyDAO {
             ps.setString(4, party.getPtTank().getName());
             ps.setString(5, party.getPtHealer().getName());
             ps.setInt(6, party.getPtPower());
-            ps.setString(7, oldParty.getPartyName());
+            ps.setString(7, oldPart);
 
             int filasAfectadas = ps.executeUpdate();
 
