@@ -12,12 +12,18 @@ import java.util.Scanner;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+/**
+ * Clase que maneja las operaciones relacionadas con las mazmorras.
+ */
 public class DungeonHandler {
     private final ImpDungeonDAO dao = new ImpDungeonDAO();
     private final Scanner scanner = new Scanner(System.in);
     private final CommonMethod cm = new CommonMethod();
     private static final Logger LOGGER = LogManager.getLogger(DungeonHandler.class.getName());
 
+    /**
+     * Función que inicia el sistema de gestión de mazmorras.
+     */
     public void start() {
         int choice;
         do {
@@ -32,7 +38,7 @@ public class DungeonHandler {
             System.out.println("8. Find Dungeons by Difficulty");
             System.out.println("0. Return to main menu");
             System.out.print("Select an option: ");
-            
+
             choice = cm.getValidInteger();
 
             switch (choice) {
@@ -52,6 +58,9 @@ public class DungeonHandler {
         } while (choice != 0);
     }
 
+    /**
+     * Función para insertar una nueva mazmorra.
+     */
     private void insertDungeon() {
         try {
             System.out.print("Dungeon Name: ");
@@ -78,6 +87,9 @@ public class DungeonHandler {
         }
     }
 
+    /**
+     * Función para encontrar una mazmorra por su nombre.
+     */
     private void findDungeonByName() {
         System.out.print("Enter dungeon name: ");
         String name = scanner.nextLine();
@@ -100,6 +112,9 @@ public class DungeonHandler {
         }
     }
 
+    /**
+     * Función para actualizar una mazmorra existente.
+     */
     private void updateDungeon() {
         System.out.print("Enter the name of the dungeon to update: ");
         String oldName = scanner.nextLine();
@@ -115,7 +130,7 @@ public class DungeonHandler {
 
                 Biome biome = selectBiome();
                 Difficulty difficulty = selectDifficulty();
-                
+
                 System.out.print("Number of Floors: ");
                 int floors = cm.getValidInteger();
 
@@ -139,6 +154,9 @@ public class DungeonHandler {
         }
     }
 
+    /**
+     * Función para eliminar una mazmorra por su nombre.
+     */
     private void deleteDungeon() {
         System.out.print("Enter dungeon name to delete: ");
         String name = scanner.nextLine();
@@ -155,6 +173,9 @@ public class DungeonHandler {
         }
     }
 
+    /**
+     * Función para listar todas las mazmorras.
+     */
     private void listAllDungeons() {
         try {
             List<Dungeon> dungeons = dao.obtainAll();
@@ -179,6 +200,9 @@ public class DungeonHandler {
         }
     }
 
+    /**
+     * Función para encontrar la mazmorra más difícil.
+     */
     private void findHardestDungeon() {
         try {
             Dungeon dungeon = dao.obtainHardest();
@@ -198,6 +222,9 @@ public class DungeonHandler {
         }
     }
 
+    /**
+     * Función para encontrar mazmorras que pertenezcan a un bioma específico.
+     */
     private void findDungeonsByBiome() {
         Biome biome = selectBiome();
 
@@ -223,6 +250,9 @@ public class DungeonHandler {
         }
     }
 
+    /**
+     * Función para encontrar las mazmorras que tengan una dificultad específica.
+     */
     private void findDungeonsByDifficulty() {
         Difficulty difficulty = selectDifficulty();
 
@@ -249,6 +279,11 @@ public class DungeonHandler {
         }
     }
 
+    /**
+     * Función para seleccionar el bioma de una mazmorra.
+     *
+     * @return El bioma seleccionado.
+     */
     private Biome selectBiome() {
         System.out.println("Select Dungeon Biome:");
         Biome[] biomes = Biome.values();
@@ -261,6 +296,11 @@ public class DungeonHandler {
         return biomes[cm.getValidIndex(biomes.length) - 1];
     }
 
+    /**
+     * Función para seleccionar la dificultad de una mazmorra.
+     *
+     * @return La dificultad seleccionada.
+     */
     private Difficulty selectDifficulty() {
         System.out.println("Select Dungeon Difficulty:");
         Difficulty[] difficulties = Difficulty.values();

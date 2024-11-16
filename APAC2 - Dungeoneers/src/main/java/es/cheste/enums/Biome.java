@@ -2,6 +2,9 @@ package es.cheste.enums;
 
 import lombok.Getter;
 
+/**
+ * Enumeración que representa diferentes biomas.
+ */
 @Getter
 public enum Biome {
     DESERT("Desert"),
@@ -13,10 +16,14 @@ public enum Biome {
     CAVE("Cave"),
     CITY("City");
 
-    public final String biomeName;
+    private final String biomeName;
 
+    /**
+     * Constructor para la enumeración Biome.
+     *
+     * @param biomeName El nombre del bioma.
+     */
     Biome(String biomeName) {
         this.biomeName = biomeName;
     }
-
 }

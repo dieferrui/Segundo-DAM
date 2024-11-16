@@ -13,6 +13,9 @@ import java.util.Scanner;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+/**
+ * Clase que maneja las operaciones relacionadas con los grupos de aventureros.
+ */
 public class PartyHandler {
     private final ImpPartyDAO dao = new ImpPartyDAO();
     private final ImpCharacterDAO charImpMethod = new ImpCharacterDAO();
@@ -20,6 +23,9 @@ public class PartyHandler {
     private final Scanner scanner = new Scanner(System.in);
     private static final Logger LOGGER = LogManager.getLogger(PartyHandler.class.getName());
 
+    /**
+     * Función que inicia el sistema de gestión de grupos de aventureros.
+     */
     public void start() {
         int choice;
         do {
@@ -53,6 +59,9 @@ public class PartyHandler {
         } while (choice != 0);
     }
 
+    /**
+     * Función para insertar un nuevo grupo de aventureros.
+     */
     private void insertParty() {
         try {
             System.out.print("Party Name: ");
@@ -74,6 +83,9 @@ public class PartyHandler {
         }
     }
 
+    /**
+     * Función para encontrar un grupo por su nombre.
+     */
     private void findPartyByName() {
         System.out.print("Enter party name: ");
         String name = scanner.nextLine();
@@ -93,6 +105,9 @@ public class PartyHandler {
         }
     }
 
+    /**
+     * Función para actualizar un grupo existente.
+     */
     private void updateParty() {
         System.out.print("Enter the name of the party to update: ");
         String oldName = scanner.nextLine();
@@ -128,6 +143,9 @@ public class PartyHandler {
         }
     }
 
+    /**
+     * Función para eliminar un grupo por su nombre.
+     */
     private void deleteParty() {
         System.out.print("Enter party name to delete: ");
         String name = scanner.nextLine();
@@ -144,6 +162,9 @@ public class PartyHandler {
         }
     }
 
+    /**
+     * Función para listar todos los grupos.
+     */
     private void listAllParties() {
         try {
             List<Party> parties = dao.obtainAll();
@@ -168,6 +189,9 @@ public class PartyHandler {
         }
     }
 
+    /**
+     * Función para encontrar el grupo más fuerte.
+     */
     private void findStrongestParty() {
         try {
             Party party = dao.obtainStrongest();
@@ -184,6 +208,9 @@ public class PartyHandler {
         }
     }
 
+    /**
+     * Función para encontrar los grupos que contengan un miembro específico.
+     */
     private void findPartiesByMember() {
         System.out.print("Enter character name to find parties with this member: ");
         String memberName = scanner.nextLine();
@@ -211,6 +238,9 @@ public class PartyHandler {
         }
     }
 
+    /**
+     * Función para obtener los miembros de un grupo.
+     */
     private void getPartyMembers() {
         System.out.print("Enter party name to get members: ");
         String partyName = scanner.nextLine();
@@ -238,6 +268,12 @@ public class PartyHandler {
         }
     }
 
+    /**
+     * Función para obtener un personaje.
+     *
+     * @param role El rol del personaje en el grupo.
+     * @return El personaje seleccionado.
+     */
     private Character getCharacter(String role) {
         Character chara = null;
         System.out.print("Select character for role" + role + ":\n");

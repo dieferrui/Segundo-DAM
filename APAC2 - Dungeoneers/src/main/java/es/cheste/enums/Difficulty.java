@@ -2,6 +2,9 @@ package es.cheste.enums;
 
 import lombok.Getter;
 
+/**
+ * Enumeración que representa diferentes niveles de dificultad.
+ */
 @Getter
 public enum Difficulty {
     TRIVIAL("E"),
@@ -15,8 +18,12 @@ public enum Difficulty {
 
     public final String difficultyName;
 
+    /**
+     * Constructor para la enumeración Difficulty.
+     *
+     * @param difficultyName El nombre del nivel de dificultad.
+     */
     Difficulty(String difficultyName) {
         this.difficultyName = difficultyName;
     }
-
 }

@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Clase que maneja las operaciones relacionadas con los resultados de las misiones.
+ */
 public class QuestResultHandler {
     private final ImpQuestResultDAO dao = new ImpQuestResultDAO();
     private final ImpPartyDAO partyDAO = new ImpPartyDAO();
@@ -24,6 +27,9 @@ public class QuestResultHandler {
     private final Scanner scanner = new Scanner(System.in);
     private static final Logger LOGGER = LogManager.getLogger(QuestResultHandler.class.getName());
 
+    /**
+     * Función que inicia el sistema de gestión de resultados de misiones.
+     */
     public void start() {
         int choice;
 
@@ -62,6 +68,9 @@ public class QuestResultHandler {
         } while (choice != 0);
     }
 
+    /**
+     * Función para resolver un resultado de misión.
+     */
     private void tryQuestResult() {
         try {
             Party party = getParty();
@@ -72,6 +81,8 @@ public class QuestResultHandler {
                 questId = generateRandomId();
 
             } while (dao.obtainById(questId) != null);
+
+            assert party != null;
 
             QuestResult questResult = new QuestResult(party, dungeon, questId);
             dao.insert(questResult);
@@ -85,6 +96,9 @@ public class QuestResultHandler {
         }
     }
 
+    /**
+     * Función para encontrar un resultado de misión por su ID.
+     */
     private void findQuestResultById() {
         System.out.print("Enter quest ID: ");
         int questId = cm.getValidInteger();
@@ -107,6 +121,9 @@ public class QuestResultHandler {
         }
     }
 
+    /**
+     * Función para listar todos los resultados de misiones.
+     */
     private void listAllQuestResults() {
         try {
             List<QuestResult> results = dao.obtainAll();
@@ -127,10 +144,14 @@ public class QuestResultHandler {
         }
     }
 
+    /**
+     * Función para listar los resultados de misiones por grupo.
+     */
     private void listQuestResultsByParty() {
         Party party = getParty();
 
         try {
+            assert party != null;
             List<QuestResult> results = dao.obtainAllByParty(party.getPartyName());
 
             if (results.isEmpty()) {
@@ -148,6 +169,9 @@ public class QuestResultHandler {
         }
     }
 
+    /**
+     * Función para listar los resultados de misiones por mazmorra.
+     */
     private void listQuestResultsByDungeon() {
         Dungeon dungeon = getDungeon();
 
@@ -169,6 +193,9 @@ public class QuestResultHandler {
         }
     }
 
+    /**
+     * Función para listar las misiones completadas.
+     */
     private void listClearedQuests() {
         try {
             List<QuestResult> results = dao.obtainAllCleared();
@@ -189,6 +216,9 @@ public class QuestResultHandler {
         }
     }
 
+    /**
+     * Función para listar las misiones fallidas.
+     */
     private void listFailedQuests() {
         try {
             List<QuestResult> results = dao.obtainAllFailed();
@@ -209,6 +239,9 @@ public class QuestResultHandler {
         }
     }
 
+    /**
+     * Función para actualizar un resultado de misión.
+     */
     private void updateQuestResult() {
         System.out.print("Enter quest ID to update: ");
         int questId = cm.getValidInteger();
@@ -241,6 +274,9 @@ public class QuestResultHandler {
         }
     }
 
+    /**
+     * Función para eliminar un resultado de misión por su ID.
+     */
     private void deleteQuestResult() {
         System.out.print("Enter quest ID to delete: ");
         int questId = cm.getValidInteger();
@@ -257,6 +293,9 @@ public class QuestResultHandler {
         }
     }
 
+    /**
+     * Función para obtener el resumen de un resultado de misión por su ID.
+     */
     private void getQuestSummary() {
         System.out.print("Enter quest ID: ");
         int questId = cm.getValidInteger();
@@ -279,10 +318,15 @@ public class QuestResultHandler {
         }
     }
 
+    /**
+     * Función para obtener un grupo.
+     *
+     * @return El grupo seleccionado.
+     */
     private Party getParty() {
         Party party = null;
         System.out.print("Select party:\n");
-        
+
         try {
             List<Party> parties = partyDAO.obtainAll();
 
@@ -308,10 +352,15 @@ public class QuestResultHandler {
         return party;
     }
 
+    /**
+     * Función para obtener una mazmorra.
+     *
+     * @return La mazmorra seleccionada.
+     */
     private Dungeon getDungeon() {
         Dungeon dungeon = null;
         System.out.print("Select dungeon:\n");
-        
+
         try {
             List<Dungeon> dungeons = dungeonDAO.obtainAll();
 
@@ -332,6 +381,11 @@ public class QuestResultHandler {
         return dungeon;
     }
 
+    /**
+     * Función para generar un ID aleatorio.
+     *
+     * @return Un ID aleatorio.
+     */
     public static int generateRandomId() {
         Random random = new Random();
         return random.nextInt(9999) + 1;

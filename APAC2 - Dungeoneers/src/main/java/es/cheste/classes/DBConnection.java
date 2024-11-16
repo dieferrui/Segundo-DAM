@@ -10,6 +10,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Clase que maneja la conexión a la base de datos.
+ */
 public class DBConnection {
 
     private static final Logger LOGGER = LogManager.getRootLogger();
@@ -17,6 +20,9 @@ public class DBConnection {
 
     private Connection connection = null;
 
+    /**
+     * Función privada que establece la conexión a la base de datos.
+     */
     private void conectar() {
         try {
             Properties properties = new Properties();
@@ -37,6 +43,9 @@ public class DBConnection {
         }
     }
 
+    /**
+     * Función que cierra la conexión a la base de datos.
+     */
     public void desconectar() {
         try {
             connection.close();
@@ -47,12 +56,18 @@ public class DBConnection {
         }
     }
 
+    /**
+     * Función que devuelve la conexión a la base de datos.
+     * Si la conexión no está establecida, la establece.
+     *
+     * @return La conexión a la base de datos.
+     */
     public Connection getConnection() {
         if(connection == null) {
             conectar();
 
         }
-        
+
         return connection;
     }
 }

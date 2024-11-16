@@ -6,12 +6,14 @@ import es.cheste.enums.CharaClass;
 import java.util.Random;
 import lombok.*;
 
+/**
+ * Clase que representa un personaje con diversas características y modificadores de estadísticas.
+ */
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-
 public class Character {
     private static Random random = new Random();
 
@@ -25,11 +27,24 @@ public class Character {
     private int wisMod;
     private int chaMod;
 
-    // Constructor for full Character (automatically corrects stats to be in range [-1, 4])
+    /**
+     * Constructor completo para la clase Character.
+     * Corrige automáticamente las estadísticas para que estén en el rango [-1, 4].
+     *
+     * @param name Nombre del personaje.
+     * @param chClass Clase del personaje.
+     * @param ancestry Ancestro del personaje.
+     * @param dexMod Modificador de destreza.
+     * @param strMod Modificador de fuerza.
+     * @param conMod Modificador de constitución.
+     * @param intMod Modificador de inteligencia.
+     * @param wisMod Modificador de sabiduría.
+     * @param chaMod Modificador de carisma.
+     */
     public Character(String name, CharaClass chClass, Ancestry ancestry, int dexMod, int strMod, int conMod,
                      int intMod, int wisMod, int chaMod) {
 
-        // Stat correction procedure
+        // Procedimiento de corrección de estadísticas
         dexMod = Math.min(4, Math.max(-1, dexMod));
         strMod = Math.min(4, Math.max(-1, strMod));
         conMod = Math.min(4, Math.max(-1, conMod));
@@ -48,7 +63,14 @@ public class Character {
         this.chaMod = chaMod;
     }
 
-    // Constructor for no stats Character (assigns random stats in range [-1, 4])
+    /**
+     * Constructor para la clase Character sin estadísticas.
+     * Asigna estadísticas aleatorias en el rango [-1, 4].
+     *
+     * @param name Nombre del personaje.
+     * @param chClass Clase del personaje.
+     * @param ancestry Ancestro del personaje.
+     */
     public Character(String name, CharaClass chClass, Ancestry ancestry) {
         this.name = name;
         this.chClass = chClass;
@@ -61,6 +83,11 @@ public class Character {
         this.chaMod = random.nextInt(6) - 1;
     }
 
+    /**
+     * Función que describe al personaje.
+     *
+     * @return Una cadena con la descripción del personaje.
+     */
     public String describe() {
         return "Name: " + name + "\n" +
                 "Class: " + chClass.getClassName() + "\n" +

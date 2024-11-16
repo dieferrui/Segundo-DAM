@@ -12,12 +12,18 @@ import java.util.Scanner;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+/**
+ * Clase que maneja las operaciones relacionadas con los personajes.
+ */
 public class CharacterHandler {
     private final ImpCharacterDAO dao = new ImpCharacterDAO();
     private final Scanner scanner = new Scanner(System.in);
     private final CommonMethod cm = new CommonMethod();
     private static final Logger LOGGER = LogManager.getLogger(CharacterHandler.class.getName());
 
+    /**
+     * Función que inicia el sistema de gestión de personajes.
+     */
     public void start() {
         int choice;
 
@@ -33,7 +39,7 @@ public class CharacterHandler {
             System.out.println("8. Find Characters by Ancestry");
             System.out.println("0. Return to main menu");
             System.out.print("Select an option: ");
-            
+
             choice = cm.getValidInteger();
 
             switch (choice) {
@@ -52,6 +58,9 @@ public class CharacterHandler {
         } while (choice != 0);
     }
 
+    /**
+     * Función para insertar un nuevo personaje.
+     */
     public void insertCharacter() {
         try {
             System.out.println("Insert Character Data...");
@@ -85,6 +94,9 @@ public class CharacterHandler {
         }
     }
 
+    /**
+     * Función para encontrar un personaje por su nombre.
+     */
     private void findCharacterByName() {
         System.out.print("Enter character name: ");
         String name = scanner.nextLine();
@@ -108,6 +120,9 @@ public class CharacterHandler {
         }
     }
 
+    /**
+     * Función para actualizar un personaje existente.
+     */
     private void updateCharacter() {
         System.out.print("Enter the name of the character to update: ");
         String oldName = scanner.nextLine();
@@ -117,7 +132,7 @@ public class CharacterHandler {
 
             if (oldCharacter != null) {
                 System.out.println("Updating character: " + oldCharacter);
-                
+
                 System.out.print("New Name: ");
                 String newName = scanner.nextLine();
                 CharaClass chClass = selectClass();
@@ -146,6 +161,9 @@ public class CharacterHandler {
         }
     }
 
+    /**
+     * Función para eliminar un personaje por su nombre.
+     */
     private void deleteCharacter() {
         System.out.print("Enter character name to delete: ");
         String name = scanner.nextLine();
@@ -162,32 +180,35 @@ public class CharacterHandler {
         }
     }
 
+    /**
+     * Función para listar todos los personajes.
+     */
     private void listAllCharacters() {
         try {
             List<Character> characters = dao.obtainAll();
-    
+
             if (characters.isEmpty()) {
                 System.out.println("No characters found.");
                 return;
 
             }
-    
+
             System.out.println("Listing all characters:\n");
             System.out.printf("%-30s %-15s %-15s %-5s %-5s %-5s %-5s %-5s %-5s%n",
-                              "Name", "Class", "Ancestry", "DEX", "STR", "CON", "INT", "WIS", "CHA");
+                    "Name", "Class", "Ancestry", "DEX", "STR", "CON", "INT", "WIS", "CHA");
             System.out.println("-----------------------------------------------------------------------------------------------");
-    
+
             for (Character character : characters) {
                 System.out.printf("%-30s %-15s %-15s %-5d %-5d %-5d %-5d %-5d %-5d%n",
-                                  character.getName(),
-                                  character.getChClass().getClassName(),
-                                  character.getAncestry().getAncestryName(),
-                                  character.getDexMod(),
-                                  character.getStrMod(),
-                                  character.getConMod(),
-                                  character.getIntMod(),
-                                  character.getWisMod(),
-                                  character.getChaMod());
+                        character.getName(),
+                        character.getChClass().getClassName(),
+                        character.getAncestry().getAncestryName(),
+                        character.getDexMod(),
+                        character.getStrMod(),
+                        character.getConMod(),
+                        character.getIntMod(),
+                        character.getWisMod(),
+                        character.getChaMod());
 
             }
 
@@ -197,7 +218,10 @@ public class CharacterHandler {
 
         }
     }
-    
+
+    /**
+     * Función para encontrar el personaje más fuerte.
+     */
     private void findStrongestCharacter() {
         try {
             Character character = dao.obtainStrongest();
@@ -217,52 +241,63 @@ public class CharacterHandler {
         }
     }
 
+    /**
+     * Función para encontrar todos los personajes de una clase.
+     */
     private void findCharactersByClass() {
         CharaClass chClass = selectClass();
-    
+
         try {
             List<Character> characters = dao.obtainAllByClass(chClass);
-    
+
             if (characters.isEmpty()) {
                 System.out.println("No characters found for class: " + chClass.getClassName());
                 return;
             }
-    
+
             System.out.println("Characters of class " + chClass.getClassName() + ":\n");
-    
+
             for (Character character : characters) {
                 System.out.println("- " + character.getName());
             }
-    
+
         } catch (DAOException e) {
             System.out.println("Error finding characters by class.");
             LOGGER.error("Error finding characters by class: " + e.getMessage());
         }
     }
-    
+
+    /**
+     * Función para encontrar todos los personajes de una ascendencia.
+     */
     private void findCharactersByAncestry() {
         Ancestry ancestry = selectAncestry();
-    
+
         try {
             List<Character> characters = dao.obtainAllByAncestry(ancestry);
-    
+
             if (characters.isEmpty()) {
                 System.out.println("No characters found for ancestry: " + ancestry.getAncestryName());
                 return;
             }
-    
+
             System.out.println("Characters of ancestry " + ancestry.getAncestryName() + ":\n");
-    
+
             for (Character character : characters) {
                 System.out.println("- " + character.getName());
             }
-    
+
         } catch (DAOException e) {
             System.out.println("Error finding characters by ancestry.");
             LOGGER.error("Error finding characters by ancestry: " + e.getMessage());
         }
     }
-    
+
+    /**
+     * Función para seleccionar la clase de un personaje.
+     *
+     * @return La clase seleccionada.
+     */
     private CharaClass selectClass() {
         System.out.println("Select Character Class:");
         CharaClass[] classes = CharaClass.values();
@@ -274,6 +309,11 @@ public class CharacterHandler {
         return classes[cm.getValidIndex(classes.length) - 1];
     }
 
+    /**
+     * Función para seleccionar la ascendencia de un personaje.
+     *
+     * @return La ascendencia seleccionada.
+     */
     private Ancestry selectAncestry() {
         System.out.println("Select Character Ancestry:");
         Ancestry[] ancestries = Ancestry.values();
@@ -285,6 +325,12 @@ public class CharacterHandler {
         return ancestries[cm.getValidIndex(ancestries.length) - 1];
     }
 
+    /**
+     * Función para obtener una estadística de un personaje.
+     *
+     * @param prompt El mensaje para solicitar la estadística.
+     * @return El valor de la estadística.
+     */
     private int getStat(String prompt) {
         int stat;
         do {

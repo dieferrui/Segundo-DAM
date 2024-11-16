@@ -2,6 +2,9 @@ package es.cheste.enums;
 
 import lombok.Getter;
 
+/**
+ * Enumeración que representa diferentes clases de personajes.
+ */
 @Getter
 public enum CharaClass {
     ALCHEMIST("Alchemist"),
@@ -20,8 +23,12 @@ public enum CharaClass {
 
     private final String className;
 
+    /**
+     * Constructor para la enumeración CharaClass.
+     *
+     * @param className El nombre de la clase de personaje.
+     */
     CharaClass(String className) {
         this.className = className;
     }
-
 }

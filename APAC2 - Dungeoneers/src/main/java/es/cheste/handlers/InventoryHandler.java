@@ -15,6 +15,9 @@ import org.apache.logging.log4j.LogManager;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase que maneja las operaciones relacionadas con el inventario.
+ */
 public class InventoryHandler {
     private final ImpInventoryDAO dao = new ImpInventoryDAO();
     private final ImpCharacterDAO characterDAO = new ImpCharacterDAO();
@@ -23,6 +26,9 @@ public class InventoryHandler {
     private final Scanner scanner = new Scanner(System.in);
     private static final Logger LOGGER = LogManager.getLogger(InventoryHandler.class.getName());
 
+    /**
+     * Función que inicia el sistema de gestión de inventario.
+     */
     public void start() {
         int choice;
 
@@ -55,6 +61,9 @@ public class InventoryHandler {
         } while (choice != 0);
     }
 
+    /**
+     * Función para insertar una nueva entrada de inventario.
+     */
     private void insertInventory() {
         try {
             Character chara = getCharacter();
@@ -62,6 +71,9 @@ public class InventoryHandler {
 
             System.out.print("Quantity: ");
             int quantity = cm.getValidInteger();
+
+            assert chara != null;
+            assert item != null;
 
             Inventory inventory = new Inventory(chara, item, quantity);
             dao.insert(inventory);
@@ -75,6 +87,9 @@ public class InventoryHandler {
         }
     }
 
+    /**
+     * Función para encontrar un elemento de inventario por su número de ranura.
+     */
     private void findInventoryBySlot() {
         System.out.print("Enter slot number: ");
         int slotNumber = cm.getValidInteger();
@@ -97,6 +112,9 @@ public class InventoryHandler {
         }
     }
 
+    /**
+     * Función para listar el inventario de un personaje.
+     */
     private void listCharacterInventory() {
         System.out.print("Enter character name: ");
         String characterName = scanner.nextLine();
@@ -125,6 +143,9 @@ public class InventoryHandler {
         }
     }
 
+    /**
+     * Función para listar el equipo de un personaje.
+     */
     private void listCharacterEquipment() {
         System.out.print("Enter character name: ");
         String characterName = scanner.nextLine();
@@ -152,6 +173,9 @@ public class InventoryHandler {
         }
     }
 
+    /**
+     * Función para listar los consumibles de un personaje.
+     */
     private void listCharacterConsumables() {
         System.out.print("Enter character name: ");
         String characterName = scanner.nextLine();
@@ -180,6 +204,9 @@ public class InventoryHandler {
         }
     }
 
+    /**
+     * Función para actualizar una entrada de inventario.
+     */
     private void updateInventory() {
         System.out.print("Enter slot number to update: ");
         int slotNumber = cm.getValidInteger();
@@ -193,6 +220,9 @@ public class InventoryHandler {
 
                 System.out.print("Quantity: ");
                 int quantity = cm.getValidInteger();
+
+                assert chara != null;
+                assert item != null;
 
                 Inventory updatedInventory = new Inventory(slotNumber, chara.getName(), item.getName(), quantity);
                 dao.update(slotNumber, updatedInventory);
@@ -212,6 +242,9 @@ public class InventoryHandler {
         }
     }
 
+    /**
+     * Función para eliminar una entrada de inventario por su número de ranura.
+     */
     private void deleteInventory() {
         System.out.print("Enter slot number to delete: ");
         int slotNumber = cm.getValidInteger();
@@ -228,6 +261,11 @@ public class InventoryHandler {
         }
     }
 
+    /**
+     * Función para obtener un personaje.
+     *
+     * @return El personaje seleccionado.
+     */
     private Character getCharacter() {
         Character chara = null;
         System.out.print("Select character to equip:\n");
@@ -255,11 +293,15 @@ public class InventoryHandler {
         return chara;
     }
 
-
+    /**
+     * Función para obtener un objeto.
+     *
+     * @return El objeto seleccionado.
+     */
     private Item getItem() {
         Item it = null;
         System.out.print("Select item to equip character:\n");
-        
+
         try {
             List<Item> items = itemDAO.obtainAll();
 

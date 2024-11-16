@@ -212,7 +212,7 @@ public class ImpItemDAO implements ItemDAO {
         return switch (ty) {
             case "Armor" -> ItemType.ARMOR;
             case "Weapon" -> ItemType.WEAPON;
-            case "Accesory" -> ItemType.ACCESORY;
+            case "Accesory" -> ItemType.ACCESSORY;
             default -> ItemType.POTION;
         };
     }

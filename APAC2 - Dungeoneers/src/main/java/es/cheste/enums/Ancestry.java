@@ -2,6 +2,9 @@ package es.cheste.enums;
 
 import lombok.Getter;
 
+/**
+ * Enumeración que representa diferentes ascendencias.
+ */
 @Getter
 public enum Ancestry {
     DWARF("Dwarf"),
@@ -15,8 +18,12 @@ public enum Ancestry {
 
     private final String ancestryName;
 
+    /**
+     * Constructor para la enumeración Ancestry.
+     *
+     * @param ancestryName El nombre de la ascendencia.
+     */
     Ancestry(String ancestryName) {
         this.ancestryName = ancestryName;
     }
-
 }

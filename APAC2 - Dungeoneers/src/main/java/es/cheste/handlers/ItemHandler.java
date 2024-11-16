@@ -13,12 +13,18 @@ import java.util.Scanner;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+/**
+ * Clase que maneja las operaciones relacionadas con los objetos.
+ */
 public class ItemHandler {
     private final ImpItemDAO dao = new ImpItemDAO();
     private final CommonMethod cm = new CommonMethod();
     private final Scanner scanner = new Scanner(System.in);
     private static final Logger LOGGER = LogManager.getLogger(ItemHandler.class.getName());
 
+    /**
+     * Función que inicia el sistema de gestión de objetos.
+     */
     public void start() {
         int choice;
         do {
@@ -52,6 +58,9 @@ public class ItemHandler {
         } while (choice != 0);
     }
 
+    /**
+     * Función para insertar un nuevo objeto.
+     */
     private void insertItem() {
         try {
             System.out.print("Item Name: ");
@@ -80,6 +89,9 @@ public class ItemHandler {
         }
     }
 
+    /**
+     * Función para encontrar un objeto por su nombre.
+     */
     private void findItemByName() {
         System.out.print("Enter item name: ");
         String name = scanner.nextLine();
@@ -101,6 +113,9 @@ public class ItemHandler {
         }
     }
 
+    /**
+     * Función para encontrar el objeto más caro.
+     */
     private void findMostExpensiveItem() {
         try {
             Item item = dao.obtainMostExpensive();
@@ -119,6 +134,9 @@ public class ItemHandler {
         }
     }
 
+    /**
+     * Función para actualizar un objeto.
+     */
     private void updateItem() {
         System.out.print("Enter the name of the item to update: ");
         String oldName = scanner.nextLine();
@@ -158,6 +176,9 @@ public class ItemHandler {
         }
     }
 
+    /**
+     * Función para eliminar un objeto por su nombre.
+     */
     private void deleteItem() {
         System.out.print("Enter item name to delete: ");
         String name = scanner.nextLine();
@@ -174,6 +195,9 @@ public class ItemHandler {
         }
     }
 
+    /**
+     * Función para listar todos los objetos.
+     */
     private void listAllItems() {
         try {
             List<Item> items = dao.obtainAll();
@@ -198,6 +222,9 @@ public class ItemHandler {
         }
     }
 
+    /**
+     * Función para listar objetos por su tipo.
+     */
     private void listItemsByType() {
         ItemType type = selectType();
 
@@ -224,6 +251,9 @@ public class ItemHandler {
         }
     }
 
+    /**
+     * Función para listar objetos por su rareza.
+     */
     private void listItemsByRarity() {
         Rarity rarity = selectRarity();
 
@@ -250,6 +280,11 @@ public class ItemHandler {
         }
     }
 
+    /**
+     * Función para seleccionar el tipo de un objeto.
+     *
+     * @return El tipo seleccionado.
+     */
     private ItemType selectType() {
         System.out.println("Select Item type:");
         ItemType[] types = ItemType.values();
@@ -262,6 +297,11 @@ public class ItemHandler {
         return types[cm.getValidIndex(types.length) - 1];
     }
 
+    /**
+     * Función para seleccionar la rareza de un objeto.
+     *
+     * @return La rareza seleccionada.
+     */
     private Rarity selectRarity() {
         System.out.println("Select Item rarity:");
         Rarity[] rarities = Rarity.values();
@@ -274,6 +314,11 @@ public class ItemHandler {
         return rarities[cm.getValidIndex(rarities.length) - 1];
     }
 
+    /**
+     * Función para obtener un valor booleano válido para la elección de consumible.
+     *
+     * @return El valor booleano.
+     */
     private boolean getValidBoolean() {
         boolean validChoice = false;
         boolean consumable = false;
@@ -281,7 +326,7 @@ public class ItemHandler {
         while (!validChoice) {
             System.out.print("Is Consumable (true/false): ");
             String input = scanner.nextLine().trim().toLowerCase();
-    
+
             if (input.equals("true")) {
                 validChoice = true;
                 consumable = true;
@@ -297,5 +342,5 @@ public class ItemHandler {
 
         return consumable;
     }
-    
+
 }
