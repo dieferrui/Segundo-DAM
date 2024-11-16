@@ -16,12 +16,12 @@ public class ImpDungeonDAO implements DungeonDAO {
 
     DBConnection c = new DBConnection();
 
-    // Final Strings
+    // Cadenas finales
     private static final String NOT_OBTAINED = "Dungeon not obtained.";
     private static final String LIST_NOT_OBTAINED = "Dungeon list not obtained.";
     private static final String STATEMENT_ERROR = "Statement error.";
 
-    // SQL Queries
+    // Consultas SQL
     private static final String INSERT = "INSERT INTO Dungeon (name, biome, difficulty, floors, hasBoss, pointsToBeat) VALUES (?, ?, ?, ?, ? ,?)";
     private static final String OBTAIN_BY_NAME = "SELECT * FROM Dungeon WHERE name = ?";
     private static final String OBTAIN_HARDEST = "SELECT * FROM Dungeon WHERE pointsToBeat = (SELECT MAX(pointsToBeat) FROM Dungeon)";
@@ -29,9 +29,15 @@ public class ImpDungeonDAO implements DungeonDAO {
     private static final String OBTAIN_ALL_BY_BIOME = "SELECT * FROM Dungeon WHERE biome = ?";
     private static final String OBTAIN_ALL_BY_DIFFICULTY = "SELECT * FROM Dungeon WHERE difficulty = ?";
     private static final String UPDATE = "UPDATE Dungeon SET name = ?, biome = ?, difficulty = ?, floors = ?, hasBoss = ?," +
-                                            " pointsToBeat = ? WHERE name = ?";
+            " pointsToBeat = ? WHERE name = ?";
     private static final String DELETE = "DELETE FROM Dungeon WHERE name = ?";
 
+    /**
+     * Función para insertar una nueva mazmorra en la base de datos.
+     *
+     * @param dungeon La mazmorra a insertar.
+     * @throws DAOException si ocurre un error durante la inserción.
+     */
     @Override
     public void insert(Dungeon dungeon) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(INSERT)) {
@@ -55,6 +61,13 @@ public class ImpDungeonDAO implements DungeonDAO {
 
     }
 
+    /**
+     * Función para obtener una mazmorra por su nombre.
+     *
+     * @param name El nombre de la mazmorra.
+     * @return La mazmorra obtenida.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public Dungeon obtainByName(String name) throws DAOException {
         Dungeon dungeon = null;
@@ -76,6 +89,12 @@ public class ImpDungeonDAO implements DungeonDAO {
         return dungeon;
     }
 
+    /**
+     * Función para obtener la mazmorra más difícil.
+     *
+     * @return La mazmorra más difícil.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public Dungeon obtainHardest() throws DAOException {
         Dungeon dungeon = null;
@@ -95,6 +114,12 @@ public class ImpDungeonDAO implements DungeonDAO {
         return dungeon;
     }
 
+    /**
+     * Función para obtener todas las mazmorras.
+     *
+     * @return Una lista de todas las mazmorras.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<Dungeon> obtainAll() throws DAOException {
         List<Dungeon> dungeons = new ArrayList<>();
@@ -114,6 +139,13 @@ public class ImpDungeonDAO implements DungeonDAO {
         return dungeons;
     }
 
+    /**
+     * Función para obtener todas las mazmorras por su bioma.
+     *
+     * @param biome El bioma de la mazmorra.
+     * @return Una lista de mazmorras del bioma especificado.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<Dungeon> obtainAllByBiome(Biome biome) throws DAOException {
         List<Dungeon> dungeons = new ArrayList<>();
@@ -138,6 +170,13 @@ public class ImpDungeonDAO implements DungeonDAO {
         return dungeons;
     }
 
+    /**
+     * Función para obtener todas las mazmorras por su dificultad.
+     *
+     * @param diff La dificultad de la mazmorra.
+     * @return Una lista de mazmorras de la dificultad especificada.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<Dungeon> obtainAllByDifficulty(Difficulty diff) throws DAOException {
         List<Dungeon> dungeons = new ArrayList<>();
@@ -162,6 +201,13 @@ public class ImpDungeonDAO implements DungeonDAO {
         return dungeons;
     }
 
+    /**
+     * Función para actualizar una mazmorra existente.
+     *
+     * @param dungeon La mazmorra actualizada.
+     * @param oldDun El nombre de la mazmorra a actualizar.
+     * @throws DAOException si ocurre un error durante la actualización.
+     */
     @Override
     public void update(Dungeon dungeon, String oldDun) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
@@ -186,6 +232,12 @@ public class ImpDungeonDAO implements DungeonDAO {
         }
     }
 
+    /**
+     * Función para eliminar una mazmorra por su nombre.
+     *
+     * @param name El nombre de la mazmorra a eliminar.
+     * @throws DAOException si ocurre un error durante la eliminación.
+     */
     @Override
     public void delete(String name) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(DELETE)) {
@@ -204,7 +256,13 @@ public class ImpDungeonDAO implements DungeonDAO {
         }
     }
 
-    // Mapping method
+    /**
+     * Función para mapear un ResultSet a un objeto Dungeon.
+     *
+     * @param rs El ResultSet de la consulta.
+     * @return El objeto Dungeon mapeado.
+     * @throws SQLException si ocurre un error durante el mapeo.
+     */
     private Dungeon mapDungeon(ResultSet rs) throws SQLException {
         String name = rs.getString("name");
         String biome = rs.getString("biome");
@@ -215,7 +273,12 @@ public class ImpDungeonDAO implements DungeonDAO {
         return new Dungeon(name, identifyBiome(biome), identifyDifficulty(difficulty), floors, hasBoss);
     }
 
-    // Enum identification method (Biome)
+    /**
+     * Función para identificar el bioma de una mazmorra a partir de una cadena.
+     *
+     * @param biome La cadena que representa el bioma.
+     * @return El bioma identificado.
+     */
     private Biome identifyBiome(String biome) {
         return switch (biome) {
             case "Forest" -> Biome.FOREST;
@@ -229,7 +292,12 @@ public class ImpDungeonDAO implements DungeonDAO {
         };
     }
 
-    // Enum identification method (Difficulty)
+    /**
+     * Función para identificar la dificultad de una mazmorra a partir de una cadena.
+     *
+     * @param diff La cadena que representa la dificultad.
+     * @return La dificultad identificada.
+     */
     private Difficulty identifyDifficulty(String diff) {
         return switch (diff) {
             case "D" -> Difficulty.LOW;

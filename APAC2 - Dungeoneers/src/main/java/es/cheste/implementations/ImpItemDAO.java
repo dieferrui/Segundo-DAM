@@ -15,12 +15,12 @@ public class ImpItemDAO implements ItemDAO {
 
     DBConnection c = new DBConnection();
 
-    // Final Strings
+    // Cadenas finales
     private static final String NOT_OBTAINED = "Item not obtained.";
     private static final String LIST_NOT_OBTAINED = "Item list not obtained.";
     private static final String STATEMENT_ERROR = "Statement error.";
 
-    // SQL Queries
+    // Consultas SQL
     private static final String INSERT = "INSERT INTO Item (name, type, description, rarity, value, consumable) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String OBTAIN_BY_NAME = "SELECT * FROM Item WHERE name = ?";
     private static final String OBTAIN_MOST_EXPENSIVE = "SELECT * FROM Item WHERE value = (SELECT MAX(value) FROM Item)";
@@ -30,6 +30,12 @@ public class ImpItemDAO implements ItemDAO {
     private static final String UPDATE = "UPDATE Item SET name = ?, type = ?, description = ?, rarity = ?, value = ?, consumable = ? WHERE name = ?";
     private static final String DELETE = "DELETE FROM Item WHERE name = ?";
 
+    /**
+     * Función para insertar un nuevo ítem en la base de datos.
+     *
+     * @param item El ítem a insertar.
+     * @throws DAOException si ocurre un error durante la inserción.
+     */
     @Override
     public void insert(Item item) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(INSERT)) {
@@ -51,6 +57,13 @@ public class ImpItemDAO implements ItemDAO {
         }
     }
 
+    /**
+     * Función para obtener un ítem por su nombre.
+     *
+     * @param itemName El nombre del ítem.
+     * @return El ítem obtenido.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public Item obtainByName(String itemName) throws DAOException {
         Item item = null;
@@ -71,6 +84,12 @@ public class ImpItemDAO implements ItemDAO {
         return item;
     }
 
+    /**
+     * Función para obtener el ítem más caro.
+     *
+     * @return El ítem más caro.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public Item obtainMostExpensive() throws DAOException {
         Item item = null;
@@ -89,6 +108,12 @@ public class ImpItemDAO implements ItemDAO {
         return item;
     }
 
+    /**
+     * Función para obtener todos los ítems.
+     *
+     * @return Una lista de todos los ítems.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<Item> obtainAll() throws DAOException {
         List<Item> entries = new ArrayList<>();
@@ -108,6 +133,13 @@ public class ImpItemDAO implements ItemDAO {
         return entries;
     }
 
+    /**
+     * Función para obtener todos los ítems por su tipo.
+     *
+     * @param type El tipo de ítem.
+     * @return Una lista de ítems del tipo especificado.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<Item> obtainAllByType(ItemType type) throws DAOException {
         List<Item> items = new ArrayList<>();
@@ -132,6 +164,13 @@ public class ImpItemDAO implements ItemDAO {
         return items;
     }
 
+    /**
+     * Función para obtener todos los ítems por su rareza.
+     *
+     * @param rarity La rareza del ítem.
+     * @return Una lista de ítems de la rareza especificada.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<Item> obtainAllByRarity(Rarity rarity) throws DAOException {
         List<Item> items = new ArrayList<>();
@@ -156,6 +195,13 @@ public class ImpItemDAO implements ItemDAO {
         return items;
     }
 
+    /**
+     * Función para actualizar un ítem existente.
+     *
+     * @param item El ítem actualizado.
+     * @param oldIt El nombre del ítem a actualizar.
+     * @throws DAOException si ocurre un error durante la actualización.
+     */
     @Override
     public void update(Item item, String oldIt) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
@@ -181,6 +227,12 @@ public class ImpItemDAO implements ItemDAO {
         }
     }
 
+    /**
+     * Función para eliminar un ítem por su nombre.
+     *
+     * @param itemName El nombre del ítem a eliminar.
+     * @throws DAOException si ocurre un error durante la eliminación.
+     */
     @Override
     public void delete(String itemName) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(DELETE)) {
@@ -195,7 +247,13 @@ public class ImpItemDAO implements ItemDAO {
         }
     }
 
-    // Mapping method
+    /**
+     * Función para mapear un ResultSet a un objeto Item.
+     *
+     * @param rs El ResultSet de la consulta.
+     * @return El objeto Item mapeado.
+     * @throws SQLException si ocurre un error durante el mapeo.
+     */
     private Item mapItem(ResultSet rs) throws SQLException {
         String name = rs.getString("name");
         String type = rs.getString("type");
@@ -207,17 +265,27 @@ public class ImpItemDAO implements ItemDAO {
         return new Item(name, identifyType(type), description, identifyRarity(rarity), value, consumable);
     }
 
-    // Enum identification method (Type)
+    /**
+     * Función para identificar el tipo de un ítem a partir de una cadena.
+     *
+     * @param ty La cadena que representa el tipo.
+     * @return El tipo identificado.
+     */
     private ItemType identifyType(String ty) {
         return switch (ty) {
             case "Armor" -> ItemType.ARMOR;
             case "Weapon" -> ItemType.WEAPON;
-            case "Accesory" -> ItemType.ACCESSORY;
+            case "Accessory" -> ItemType.ACCESSORY;
             default -> ItemType.POTION;
         };
     }
 
-    // Enum identification method (Rarity)
+    /**
+     * Función para identificar la rareza de un ítem a partir de una cadena.
+     *
+     * @param rar La cadena que representa la rareza.
+     * @return La rareza identificada.
+     */
     private Rarity identifyRarity(String rar) {
         return switch (rar) {
             case "Uncommon" -> Rarity.UNCOMMON;

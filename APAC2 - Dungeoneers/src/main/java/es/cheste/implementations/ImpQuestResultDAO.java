@@ -18,11 +18,11 @@ public class ImpQuestResultDAO implements QuestResultDAO {
     ImpPartyDAO partyImpMethod = new ImpPartyDAO();
     ImpDungeonDAO dungeonImpMethod = new ImpDungeonDAO();
 
-    // Final Strings
+    // Cadenas finales
     private static final String NOT_OBTAINED = "Quest result not obtained.";
     private static final String LIST_NOT_OBTAINED = "Quest results not obtained.";
 
-    // SQL Queries
+    // Consultas SQL
     private static final String INSERT = "INSERT INTO QuestResult (questId, PartyId, DungeonId, success, report) VALUES (?, ?, ?, ?, ?)";
     private static final String OBTAIN_BY_ID = "SELECT * FROM QuestResult WHERE questId = ?";
     private static final String OBTAIN_ALL = "SELECT * FROM QuestResult";
@@ -33,6 +33,12 @@ public class ImpQuestResultDAO implements QuestResultDAO {
     private static final String UPDATE = "UPDATE QuestResult SET questId = ?, PartyId = ?, DungeonId = ?, success = ?, report = ? WHERE questId = ?";
     private static final String DELETE = "DELETE FROM QuestResult WHERE questId = ?";
 
+    /**
+     * Función para insertar un nuevo resultado de misión en la base de datos.
+     *
+     * @param questResult El resultado de misión a insertar.
+     * @throws DAOException si ocurre un error durante la inserción.
+     */
     @Override
     public void insert(QuestResult questResult) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(INSERT)) {
@@ -55,6 +61,13 @@ public class ImpQuestResultDAO implements QuestResultDAO {
 
     }
 
+    /**
+     * Función para obtener un resultado de misión por su ID.
+     *
+     * @param questId El ID de la misión.
+     * @return El resultado de misión obtenido.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public QuestResult obtainById(int questId) throws DAOException {
         QuestResult qr = null;
@@ -75,6 +88,12 @@ public class ImpQuestResultDAO implements QuestResultDAO {
         return qr;
     }
 
+    /**
+     * Función para obtener todos los resultados de misión.
+     *
+     * @return Una lista de todos los resultados de misión.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<QuestResult> obtainAll() throws DAOException {
         List<QuestResult> qrList = new ArrayList<>();
@@ -93,6 +112,13 @@ public class ImpQuestResultDAO implements QuestResultDAO {
         return qrList;
     }
 
+    /**
+     * Función para obtener todos los resultados de misión por nombre del grupo.
+     *
+     * @param partyName El nombre del grupo.
+     * @return Una lista de resultados de misión del grupo especificado.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<QuestResult> obtainAllByParty(String partyName) throws DAOException {
         List<QuestResult> qrList = new ArrayList<>();
@@ -113,6 +139,13 @@ public class ImpQuestResultDAO implements QuestResultDAO {
         return qrList;
     }
 
+    /**
+     * Función para obtener todos los resultados de misión por nombre de la mazmorra.
+     *
+     * @param dungeonName El nombre de la mazmorra.
+     * @return Una lista de resultados de misión de la mazmorra especificada.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<QuestResult> obtainAllByDungeon(String dungeonName) throws DAOException {
         List<QuestResult> qrList = new ArrayList<>();
@@ -133,6 +166,12 @@ public class ImpQuestResultDAO implements QuestResultDAO {
         return qrList;
     }
 
+    /**
+     * Función para obtener todos los resultados de misión exitosos.
+     *
+     * @return Una lista de resultados de misión exitosos.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<QuestResult> obtainAllCleared() throws DAOException {
         List<QuestResult> qrList = new ArrayList<>();
@@ -151,6 +190,12 @@ public class ImpQuestResultDAO implements QuestResultDAO {
         return qrList;
     }
 
+    /**
+     * Función para obtener todos los resultados de misión fallidos.
+     *
+     * @return Una lista de resultados de misión fallidos.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<QuestResult> obtainAllFailed() throws DAOException {
         List<QuestResult> qrList = new ArrayList<>();
@@ -169,6 +214,13 @@ public class ImpQuestResultDAO implements QuestResultDAO {
         return qrList;
     }
 
+    /**
+     * Función para actualizar un resultado de misión existente.
+     *
+     * @param questResult El resultado de misión actualizado.
+     * @param lastId El ID del resultado de misión a actualizar.
+     * @throws DAOException si ocurre un error durante la actualización.
+     */
     @Override
     public void update(QuestResult questResult, int lastId) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
@@ -192,6 +244,12 @@ public class ImpQuestResultDAO implements QuestResultDAO {
         }
     }
 
+    /**
+     * Función para eliminar un resultado de misión por su ID.
+     *
+     * @param questId El ID del resultado de misión a eliminar.
+     * @throws DAOException si ocurre un error durante la eliminación.
+     */
     @Override
     public void delete(int questId) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(DELETE)) {
@@ -208,6 +266,13 @@ public class ImpQuestResultDAO implements QuestResultDAO {
         }
     }
 
+    /**
+     * Función para obtener los resultados de una misión por su ID.
+     *
+     * @param questId El ID de la misión.
+     * @return Una cadena con la explicación de los resultados de la misión.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public String getQuestResults(int questId) throws DAOException {
         String resultsExplanation = null;
@@ -224,7 +289,7 @@ public class ImpQuestResultDAO implements QuestResultDAO {
                 int partyPower = rs.getInt("ptPower");
 
                 resultsExplanation = "Dungeon: " + dungeonName + " (Difficulty " + dungeonDifficulty + " - " +
-                                        dungeonPower + ")\nParty: " + partyName + " (Power " + partyPower + ")";
+                        dungeonPower + ")\nParty: " + partyName + " (Power " + partyPower + ")";
             }
 
         } catch (SQLException e) {
@@ -235,6 +300,14 @@ public class ImpQuestResultDAO implements QuestResultDAO {
         return resultsExplanation;
     }
 
+    /**
+     * Función para mapear un ResultSet a un objeto QuestResult.
+     *
+     * @param rs El ResultSet de la consulta.
+     * @return El objeto QuestResult mapeado.
+     * @throws SQLException si ocurre un error durante el mapeo.
+     * @throws DAOException si ocurre un error durante la obtención de datos.
+     */
     private QuestResult mapResults(ResultSet rs) throws SQLException, DAOException {
         Party party = partyImpMethod.obtainByName(rs.getString("PartyId"));
         Dungeon dungeon = dungeonImpMethod.obtainByName(rs.getString("DungeonId"));

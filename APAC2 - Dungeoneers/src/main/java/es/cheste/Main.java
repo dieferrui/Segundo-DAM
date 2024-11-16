@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class Main {
     private final Setup setup = new Setup();
+    private final CommonMethod cm = new CommonMethod();
     private final CharacterHandler characterHandler = new CharacterHandler();
     private final DungeonHandler dungeonHandler = new DungeonHandler();
     private final ItemHandler itemHandler = new ItemHandler();
@@ -20,10 +21,18 @@ public class Main {
 
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Función principal para iniciar la aplicación.
+     *
+     * @param args Argumentos de la línea de comandos.
+     */
     public static void main(String[] args) {
         new Main().start();
     }
 
+    /**
+     * Función para iniciar la aplicación y mostrar el menú principal.
+     */
     private void start() {
         setup.createTables();
         int choice;
@@ -40,7 +49,7 @@ public class Main {
 
             System.out.print("Select an option: ");
 
-            choice = getValidInteger();
+            choice = cm.getValidInteger();
 
             switch (choice) {
                 case 1 -> characterHandler.start();
@@ -56,17 +65,5 @@ public class Main {
         } while (choice != 0);
 
         scanner.close();
-    }
-
-    private int getValidInteger() {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine().trim());
-
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid integer.");
-
-            }
-        }
     }
 }

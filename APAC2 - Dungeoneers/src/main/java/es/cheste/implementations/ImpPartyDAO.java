@@ -17,11 +17,11 @@ public class ImpPartyDAO implements PartyDAO {
     DBConnection c = new DBConnection();
     ImpCharacterDAO charImpMethod = new ImpCharacterDAO();
 
-    // Final Strings
+    // Cadenas finales
     private static final String NOT_OBTAINED = "Party not obtained.";
     private static final String LIST_NOT_OBTAINED = "Party list not obtained.";
 
-    // SQL Queries
+    // Consultas SQL
     private static final String INSERT = "INSERT INTO Party (name, ptLeader, ptStriker, ptTank, ptHealer, ptPower) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String OBTAIN_BY_NAME = "SELECT * FROM Party WHERE name = ?";
     private static final String OBTAIN_STRONGEST = "SELECT * FROM Party ORDER BY ptPower DESC LIMIT 1";
@@ -30,6 +30,12 @@ public class ImpPartyDAO implements PartyDAO {
     private static final String UPDATE = "UPDATE Party SET name = ?, ptLeader = ?, ptStriker = ?, ptTank = ?, ptHealer = ?, ptPower = ? WHERE name = ?";
     private static final String DELETE = "DELETE FROM Party WHERE name = ?";
 
+    /**
+     * Función para insertar un nuevo grupo en la base de datos.
+     *
+     * @param party El grupo a insertar.
+     * @throws DAOException si ocurre un error durante la inserción.
+     */
     @Override
     public void insert(Party party) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(INSERT)) {
@@ -51,6 +57,13 @@ public class ImpPartyDAO implements PartyDAO {
         }
     }
 
+    /**
+     * Función para obtener un grupo por su nombre.
+     *
+     * @param partyName El nombre del grupo.
+     * @return El grupo obtenido.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public Party obtainByName(String partyName) throws DAOException {
         Party party = null;
@@ -71,6 +84,13 @@ public class ImpPartyDAO implements PartyDAO {
         return party;
     }
 
+    /**
+     * Función para obtener los miembros de un grupo.
+     *
+     * @param partyName El nombre del grupo.
+     * @return Un arreglo de los miembros del grupo.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public Character[] getMembers(String partyName) throws DAOException {
         Character[] members = new Character[4];
@@ -105,6 +125,12 @@ public class ImpPartyDAO implements PartyDAO {
         return members;
     }
 
+    /**
+     * Función para obtener el grupo más fuerte.
+     *
+     * @return El grupo más fuerte.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public Party obtainStrongest() throws DAOException {
         Party party = null;
@@ -123,6 +149,12 @@ public class ImpPartyDAO implements PartyDAO {
         return party;
     }
 
+    /**
+     * Función para obtener todos los grupos.
+     *
+     * @return Una lista de todos los grupos.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<Party> obtainAll() throws DAOException {
         List<Party> parties = new ArrayList<>();
@@ -142,6 +174,13 @@ public class ImpPartyDAO implements PartyDAO {
         return parties;
     }
 
+    /**
+     * Función para obtener todos los grupos que contienen un miembro específico.
+     *
+     * @param memberName El nombre del aventurero.
+     * @return Una lista de grupos que contienen al miembro especificado.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<Party> obtainAllThatContainMember(String memberName) throws DAOException {
         List<Party> parties = new ArrayList<>();
@@ -170,6 +209,13 @@ public class ImpPartyDAO implements PartyDAO {
         return parties;
     }
 
+    /**
+     * Función para actualizar un grupo existente.
+     *
+     * @param party El grupo actualizado.
+     * @param oldPart El nombre del grupo a actualizar.
+     * @throws DAOException si ocurre un error durante la actualización.
+     */
     @Override
     public void update(Party party, String oldPart) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
@@ -192,6 +238,12 @@ public class ImpPartyDAO implements PartyDAO {
         }
     }
 
+    /**
+     * Función para eliminar un grupo por su nombre.
+     *
+     * @param partyName El nombre del grupo a eliminar.
+     * @throws DAOException si ocurre un error durante la eliminación.
+     */
     @Override
     public void delete(String partyName) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(DELETE)) {
@@ -206,7 +258,14 @@ public class ImpPartyDAO implements PartyDAO {
         }
     }
 
-    // Mapping method
+    /**
+     * Función para mapear un ResultSet a un objeto Party.
+     *
+     * @param rs El ResultSet de la consulta.
+     * @return El objeto Party mapeado.
+     * @throws SQLException si ocurre un error durante el mapeo.
+     * @throws DAOException si ocurre un error durante la obtención de personajes.
+     */
     private Party mapParty(ResultSet rs) throws SQLException, DAOException {
         String name = rs.getString("name");
         Character ptLeader = charImpMethod.obtainByName(rs.getString("ptLeader"));
@@ -217,7 +276,12 @@ public class ImpPartyDAO implements PartyDAO {
         return new Party(name, ptLeader, ptStriker, ptTank, ptHealer);
     }
 
-    // Enum identification method (Class)
+    /**
+     * Función para identificar la clase de un personaje a partir de una cadena.
+     *
+     * @param chClass La cadena que representa la clase.
+     * @return La clase identificada.
+     */
     private CharaClass identifyClass(String chClass) {
         return switch (chClass) {
             case "Alchemist" -> CharaClass.ALCHEMIST;
@@ -236,7 +300,12 @@ public class ImpPartyDAO implements PartyDAO {
         };
     }
 
-    // Enum identification method (Ancestry)
+    /**
+     * Función para identificar la ascendencia de un personaje a partir de una cadena.
+     *
+     * @param ancestry La cadena que representa la ascendencia.
+     * @return La ascendencia identificada.
+     */
     private Ancestry identifyAncestry(String ancestry) {
         return switch (ancestry) {
             case "Dwarf" -> Ancestry.DWARF;

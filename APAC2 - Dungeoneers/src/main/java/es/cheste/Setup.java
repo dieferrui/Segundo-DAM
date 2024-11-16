@@ -13,7 +13,7 @@ public class Setup {
     private final Character alastor = new Character("Alastor, the Dark Sun", CharaClass.WIZARD, Ancestry.HUMAN, 0, 3, 3, 4, 2, 2);
     private final Character elyra = new Character("Elyra, the Swift Wind", CharaClass.MONK, Ancestry.ELF, 3, 4, 3, 1, 3, 1);
     private final Character drem = new Character("Drem, the Flashing Blade", CharaClass.ROGUE, Ancestry.HUMAN, 4, 1, 2, 3, 1, 3);
-    private  final Character kalaf = new Character("Kalaf, the Radiant Shield", CharaClass.CLERIC, Ancestry.DWARF, 0, 3, 3, 1, 4, 2);
+    private final Character kalaf = new Character("Kalaf, the Radiant Shield", CharaClass.CLERIC, Ancestry.DWARF, 0, 3, 3, 1, 4, 2);
 
     private final Party fellers = new Party("Fellers of the Runelord", drem, alastor, elyra, kalaf);
 
@@ -26,6 +26,9 @@ public class Setup {
 
     DBConnection c = new DBConnection();
 
+    /**
+     * Función para crear todas las tablas necesarias en la base de datos.
+     */
     public void createTables() {
         try {
             createCharacterTable();
@@ -46,6 +49,11 @@ public class Setup {
         }
     }
 
+    /**
+     * Función para crear la tabla de personajes en la base de datos.
+     *
+     * @throws CreateTableException si ocurre un error durante la creación de la tabla.
+     */
     private void createCharacterTable() throws CreateTableException {
         String sql = """
                 CREATE TABLE IF NOT EXISTS Charactera (
@@ -69,6 +77,11 @@ public class Setup {
         }
     }
 
+    /**
+     * Función para crear la tabla de grupos en la base de datos.
+     *
+     * @throws CreateTableException si ocurre un error durante la creación de la tabla.
+     */
     private void createPartyTable() throws CreateTableException {
         String sql = """
                 CREATE TABLE IF NOT EXISTS Party (
@@ -93,6 +106,11 @@ public class Setup {
         }
     }
 
+    /**
+     * Función para crear la tabla de mazmorras en la base de datos.
+     *
+     * @throws CreateTableException si ocurre un error durante la creación de la tabla.
+     */
     private void createDungeonTable() throws CreateTableException {
         String sql = """
                 CREATE TABLE IF NOT EXISTS Dungeon (
@@ -113,6 +131,11 @@ public class Setup {
         }
     }
 
+    /**
+     * Función para crear la tabla de ítems en la base de datos.
+     *
+     * @throws CreateTableException si ocurre un error durante la creación de la tabla.
+     */
     private void createItemTable() throws CreateTableException {
         String sql = """
                 CREATE TABLE IF NOT EXISTS Item (
@@ -133,6 +156,11 @@ public class Setup {
         }
     }
 
+    /**
+     * Función para crear la tabla de inventarios en la base de datos.
+     *
+     * @throws CreateTableException si ocurre un error durante la creación de la tabla.
+     */
     private void createInventoryTable() throws CreateTableException {
         String sql = """
                 CREATE TABLE IF NOT EXISTS Inventory (
@@ -153,6 +181,11 @@ public class Setup {
         }
     }
 
+    /**
+     * Función para crear la tabla de resultados de misiones en la base de datos.
+     *
+     * @throws CreateTableException si ocurre un error durante la creación de la tabla.
+     */
     private void createQuestResultTable() throws CreateTableException {
         String sql = """
                 CREATE TABLE IF NOT EXISTS QuestResult (
@@ -174,6 +207,9 @@ public class Setup {
         }
     }
 
+    /**
+     * Función para insertar datos de prueba en las tablas.
+     */
     private void insertTestData() {
         try {
             if (isTableEmpty("Charactera")) insertTestCharacters();
@@ -187,7 +223,14 @@ public class Setup {
 
         }
     }
-    
+
+    /**
+     * Función para verificar si una tabla está vacía.
+     *
+     * @param tableName El nombre de la tabla.
+     * @return true si la tabla está vacía, false en caso contrario.
+     * @throws SQLException si ocurre un error durante la verificación.
+     */
     private boolean isTableEmpty(String tableName) throws SQLException {
         String sql = "SELECT COUNT(*) FROM " + tableName;
 
@@ -203,13 +246,18 @@ public class Setup {
         return false;
     }
 
+    /**
+     * Función para insertar personajes de prueba en la tabla de personajes.
+     *
+     * @throws SQLException si ocurre un error durante la inserción.
+     */
     private void insertTestCharacters() throws SQLException {
         String sql = """
-                INSERT INTO Charactera (name, class, ancestry, dexMod, strMod, conMod, intMod, wisMod, chaMod) 
+                INSERT INTO Charactera (name, class, ancestry, dexMod, strMod, conMod, intMod, wisMod, chaMod)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ON DUPLICATE KEY UPDATE name = name;
                 """;
-        
+
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
             ps.setString(1, alastor.getName());
             ps.setString(2, alastor.getChClass().getClassName());
@@ -254,36 +302,46 @@ public class Setup {
             ps.setInt(8, 4);
             ps.setInt(9, 2);
             ps.executeUpdate();
-            
+
         }
     }
 
+    /**
+     * Función para insertar grupos de prueba en la tabla de grupos.
+     *
+     * @throws SQLException si ocurre un error durante la inserción.
+     */
     private void insertTestParties() throws SQLException {
         String sql = """
-                INSERT INTO Party (name, ptLeader, ptStriker, ptTank, ptHealer, ptPower) 
+                INSERT INTO Party (name, ptLeader, ptStriker, ptTank, ptHealer, ptPower)
                 VALUES (?, ?, ?, ?, ?, ?)
                 ON DUPLICATE KEY UPDATE name = name;
                 """;
-        
+
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
             ps.setString(1, fellers.getPartyName());
             ps.setString(2, fellers.getPtLeader().getName());
             ps.setString(3, fellers.getPtStriker().getName());
             ps.setString(4, fellers.getPtTank().getName());
             ps.setString(5, fellers.getPtHealer().getName());
-            ps.setInt(6,  fellers.getPtPower());
+            ps.setInt(6, fellers.getPtPower());
             ps.executeUpdate();
 
         }
     }
 
+    /**
+     * Función para insertar mazmorras de prueba en la tabla de mazmorras.
+     *
+     * @throws SQLException si ocurre un error durante la inserción.
+     */
     private void insertTestDungeons() throws SQLException {
         String sql = """
-                INSERT INTO Dungeon (name, biome, difficulty, floors, hasBoss, pointsToBeat) 
+                INSERT INTO Dungeon (name, biome, difficulty, floors, hasBoss, pointsToBeat)
                 VALUES (?, ?, ?, ?, ?, ?)
                 ON DUPLICATE KEY UPDATE name = name;
                 """;
-        
+
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
             ps.setString(1, throne.getName());
             ps.setString(2, throne.getBiome().getBiomeName());
@@ -296,20 +354,25 @@ public class Setup {
         }
     }
 
+    /**
+     * Función para insertar ítems de prueba en la tabla de ítems.
+     *
+     * @throws SQLException si ocurre un error durante la inserción.
+     */
     private void insertTestItems() throws SQLException {
         String sql = """
-                INSERT INTO Item (name, type, description, rarity, value, consumable) 
+                INSERT INTO Item (name, type, description, rarity, value, consumable)
                 VALUES (?, ?, ?, ?, ?, ?)
                 ON DUPLICATE KEY UPDATE name = name;
                 """;
-        
+
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
             ps.setString(1, potion.getName());
             ps.setString(2, potion.getType().getType());
             ps.setString(3, potion.getDescription());
             ps.setString(4, potion.getRarity().getRarity());
             ps.setInt(5, potion.getValue());
-            ps.setBoolean(6,  potion.isConsumable());
+            ps.setBoolean(6, potion.isConsumable());
             ps.executeUpdate();
 
             ps.setString(1, lightningSword.getName());
@@ -323,13 +386,18 @@ public class Setup {
         }
     }
 
+    /**
+     * Función para insertar resultados de misiones de prueba en la tabla de resultados de misiones.
+     *
+     * @throws SQLException si ocurre un error durante la inserción.
+     */
     private void insertTestQuestResults() throws SQLException {
         String sql = """
-                INSERT INTO QuestResult (questId, PartyId, DungeonId, report, success) 
+                INSERT INTO QuestResult (questId, PartyId, DungeonId, report, success)
                 VALUES (?, ?, ?, ?, ?)
                 ON DUPLICATE KEY UPDATE questId = questId;
                 """;
-        
+
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
             ps.setInt(1, 1);
             ps.setString(2, karzougDefeat.getPartyId());
@@ -341,6 +409,11 @@ public class Setup {
         }
     }
 
+    /**
+     * Función para crear los procedimientos almacenados necesarios en la base de datos.
+     *
+     * @throws CreateTableException si ocurre un error durante la creación de los procedimientos almacenados.
+     */
     private void createStoredProcedures() throws CreateTableException {
         try {
             createGetPartyMembers();
@@ -351,7 +424,12 @@ public class Setup {
 
         }
     }
-    
+
+    /**
+     * Función para crear el procedimiento almacenado GetPartyMembers.
+     *
+     * @throws SQLException si ocurre un error durante la creación del procedimiento almacenado.
+     */
     private void createGetPartyMembers() throws SQLException {
         String dropSql = "DROP PROCEDURE IF EXISTS GetPartyMembers;";
 
@@ -362,20 +440,25 @@ public class Setup {
         String sql = """
                 CREATE PROCEDURE GetPartyMembers(IN partyName VARCHAR(50))
                 BEGIN
-                    SELECT c.name, c.class, c.ancestry, 
+                    SELECT c.name, c.class, c.ancestry,
                         c.dexMod, c.strMod, c.conMod, c.intMod, c.wisMod, c.chaMod
                     FROM Party p
                     JOIN Charactera c ON c.name IN (p.ptLeader, p.ptStriker, p.ptTank, p.ptHealer)
                     WHERE p.name = partyName;
                 END;
                 """;
-    
+
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
             ps.executeUpdate();
 
         }
     }
-    
+
+    /**
+     * Función para crear el procedimiento almacenado GetQuestResultById.
+     *
+     * @throws SQLException si ocurre un error durante la creación del procedimiento almacenado.
+     */
     private void createGetQuestResultsProcedure() throws SQLException {
         String dropSql = "DROP PROCEDURE IF EXISTS GetQuestResultById;";
 
@@ -398,7 +481,7 @@ public class Setup {
                     WHERE qr.questId = questId;
                 END;
                 """;
-    
+
         try (PreparedStatement ps = c.getConnection().prepareStatement(sql)) {
             ps.executeUpdate();
         }

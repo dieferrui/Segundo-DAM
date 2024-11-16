@@ -6,6 +6,12 @@ public class CommonMethod {
 
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Función para obtener un índice válido dentro de un rango.
+     *
+     * @param max El valor máximo permitido para el índice.
+     * @return El índice válido ingresado por el usuario.
+     */
     public int getValidIndex(int max) {
         int choice;
 
@@ -22,6 +28,11 @@ public class CommonMethod {
         return choice;
     }
 
+    /**
+     * Función para obtener un número entero válido ingresado por el usuario.
+     *
+     * @return El número entero válido ingresado por el usuario.
+     */
     public int getValidInteger() {
         while (true) {
             try {

@@ -16,24 +16,30 @@ public class ImpCharacterDAO implements CharacterDAO {
 
     DBConnection c = new DBConnection();
 
-    // Final Strings
+    // Cadenas finales
     private static final String NOT_OBTAINED = "Character not obtained.";
     private static final String LIST_NOT_OBTAINED = "Character list not obtained.";
     private static final String STATEMENT_ERROR = "Statement error.";
 
-    // SQL Queries
+    // Consultas SQL
     private static final String INSERT = "INSERT INTO Charactera (name, class, ancestry, dexMod, strMod, conMod, " +
-                                            "intMod, wisMod, chaMod) VALUES (?, ?, ?, ?, ? ,? ,? ,? ,?)";
+            "intMod, wisMod, chaMod) VALUES (?, ?, ?, ?, ? ,? ,? ,? ,?)";
     private static final String OBTAIN_BY_NAME = "SELECT * FROM Charactera WHERE name = ?";
     private static final String OBTAIN_STRONGEST = "SELECT *, (dexMod + strMod + conMod + intMod + wisMod + chaMod) AS totalStrength " +
-                                                    "FROM Charactera ORDER BY totalStrength DESC";
+            "FROM Charactera ORDER BY totalStrength DESC";
     private static final String OBTAIN_ALL = "SELECT * FROM Charactera";
     private static final String OBTAIN_ALL_BY_CLASS = "SELECT * FROM Charactera WHERE class = ?";
     private static final String OBTAIN_ALL_BY_ANCESTRY = "SELECT * FROM Charactera WHERE ancestry = ?";
     private static final String UPDATE = "UPDATE Charactera SET name = ?, class = ?, ancestry = ?, dexMod = ?, strMod = ?," +
-                                            " conMod = ?, intMod = ?, wisMod = ?, chaMod = ? WHERE name = ?";
+            " conMod = ?, intMod = ?, wisMod = ?, chaMod = ? WHERE name = ?";
     private static final String DELETE = "DELETE FROM Charactera WHERE name = ?";
 
+    /**
+     * Función para insertar un nuevo personaje en la base de datos.
+     *
+     * @param character El personaje a insertar.
+     * @throws DAOException si ocurre un error durante la inserción.
+     */
     @Override
     public void insert(Character character) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(INSERT)) {
@@ -60,6 +66,13 @@ public class ImpCharacterDAO implements CharacterDAO {
 
     }
 
+    /**
+     * Función para obtener un personaje por su nombre.
+     *
+     * @param name El nombre del personaje.
+     * @return El personaje obtenido.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public Character obtainByName(String name) throws DAOException {
         Character character = null;
@@ -80,6 +93,12 @@ public class ImpCharacterDAO implements CharacterDAO {
         return character;
     }
 
+    /**
+     * Función para obtener el personaje más fuerte.
+     *
+     * @return El personaje más fuerte.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public Character obtainStrongest() throws DAOException {
         Character character = null;
@@ -98,6 +117,12 @@ public class ImpCharacterDAO implements CharacterDAO {
         return character;
     }
 
+    /**
+     * Función para obtener todos los personajes.
+     *
+     * @return Una lista de todos los personajes.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<Character> obtainAll() throws DAOException {
         List<Character> characters = new ArrayList<>();
@@ -117,6 +142,13 @@ public class ImpCharacterDAO implements CharacterDAO {
         return characters;
     }
 
+    /**
+     * Función para obtener todos los personajes por su clase.
+     *
+     * @param chClass La clase del personaje.
+     * @return Una lista de personajes de la clase especificada.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<Character> obtainAllByClass(CharaClass chClass) throws DAOException {
         List<Character> characters = new ArrayList<>();
@@ -141,6 +173,13 @@ public class ImpCharacterDAO implements CharacterDAO {
         return characters;
     }
 
+    /**
+     * Función para obtener todos los personajes por su ascendencia.
+     *
+     * @param ancestry La ascendencia del personaje.
+     * @return Una lista de personajes de la ascendencia especificada.
+     * @throws DAOException si ocurre un error durante la obtención.
+     */
     @Override
     public List<Character> obtainAllByAncestry(Ancestry ancestry) throws DAOException {
         List<Character> characters = new ArrayList<>();
@@ -165,6 +204,13 @@ public class ImpCharacterDAO implements CharacterDAO {
         return characters;
     }
 
+    /**
+     * Función para actualizar un personaje existente.
+     *
+     * @param character El personaje actualizado.
+     * @param oldChar El nombre del personaje a actualizar.
+     * @throws DAOException si ocurre un error durante la actualización.
+     */
     @Override
     public void update(Character character, String oldChar) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(UPDATE)) {
@@ -193,6 +239,12 @@ public class ImpCharacterDAO implements CharacterDAO {
         }
     }
 
+    /**
+     * Función para eliminar un personaje por su nombre.
+     *
+     * @param name El nombre del personaje a eliminar.
+     * @throws DAOException si ocurre un error durante la eliminación.
+     */
     @Override
     public void delete(String name) throws DAOException {
         try (PreparedStatement ps = c.getConnection().prepareStatement(DELETE)) {
@@ -211,7 +263,13 @@ public class ImpCharacterDAO implements CharacterDAO {
         }
     }
 
-    // Mapping method
+    /**
+     * Función para mapear un ResultSet a un objeto Character.
+     *
+     * @param rs El ResultSet de la consulta.
+     * @return El objeto Character mapeado.
+     * @throws SQLException si ocurre un error durante el mapeo.
+     */
     private Character mapCharacter(ResultSet rs) throws SQLException {
         String name = rs.getString("name");
         String chClass = rs.getString("class");
@@ -226,7 +284,12 @@ public class ImpCharacterDAO implements CharacterDAO {
         return new Character(name, identifyClass(chClass), identifyAncestry(ancestry), dexMod, strMod, conMod, intMod, wisMod, chaMod);
     }
 
-    // Enum identification method (Class)
+    /**
+     * Función para identificar la clase de un personaje a partir de una cadena.
+     *
+     * @param chClass La cadena que representa la clase.
+     * @return La clase identificada.
+     */
     private CharaClass identifyClass(String chClass) {
         return switch (chClass) {
             case "Alchemist" -> CharaClass.ALCHEMIST;
@@ -245,7 +308,12 @@ public class ImpCharacterDAO implements CharacterDAO {
         };
     }
 
-    // Enum identification method (Ancestry)
+    /**
+     * Función para identificar la ascendencia de un personaje a partir de una cadena.
+     *
+     * @param ancestry La cadena que representa la ascendencia.
+     * @return La ascendencia identificada.
+     */
     private Ancestry identifyAncestry(String ancestry) {
         return switch (ancestry) {
             case "Dwarf" -> Ancestry.DWARF;
