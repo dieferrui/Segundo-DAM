@@ -72,8 +72,7 @@ public class DungeonHandler {
             System.out.print("Number of Floors: ");
             int floors = cm.getValidInteger();
 
-            System.out.print("Has Boss (true/false): ");
-            boolean hasBoss = Boolean.parseBoolean(scanner.nextLine());
+            boolean hasBoss = getValidBoolean();
 
             Dungeon dungeon = new Dungeon(name, biome, difficulty, floors, hasBoss);
             dao.insert(dungeon);
@@ -134,8 +133,7 @@ public class DungeonHandler {
                 System.out.print("Number of Floors: ");
                 int floors = cm.getValidInteger();
 
-                System.out.print("Has Boss (true/false): ");
-                boolean hasBoss = Boolean.parseBoolean(scanner.nextLine());
+                boolean hasBoss = getValidBoolean();
 
                 Dungeon newDungeon = new Dungeon(newName, biome, difficulty, floors, hasBoss);
                 dao.update(newDungeon, oldName);
@@ -311,5 +309,34 @@ public class DungeonHandler {
         }
 
         return difficulties[cm.getValidIndex(difficulties.length) - 1];
+    }
+
+    /**
+     * Función para obtener un valor booleano válido para la elección de jefe.
+     *
+     * @return El valor booleano.
+     */
+    private boolean getValidBoolean() {
+        boolean validChoice = false;
+        boolean consumable = false;
+
+        while (!validChoice) {
+            System.out.print("Has a boss (true/false): ");
+            String input = scanner.nextLine().trim().toLowerCase();
+
+            if (input.equals("true")) {
+                validChoice = true;
+                consumable = true;
+
+            } else if (input.equals("false")) {
+                validChoice = true;
+
+            } else {
+                System.out.println("Invalid input. Please enter 'true' or 'false'.");
+
+            }
+        }
+
+        return consumable;
     }
 }

@@ -87,3 +87,6 @@ Aun así, en algunos casos es necesaria la implementación de métodos personali
 como en el caso de la clase Character, que necesita un método para generar o corregir
 las estadísticas del aventurero, o en la clase Party, que necesita un método
 adicional para calcular la fuerza del grupo.
+
+Nótese que el sistema de actualización de mazmorras no funciona.
+No hemos logrado identificar la causa.

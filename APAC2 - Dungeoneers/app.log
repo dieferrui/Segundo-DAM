@@ -81,3 +81,11 @@
 2024-11-16 13:14:30,490 INFO e.c.h.PartyHandler [main] Party updated: Gobblers of gobblins
 2024-11-16 13:19:34,822 INFO e.c.h.PartyHandler [main] Party updated: What
 2024-11-16 13:20:01,609 INFO e.c.h.PartyHandler [main] Party deleted: What
+2024-11-16 17:27:51,676 INFO e.c.h.CharacterHandler [main] Character added successfully.
+2024-11-16 17:29:21,224 INFO e.c.h.CharacterHandler [main] Character added successfully.
+2024-11-16 17:30:25,010 INFO e.c.h.CharacterHandler [main] Character added successfully.
+2024-11-16 17:31:11,856 INFO e.c.h.CharacterHandler [main] Character added successfully.
+2024-11-16 17:33:10,885 INFO e.c.h.DungeonHandler [main] Dungeon added: Peak of the Roots
+2024-11-16 17:34:13,043 INFO e.c.h.DungeonHandler [main] Dungeon added: The child's playground
+2024-11-16 17:35:20,710 INFO e.c.h.DungeonHandler [main] Dungeon added: Planar rift: the home of Rovagug
+2024-11-16 17:36:03,223 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
