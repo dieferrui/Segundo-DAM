@@ -3,12 +3,14 @@ package es.cheste;
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import javax.swing.undo.UndoManager;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.*;
+import java.net.URL;
 
 public class Editor extends JFrame implements ClipboardOwner {
     JMenuBar jmbarEditor;
@@ -24,6 +26,8 @@ public class Editor extends JFrame implements ClipboardOwner {
     JMenuItem jitemCortar;
     JMenuItem jitemCopiar;
     JMenuItem jitemPegar;
+    JMenuItem jitemDeshacer;
+    JMenuItem jitemRehacer;
 
     JMenu jmnuOpciones;
     JMenu jmnuFuente;
@@ -41,10 +45,28 @@ public class Editor extends JFrame implements ClipboardOwner {
 
     Font fuentePr;
 
+    UndoManager jumDeshacerRehacer;
+
+    JPopupMenu jpmnuEdicion;
+    JMenuItem jpmitemCortar;
+    JMenuItem jpmitemCopiar;
+    JMenuItem jpmitemPegar;
+
+    int anchoForm;
+    int altoForm;
+
+    URL imageURL = getClass().getResource("/txtEd.gif");
+    Image icon = getToolkit().getImage(imageURL);
+
     public Editor() {
-        setSize(520, 300);
-        setTitle("Editor de texto");
+        anchoForm = 520;
+        altoForm = 300;
+
+        setSize(anchoForm, altoForm);
+        setTitle("TXT ED");
         initComponents();
+        initOtherComponents();
+        setIconImage(icon);
 
         portapapeles = getToolkit().getSystemClipboard();
     }
@@ -137,6 +159,28 @@ public class Editor extends JFrame implements ClipboardOwner {
             }
         });
         jmnuEdicion.add(jitemCopiar);
+
+        jitemDeshacer = new JMenuItem();
+        jitemDeshacer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK));
+        jitemDeshacer.setMnemonic('D');
+        jitemDeshacer.setText("Deshacer");
+        jitemDeshacer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jitemDeshacerActionPerformed(evt);
+            }
+        });
+        jmnuEdicion.add(jitemDeshacer);
+
+        jitemRehacer = new JMenuItem();
+        jitemRehacer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
+        jitemRehacer.setMnemonic('R');
+        jitemRehacer.setText("Rehacer");
+        jitemRehacer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jitemRehacerActionPerformed(evt);
+            }
+        });
+        jmnuEdicion.add(jitemRehacer);
 
         jmbarEditor.add(jmnuEdicion);
 
@@ -244,10 +288,86 @@ public class Editor extends JFrame implements ClipboardOwner {
         jtbarEditor.add(jbtCortar);
         jtbarEditor.add(jbtCopiar);
         jtbarEditor.add(jbtPegar);
+
+        // PopupMenu
+        jpmnuEdicion = new JPopupMenu();
+
+        jtxtaEditor.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                jtxtaEditorMousePressed(evt);
+            }
+        });
+
+        jpmitemCortar = new JMenuItem("Cortar");
+        jpmitemCortar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK));
+        jpmitemCortar.setMnemonic('T');
+        jpmitemCortar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) { jtxtaEditor.cut(); }
+        });
+        jpmnuEdicion.add(jpmitemCortar);
+
+        jpmitemCopiar = new JMenuItem("Copiar");
+        jpmitemCopiar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK));
+        jpmitemCopiar.setMnemonic('C');
+        jpmitemCopiar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) { jtxtaEditor.copy(); }
+        });
+        jpmnuEdicion.add(jpmitemCopiar);
+
+        jpmitemPegar = new JMenuItem("Pegar");
+        jpmitemPegar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_DOWN_MASK));
+        jpmitemPegar.setMnemonic('P');
+        jpmitemPegar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) { jtxtaEditor.paste(); }
+        });
+        jpmnuEdicion.add(jpmitemPegar);
+
+        // Redimensionado
+        addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
     }
 
     private void exitForm(WindowEvent evt) {
         System.exit(0);
+    }
+
+    private void formComponentResized(ComponentEvent evt) {
+        int ancho = getWidth();
+        int alto = getHeight();
+
+        int xscrpane = jscrpaneEditor.getWidth();
+        int yscrpane = jscrpaneEditor.getHeight();
+
+        jscrpaneEditor.setSize(xscrpane + ancho - anchoForm, yscrpane + alto - altoForm);
+        jtxtaEditor.setSize(xscrpane + ancho - anchoForm, yscrpane + alto - altoForm);
+
+        anchoForm = ancho;
+        altoForm = alto;
+    }
+
+    private void jtxtaEditorMousePressed(MouseEvent evt) {
+        boolean textoSeleccionado = jtxtaEditor.getSelectedText() != null;
+        jpmitemCopiar.setEnabled(textoSeleccionado);
+        jpmitemCortar.setEnabled(textoSeleccionado);
+
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            jpmnuEdicion.show(jtxtaEditor, evt.getX(), evt.getY());
+        }
+    }
+
+    private void jitemDeshacerActionPerformed(ActionEvent evt) {
+        if (jumDeshacerRehacer.canUndo()) {
+            jumDeshacerRehacer.undo();
+        }
+    }
+
+    private void jitemRehacerActionPerformed(ActionEvent evt) {
+        if (jumDeshacerRehacer.canRedo()) {
+            jumDeshacerRehacer.redo();
+        }
     }
 
     private void formWindowOpened(WindowEvent evt) {
@@ -331,5 +451,10 @@ public class Editor extends JFrame implements ClipboardOwner {
 
     public void lostOwnership(Clipboard clipboard, Transferable contents) {
         System.out.println("Se ha perdido la propiedad del portapapeles");
+    }
+
+    private void initOtherComponents() {
+        jumDeshacerRehacer = new UndoManager();
+        jtxtaEditor.getDocument().addUndoableEditListener(jumDeshacerRehacer);
     }
 }
