@@ -1,1 +1,0 @@
-Lanzar desde el CMD, ya que el terminal del IDE no puede ejecutar el programa
