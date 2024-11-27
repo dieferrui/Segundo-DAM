@@ -29,4 +29,13 @@ module es.cheste.alineacionnodos {
 
     opens es.cheste.renctangulogui to javafx.fxml;
     exports es.cheste.renctangulogui;
+
+    opens es.cheste.bordes to javafx.fxml;
+    exports es.cheste.bordes;
+
+    opens es.cheste.titledpane to javafx.fxml;
+    exports es.cheste.titledpane;
+
+    opens es.cheste.fuentes to javafx.fxml;
+    exports es.cheste.fuentes;
 }
