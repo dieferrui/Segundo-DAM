@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="17f5069d-7b61-41c6-886f-6d31aa2e61d4" name="Changes" comment="Eliminar más cosas" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;dieferrui&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dieferrui/Segundo-DAM.git&quot;,
+    &quot;accountId&quot;: &quot;33a6854d-78d5-4edf-963a-6f7b24cc1bf6&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2myG6JwNFF6IgAnPu2NuQASfpsv" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Repo/Segundo-DAM/Database&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Repo\Segundo-DAM\untitled\src\main\resources" />
+      <recent name="D:\Repo\Segundo-DAM\untitled\target" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Repo\Segundo-DAM\untitled\src\main\resources" />
+      <recent name="D:\Repo\Segundo-DAM\untitled\src\main\java\es\cheste" />
+      <recent name="D:\Repo\Segundo-DAM\untitled" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="17f5069d-7b61-41c6-886f-6d31aa2e61d4" name="Changes" comment="" />
+      <created>1728041227380</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728041227380</updated>
+      <workItem from="1728041228495" duration="674000" />
+      <workItem from="1728645077198" duration="839000" />
+      <workItem from="1728890229030" duration="2924000" />
+      <workItem from="1728893320274" duration="3699000" />
+      <workItem from="1728905955198" duration="19000" />
+      <workItem from="1729247306716" duration="4544000" />
+      <workItem from="1729494686111" duration="392000" />
+      <workItem from="1729498165062" duration="4472000" />
+      <workItem from="1729509561904" duration="11000" />
+      <workItem from="1729577808514" duration="25000" />
+      <workItem from="1732778114800" duration="527000" />
+    </task>
+    <task id="LOCAL-00001" summary="Yes">
+      <option name="closed" value="true" />
+      <created>1728646589591</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728646589592</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Databases">
+      <option name="closed" value="true" />
+      <created>1728903999492</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728903999492</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Databases II">
+      <option name="closed" value="true" />
+      <created>1729251529490</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729251529490</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Databases III">
+      <option name="closed" value="true" />
+      <created>1729252159817</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1729252159817</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Databases III.1">
+      <option name="closed" value="true" />
+      <created>1729252307087</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1729252307087</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Databases IV">
+      <option name="closed" value="true" />
+      <created>1729500846783</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1729500846783</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Eliminar cosas">
+      <option name="closed" value="true" />
+      <created>1732778177706</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732778177706</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Eliminar más cosas">
+      <option name="closed" value="true" />
+      <created>1732778199946</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1732778199946</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Yes" />
+    <MESSAGE value="Databases" />
+    <MESSAGE value="Databases II" />
+    <MESSAGE value="Databases III" />
+    <MESSAGE value="Databases III.1" />
+    <MESSAGE value="Databases IV" />
+    <MESSAGE value="Eliminar cosas" />
+    <MESSAGE value="Eliminar más cosas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Eliminar más cosas" />
+  </component>
+</project>

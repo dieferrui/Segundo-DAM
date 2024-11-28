@@ -1,0 +1,40 @@
+Armageddon,1.1,10.1
+Apocalypse,100.5,25.7
+Calamity,127.9,33.9
+Cataclysm,429.7,51.4
+Killer no.1,5.5,99.7
+Debacle,1000.5,150.6
+Donald Trump,7.6,957.1
+Tragedy,8.9,1231.8
+Doom,325.1,1975.4
+Death by Rock,432.5,842.5
+Ctrl+Alt+Supr,321.8,987.8
+Windows Blue Screen,31.8,999.9
+kR0n0s,158.3,12.7
+Final Eclipse,287.1,54.3
+Nebulous,342.5,62.8
+Phantom,212.8,37.4
+Ragnarok,459.7,85.1
+Colossus,624.3,105.9
+Super Nova,123.5,88.2
+Vortexx,150.9,48.4
+Inferno,388.6,72.9
+Spectre,210.7,29.5
+Howling Blizzard,509.8,113.6
+Apex Predator,301.4,97.2
+Zephyr,222.5,66.3
+Tempest,374.3,54.7
+Omega Quasar,497.3,117.2
+Bravo Delta Tango,351.0,44.6
+Equinox,532.4,82.7
+Outlaw,481.9,103.3
+Spasmatic,1109.6,220.2
+Retinator,1106.9,230.3
+Nemesis,105.7,240.4
+Pandemonium,100.8,250.5
+Nihil,843.5,4.3
+Groetus,12089.7,0.3
+Alan the Destroyer of Realities,999.9,999.9
+Wakanda Never,33.3,570.2
+Vladimir Putin,5.7,883.2
+Bob,0.1,0.1
