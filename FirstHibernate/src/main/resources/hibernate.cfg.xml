@@ -30,7 +30,7 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hibernate.hbm2ddl.auto">create</property>
 
-        <!-- TODO Names the annotated entity class, ensure this is correct -->
-        <mapping class="es.cheste.User"/>
+        <!-- Names the annotated entity class, ensure this is correct -->
+        <mapping resource="User.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

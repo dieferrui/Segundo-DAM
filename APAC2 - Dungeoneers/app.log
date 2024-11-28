@@ -89,3 +89,5 @@
 2024-11-16 17:34:13,043 INFO e.c.h.DungeonHandler [main] Dungeon added: The child's playground
 2024-11-16 17:35:20,710 INFO e.c.h.DungeonHandler [main] Dungeon added: Planar rift: the home of Rovagug
 2024-11-16 17:36:03,223 ERROR e.c.h.DungeonHandler [main] Error updating dungeon: Dungeon not updated.
+2024-11-28 12:33:35,870 INFO e.c.h.CharacterHandler [main] Character added successfully.
+2024-11-28 12:34:10,981 INFO e.c.h.CharacterHandler [main] Character updated successfully.

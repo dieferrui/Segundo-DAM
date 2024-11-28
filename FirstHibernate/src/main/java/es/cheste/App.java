@@ -19,6 +19,7 @@ public class App {
 
         // Apertura de la sesión
         Session s = sf.openSession();
+        s.clear();
 
         // Transacciones
         User u = new User();
@@ -27,7 +28,7 @@ public class App {
         u.setUserMessage("Welcome to administrator session.");
 
         s.getTransaction().begin();
-        s.persist(u);
+        s.merge(u);
 
         s.getTransaction().commit();
 
