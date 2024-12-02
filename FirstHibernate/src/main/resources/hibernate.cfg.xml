@@ -6,16 +6,9 @@
     <session-factory>
         <!-- JDBC Database connection settings -->
         <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mariadb://localhost:3306/firstHibernate</property>
+        <property name="hibernate.connection.url">jdbc:mariadb://localhost:3306/centres_gva</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
-
-        <!-- JDBC connection pool settings -->
-        <property name="hibernate.c3p0.min_size">5</property>
-        <property name="hibernate.c3p0.max_size">20</property>
-        <property name="hibernate.c3p0.timeout">300</property>
-        <property name="hibernate.c3p0.max_statements">50</property>
-        <property name="hibernate.c3p0.idle_test_period">3000</property>
 
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.MariaDBDialect</property>
@@ -31,6 +24,9 @@
         <property name="hibernate.hbm2ddl.auto">create</property>
 
         <!-- Names the annotated entity class, ensure this is correct -->
-        <mapping resource="User.hbm.xml"/>
+        <mapping class="es.cheste.Centre"/>
+        <mapping class="es.cheste.Cicle"/>
+        <mapping class="es.cheste.Provincia"/>
+        <mapping class="es.cheste.Regim"/>
     </session-factory>
 </hibernate-configuration>

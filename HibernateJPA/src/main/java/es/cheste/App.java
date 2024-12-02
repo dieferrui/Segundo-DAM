@@ -28,6 +28,7 @@ public class App {
 
         em.getTransaction().commit();
 
+        em.flush();
         em.close();
         emf.close();
     }

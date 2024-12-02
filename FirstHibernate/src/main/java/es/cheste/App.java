@@ -19,19 +19,10 @@ public class App {
 
         // Apertura de la sesión
         Session s = sf.openSession();
-        s.clear();
 
         // Transacciones
-        User u = new User();
-        u.setId(1);
-        u.setUserName("Admin");
-        u.setUserMessage("Welcome to administrator session.");
 
-        s.getTransaction().begin();
-        s.merge(u);
-
-        s.getTransaction().commit();
-
+        // Cierre de la sesión
         s.close();
         sf.close();
     }
