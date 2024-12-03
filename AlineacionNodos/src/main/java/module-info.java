@@ -38,4 +38,7 @@ module es.cheste.alineacionnodos {
 
     opens es.cheste.fuentes to javafx.fxml;
     exports es.cheste.fuentes;
+
+    opens es.cheste.calculadora to javafx.fxml;
+    exports es.cheste.calculadora;
 }

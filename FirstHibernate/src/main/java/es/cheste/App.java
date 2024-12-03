@@ -11,9 +11,6 @@ public class App {
 
     public static void main(String[] args) {
 
-        // Código legacy
-        // SessionFactory sf = new Configuration().configure().buildSessionFactory();
-
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure().build();
         SessionFactory sf = new MetadataSources(ssr).buildMetadata().buildSessionFactory();
 
