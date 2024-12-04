@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: TRANSPARENT;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cheste.calcfx.HelloController">
+   <children>
+      <VBox fx:id="mainFrame" alignment="CENTER" layoutX="50.0" layoutY="50.0" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: #380f17; -fx-background-radius: 20; -fx-border-color: #8f0b13; -fx-border-width: 4; -fx-border-radius: 20;">
+         <children>
+            <HBox fx:id="closeHideMenu" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="200.0" translateY="-10.0">
+               <children>
+                  <Button fx:id="btnHide" mnemonicParsing="false" onAction="#handleHideApp" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: none;" translateX="-5.0">
+                     <graphic>
+                        <ImageView fx:id="imgHide" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@hide.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnClose" mnemonicParsing="false" onAction="#handleCloseApp" style="-fx-background-color: none;" translateX="-10.0">
+                     <graphic>
+                        <ImageView fx:id="imgClose" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@close.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <TextField fx:id="display" alignment="CENTER_RIGHT" editable="false" style="-fx-background-color: #252b2b; -fx-text-fill: #ffffff; -fx-border-color: #8f0b13;" translateY="-15.0">
+               <font>
+                  <Font name="Amiri Bold" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+            </TextField>
+            <HBox fx:id="rowOne" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" translateY="-15.0">
+               <children>
+                  <Button fx:id="btn7" alignment="CENTER" mnemonicParsing="false" onAction="#handleNumberInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #8f0b13; -fx-background-radius: 20 0 0 0;" text="7" textAlignment="CENTER" textFill="WHITE">
+                     onAction="#handleOperatorInput"
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btn8" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleNumberInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #8f0b13;" text="8" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btn9" alignment="CENTER" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleNumberInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #8f0b13;" text="9" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnDivide" alignment="CENTER" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleOperatorInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #dc2011; -fx-background-radius: 0 20 0 0;" text="\%" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="rowTwo" alignment="CENTER" layoutX="10.0" layoutY="307.0" prefHeight="50.0" prefWidth="200.0" translateY="-15.0">
+               <children>
+                  <Button fx:id="btn4" alignment="CENTER" mnemonicParsing="false" onAction="#handleNumberInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #8f0b13;" text="4" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btn5" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleNumberInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #8f0b13;" text="5" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btn6" alignment="CENTER" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleNumberInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #8f0b13;" text="6" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnMultiply" alignment="CENTER" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleOperatorInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #dc2011;" text="X" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="rowThree" alignment="CENTER" layoutX="10.0" layoutY="357.0" prefHeight="50.0" prefWidth="200.0" translateY="-15.0">
+               <children>
+                  <Button fx:id="btn1" alignment="CENTER" mnemonicParsing="false" onAction="#handleNumberInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #8f0b13;" text="1" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btn2" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleNumberInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #8f0b13;" text="2" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btn3" alignment="CENTER" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleNumberInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #8f0b13;" text="3" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnSubstract" alignment="CENTER" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleOperatorInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #dc2011;" text="-" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="rowFour" alignment="CENTER" layoutX="10.0" layoutY="407.0" prefHeight="50.0" prefWidth="200.0" translateY="-15.0">
+               <children>
+                  <Button fx:id="btn0" alignment="CENTER" mnemonicParsing="false" onAction="#handleNumberInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #8f0b13; -fx-background-radius: 0 0 0 20;" text="0" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnDot" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDot" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #8f0b13;" text="." textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEquals" alignment="CENTER" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleEquals" prefHeight="45.0" prefWidth="60.0" style="-fx-background-color: #efdfc5;" text="= / Clear" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnAdd" alignment="CENTER" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleOperatorInput" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #dc2011; -fx-background-radius: 0 0 20 0;" text="+" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Amiri Regular" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</Pane>
