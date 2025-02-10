@@ -120,24 +120,4 @@ public class ProductoController {
 		productoRepositorio.delete(producto);
 		return ResponseEntity.noContent().build();
 	}
-
-	@ExceptionHandler(ProductoNotFoundException.class)
-	public ResponseEntity<ApiError> handleProductoNoEncontrado(ProductoNotFoundException ex) {
-		ApiError apiError = new ApiError();
-		apiError.setStatus(HttpStatus.NOT_FOUND);
-		apiError.setFecha(LocalDateTime.now());
-		apiError.setMensaje(ex.getMessage());
-
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
-	}
-
-	@ExceptionHandler(JsonMappingException.class)
-	public ResponseEntity<ApiError> handleJsonMappingException(JsonMappingException ex) {
-		ApiError apiError = new ApiError();
-		apiError.setStatus(HttpStatus.BAD_REQUEST);
-		apiError.setFecha(LocalDateTime.now());
-		apiError.setMensaje(ex.getMessage());
-
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
-	}
 }
